@@ -1,12 +1,17 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { isLoggedIn } from "../helpers/is-logged-in.helper";
 
-const PrivateRoute = ({ component: Component, ...rest }: any) => {
+const PrivateRoute = ({ component: Component, apiClient, ...rest }: any) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        true ? <Component {...props} /> : <Redirect to="/" />
+        isLoggedIn() ? (
+          <Component {...props} apiClient={apiClient} />
+        ) : (
+          <Redirect to="/" />
+        )
       }
     />
   );

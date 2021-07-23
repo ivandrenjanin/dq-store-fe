@@ -1,14 +1,20 @@
 import { Route, Redirect } from "react-router-dom";
+import { isLoggedIn } from "../helpers/is-logged-in.helper";
 
-const PublicRoute = ({ component: Component, restricted, ...rest }: any) => {
+const PublicRoute = ({
+  component: Component,
+  restricted,
+  apiClient,
+  ...rest
+}: any) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        /*isLogin() &&*/ restricted ? (
+        isLoggedIn() && restricted ? (
           <Redirect to="/dashboard" />
         ) : (
-          <Component {...props} />
+          <Component {...props} apiClient={apiClient} />
         )
       }
     />

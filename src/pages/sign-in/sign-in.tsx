@@ -1,5 +1,11 @@
 import React from "react";
 
-export const SignIn = () => {
+import { AxiosInstance } from "axios";
+
+interface Props {
+  apiClient: AxiosInstance;
+}
+
+export const SignIn = ({ apiClient }: Props) => {
   return <div>Sign In</div>;
 };
