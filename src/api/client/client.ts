@@ -1,5 +1,7 @@
 import axios, { AxiosError } from "axios";
+
 console.log(process.env);
+
 const client = axios.create({
   baseURL: process.env.REACT_APP_API_BASE_URL,
 });
@@ -24,6 +26,7 @@ client.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.code === "403") {
+      // Refresh Token Strategy Implementation
       console.log(error);
       return client;
     } else {
