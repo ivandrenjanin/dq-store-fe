@@ -4,13 +4,12 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-import StoreIcon from "@material-ui/icons/Store";
 
 import { login } from "../../api";
 import { validateEmail } from "../../helpers/validate-email";
 import { SignInProps } from "./sign-in-props.interface";
+import { Logo } from "../../components/logo/logo";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -75,10 +74,7 @@ export const SignIn: FunctionComponent<SignInProps> = ({
           onSubmit={onSubmit}
         >
           <Grid container spacing={3}>
-            <Typography variant={"h4"}>
-              {<StoreIcon fontSize="inherit" />} D/q Storehouse
-            </Typography>
-
+            <Logo variant="h4" />
             <Grid item xs={12}>
               <TextField
                 required
