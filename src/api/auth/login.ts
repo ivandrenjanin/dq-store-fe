@@ -11,7 +11,6 @@ export const login = async (
     localStorage.setItem("accessToken", data.accessToken);
     return data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

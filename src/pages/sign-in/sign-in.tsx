@@ -8,7 +8,7 @@ import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 import { login } from "../../api";
 import { validateEmail } from "../../helpers/validate-email";
-import { SignInProps } from "./sign-in-props.interface";
+import { SignInProps } from "./interfaces/sign-in-props.interface";
 import { Logo } from "../../components/logo/logo";
 
 const useStyles = makeStyles(() => ({

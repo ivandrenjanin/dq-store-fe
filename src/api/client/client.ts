@@ -10,20 +10,20 @@ client.interceptors.request.use(
   (request) => {
     const token = localStorage.getItem("accessToken");
     request.headers = {
-      headers: {
-        "Content-Type": "application/json",
-        Connection: "keep-alive",
-        Authorization: `Bearer ${token}`,
-      },
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     };
-
+    console.log(request);
     return request;
   },
   (error: AxiosError) => Promise.reject(error)
 );
 
 client.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log(response);
+    return response;
+  },
   (error: AxiosError) => {
     if (error.code === "403") {
       // Refresh Token Strategy Implementation
