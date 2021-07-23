@@ -1,5 +1,4 @@
-import { AxiosInstance } from "axios";
-import React, { useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -11,10 +10,7 @@ import StoreIcon from "@material-ui/icons/Store";
 
 import { login } from "../../api";
 import { validateEmail } from "../../helpers/validate-email";
-
-interface IProps {
-  apiClient: AxiosInstance;
-}
+import { SignInProps } from "./sign-in-props.interface";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,7 +23,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const SignIn = ({ apiClient }: IProps) => {
+export const SignIn: FunctionComponent<SignInProps> = ({
+  apiClient,
+  history,
+}) => {
   const classes = useStyles();
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -57,7 +56,7 @@ export const SignIn = ({ apiClient }: IProps) => {
           email: email.value,
           password: password.value,
         });
-        window.location.reload();
+        history.push("/dashboard");
       } catch (err) {
         setEmailError(true);
         setPasswordError(true);

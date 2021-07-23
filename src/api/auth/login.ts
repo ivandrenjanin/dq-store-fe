@@ -1,13 +1,13 @@
 import { AxiosInstance } from "axios";
-import { ILoginCredentials } from "./interfaces/login-credentials.interface";
-import { ILoginResponse } from "./interfaces/login-response.interface";
+import { LoginCredentials } from "./interfaces/login-credentials.interface";
+import { LoginResponse } from "./interfaces/login-response.interface";
 
 export const login = async (
   client: AxiosInstance,
-  dto: ILoginCredentials
-): Promise<ILoginResponse> => {
+  dto: LoginCredentials
+): Promise<LoginResponse> => {
   try {
-    const { data } = await client.post<ILoginResponse>("/auth", dto);
+    const { data } = await client.post<LoginResponse>("/auth", dto);
     localStorage.setItem("accessToken", data.accessToken);
     return data;
   } catch (error) {
