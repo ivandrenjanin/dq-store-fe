@@ -14,10 +14,13 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import { v4 as uuid } from "uuid";
 import { useTranslation } from "react-i18next";
+import { Main } from "./main/main";
 
 export const Dashboard: FunctionComponent<DashboardProps> = ({
   apiClient,
   history,
+  location,
+  match,
 }) => {
   const [company, setCompany] = useState<CompanyResponse | null>(null);
   const [createCompanyDialog, setCreateCompanyDialog] =
@@ -129,8 +132,6 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
 
   return (
     <>
-      <h4>Dashboard page for {company?.name ?? ""}</h4>
-
       <Dialog open={createCompanyDialog}>
         <form noValidate autoComplete="off" onSubmit={handleSubmitCompany}>
           <Grid container spacing={0}>
@@ -188,6 +189,7 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
           </Grid>
         </form>
       </Dialog>
+      <Main history={history} location={location} match={match} />
     </>
   );
 };

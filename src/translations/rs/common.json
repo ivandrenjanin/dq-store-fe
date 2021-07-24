@@ -23,6 +23,17 @@
 				"subTitle": "Popunite Vaše podatke.",
 				"title": "Nedostatak podataka o kompaniji"
 			}
+		},
+		"main": {
+			"appBar": {
+				"logout": "Odjava"
+			},
+			"tab": {
+				"categories": "Kategorije",
+				"company": "Kompanija",
+				"inventories": "Magacini",
+				"products": "Artikli"
+			}
 		}
 	},
 	"signup": {
