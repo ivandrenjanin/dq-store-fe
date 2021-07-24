@@ -12,6 +12,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
+import { v4 as uuid } from "uuid";
+import { useTranslation } from "react-i18next";
 
 export const Dashboard: FunctionComponent<DashboardProps> = ({
   apiClient,
@@ -20,6 +22,8 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
   const [company, setCompany] = useState<CompanyResponse | null>(null);
   const [createCompanyDialog, setCreateCompanyDialog] =
     useState<boolean>(false);
+  const [companyDialogError, setCompanyDialogError] = useState<boolean>(false);
+  const [translate] = useTranslation("common");
 
   useEffect(() => {
     const fetchCompany = async () => {
@@ -40,11 +44,11 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
     fetchCompany();
   }, []);
 
-  const handleClose = () => {
-    setCreateCompanyDialog(false);
-    localStorage.removeItem("accessToken");
-    history.push("/");
-  };
+  // const handleClose = () => {
+  //   setCreateCompanyDialog(false);
+  //   localStorage.removeItem("accessToken");
+  //   history.push("/");
+  // };
 
   const handleSubmitCompany = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,20 +59,84 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
         data[element.name] = element.value;
       }
     }
-    const company = await createCompany(apiClient, data);
-    setCompany(company);
-    setCreateCompanyDialog(false);
+    try {
+      const company = await createCompany(apiClient, data);
+      setCompany(company);
+      setCreateCompanyDialog(false);
+      setCompanyDialogError(false);
+    } catch (e) {
+      setCompanyDialogError(true);
+    }
   };
+
+  const dialogFormFields = [
+    {
+      name: "name",
+      type: "name",
+      label: translate("dashboard.dialog.form.field.name"),
+    },
+    {
+      name: "postalCode",
+      type: "postalCode",
+      label: translate("dashboard.dialog.form.field.postalCode"),
+    },
+    {
+      name: "taxIdNumber",
+      type: "taxIdNumber",
+      label: translate("dashboard.dialog.form.field.taxIdNumber"),
+    },
+    {
+      name: "companyNumber",
+      type: "companyNumber",
+      label: translate("dashboard.dialog.form.field.companyNumber"),
+    },
+    {
+      name: "activityCode",
+      type: "activityCode",
+      label: translate("dashboard.dialog.form.field.activityCode"),
+    },
+    {
+      name: "bankName",
+      type: "bankName",
+      label: translate("dashboard.dialog.form.field.bankName"),
+    },
+    {
+      name: "bankAccountNumber",
+      type: "bankAccountNumber",
+      label: translate("dashboard.dialog.form.field.bankAccountNumber"),
+    },
+    {
+      name: "phoneFaxNumber",
+      type: "phoneFaxNumber",
+      label: translate("dashboard.dialog.form.field.phoneFaxNumber"),
+    },
+    {
+      name: "phoneMobileNumber",
+      type: "phoneMobileNumber",
+      label: translate("dashboard.dialog.form.field.phoneMobileNumber"),
+    },
+    {
+      name: "email",
+      type: "email",
+      label: translate("dashboard.dialog.form.field.email"),
+    },
+    {
+      name: "websiteURL",
+      type: "websiteURL",
+      label: translate("dashboard.dialog.form.field.websiteURL"),
+    },
+  ];
+
   return (
     <>
       <h4>Dashboard page for {company?.name ?? ""}</h4>
 
-      <Dialog open={createCompanyDialog} onClose={handleClose}>
+      <Dialog open={createCompanyDialog}>
         <form noValidate autoComplete="off" onSubmit={handleSubmitCompany}>
           <Grid container spacing={0}>
             <Grid item xs={12}>
               <DialogTitle id="form-dialog-title">
-                Missing Company Info
+                {translate("dashboard.dialog.form.title")}
               </DialogTitle>
             </Grid>
 
@@ -76,140 +144,44 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <DialogContentText>
-                    Please add your company info.
+                    {companyDialogError
+                      ? translate("dashboard.dialog.form.error")
+                      : translate("dashboard.dialog.form.subTitle")}
                   </DialogContentText>
                 </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Name"
-                    type="name"
-                    name="name"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="postalCode"
-                    label="postalCode"
-                    type="postalCode"
-                    name="postalCode"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="taxIdNumber"
-                    label="taxIdNumber"
-                    type="taxIdNumber"
-                    name="taxIdNumber"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="companyNumber"
-                    label="companyNumber"
-                    type="companyNumber"
-                    name="companyNumber"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="activityCode"
-                    label="activityCode"
-                    type="activityCode"
-                    name="activityCode"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="bankName"
-                    label="bankName"
-                    type="bankName"
-                    name="bankName"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="bankAccountNumber"
-                    label="bankAccountNumber"
-                    type="bankAccountNumber"
-                    name="bankAccountNumber"
-                    fullWidth
-                  />
-                </Grid>
-
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="phoneFaxNumber"
-                    label="phoneFaxNumber"
-                    type="phoneFaxNumber"
-                    name="phoneFaxNumber"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="phoneMobileNumber"
-                    label="phoneMobileNumber"
-                    type="phoneMobileNumber"
-                    name="phoneMobileNumber"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="email"
-                    label="email"
-                    type="email"
-                    name="email"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    autoFocus
-                    margin="dense"
-                    id="websiteURL"
-                    label="websiteURL"
-                    type="websiteURL"
-                    name="websiteURL"
-                    fullWidth
-                  />
-                </Grid>
+                {dialogFormFields.map((field, i, arr) => (
+                  <Grid
+                    item
+                    key={uuid()}
+                    xs={i === arr.length - 1 && arr.length % 2 !== 0 ? 12 : 6}
+                  >
+                    <TextField
+                      variant="outlined"
+                      color="primary"
+                      autoFocus
+                      margin="dense"
+                      id={field.name}
+                      label={field.label}
+                      type={field.type}
+                      name={field.name}
+                      fullWidth
+                      error={companyDialogError}
+                    />
+                  </Grid>
+                ))}
               </Grid>
             </DialogContent>
             <Grid item xs={12}>
               <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                  Cancel
-                </Button>
-                <Button color="primary" type="submit">
-                  Submit
+                {/* <Button
+                  onClick={handleClose}
+                  color="secondary"
+                  variant="contained"
+                >
+                  {translate("dashboard.dialog.form.button.cancel")}
+                </Button> */}
+                <Button color="primary" type="submit" variant="contained">
+                  {translate("dashboard.dialog.form.button.submit")}
                 </Button>
               </DialogActions>
             </Grid>

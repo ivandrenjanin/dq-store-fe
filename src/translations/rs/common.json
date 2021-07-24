@@ -1,0 +1,38 @@
+{
+	"dashboard": {
+		"dialog": {
+			"form": {
+				"button": {
+					"cancel": "Otkaži",
+					"submit": "Pošalji"
+				},
+				"error": "Greška prilikom unosa podataka, proverite...",
+				"field": {
+					"activityCode": "Šifra delatnosti",
+					"bankAccountNumber": "Broj bankovnog računa",
+					"bankName": "Ime banke",
+					"companyNumber": "Matični broj",
+					"email": "E-mail",
+					"name": "Ime",
+					"phoneFaxNumber": "Fax",
+					"phoneMobileNumber": "Mobilni",
+					"postalCode": "Poštanski broj",
+					"taxIdNumber": "PIB",
+					"websiteURL": "Veb sajt"
+				},
+				"subTitle": "Popunite Vaše podatke.",
+				"title": "Nedostatak podataka o kompaniji"
+			}
+		}
+	},
+	"signup": {
+		"button": "Prijava",
+		"email": {
+			"label": "E-mail"
+		},
+		"error": "Pogrešna vrednost.",
+		"password": {
+			"label": "Lozinka"
+		}
+	}
+}

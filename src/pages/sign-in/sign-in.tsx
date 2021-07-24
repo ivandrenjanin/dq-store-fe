@@ -11,6 +11,8 @@ import { validateEmail } from "../../helpers/validate-email";
 import { SignInProps } from "./interfaces/sign-in-props.interface";
 import { Logo } from "../../components/logo/logo";
 
+import { useTranslation } from "react-i18next";
+
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
@@ -29,6 +31,7 @@ export const SignIn: FunctionComponent<SignInProps> = ({
   const classes = useStyles();
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [translate] = useTranslation("common");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,9 +82,9 @@ export const SignIn: FunctionComponent<SignInProps> = ({
               <TextField
                 required
                 id="standard-required"
-                label="E-mail"
+                label={translate("signup.email.label")}
                 error={emailError}
-                helperText={emailError && "Incorrect entry."}
+                helperText={emailError && translate("signup.error")}
                 fullWidth
               />
             </Grid>
@@ -89,11 +92,11 @@ export const SignIn: FunctionComponent<SignInProps> = ({
               <TextField
                 required
                 id="standard-password-input"
-                label="Password"
+                label={translate("signup.password.label")}
                 type="password"
                 autoComplete="current-password"
                 error={passwordError}
-                helperText={passwordError && "Incorrect entry."}
+                helperText={passwordError && translate("signup.error")}
                 fullWidth
               />
             </Grid>
@@ -105,7 +108,7 @@ export const SignIn: FunctionComponent<SignInProps> = ({
                 fullWidth
                 type="submit"
               >
-                Login
+                {translate("signup.button")}
               </Button>
             </Grid>
           </Grid>

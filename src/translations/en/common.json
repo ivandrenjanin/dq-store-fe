@@ -1,0 +1,38 @@
+{
+	"dashboard": {
+		"dialog": {
+			"form": {
+				"button": {
+					"cancel": "Cancel",
+					"submit": "Submit"
+				},
+				"error": "Error while creating a company, please check form fields.",
+				"field": {
+					"activityCode": "Activity Code",
+					"bankAccountNumber": "Bank Account Number",
+					"bankName": "Bank Name",
+					"companyNumber": "Company Number",
+					"email": "E-mail",
+					"name": "Name",
+					"phoneFaxNumber": "Fax number",
+					"phoneMobileNumber": "Mobile Number",
+					"postalCode": "Postal Code",
+					"taxIdNumber": "Tax Identification Number",
+					"websiteURL": "Website Url"
+				},
+				"subTitle": "Please add your company info.",
+				"title": "Missing Company Info"
+			}
+		}
+	},
+	"signup": {
+		"button": "Login",
+		"email": {
+			"label": "E-mail"
+		},
+		"error": "Incorrect entry.",
+		"password": {
+			"label": "Password"
+		}
+	}
+}
