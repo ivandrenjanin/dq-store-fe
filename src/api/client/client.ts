@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 console.log(process.env);
 
 const client = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL,
+  baseURL: "/api",
 });
 
 client.interceptors.request.use(
