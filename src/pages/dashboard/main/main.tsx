@@ -62,9 +62,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     flexGrow: 1,
     marginLeft: 140,
+    [theme.breakpoints.down("sm")]: {
+      margin: 0,
+    },
   },
   tab: {
     borderBottom: "1px #ccc solid",
+  },
+  footer: {
+    height: 70,
   },
 }));
 
@@ -142,7 +148,7 @@ export const Main: FunctionComponent<MainProps> = ({ history }) => {
         </TabPanel>
       </div>
       <div className={classes.appBar}>
-        <AppBar position="static">
+        <AppBar position="static" component="footer" className={classes.footer}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               Digital Quark Solutions
