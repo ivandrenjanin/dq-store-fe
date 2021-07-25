@@ -117,17 +117,20 @@ export const Layout: FunctionComponent<LayoutProps> = ({
   location,
   children,
 }) => {
+  const drawerOpen = localStorage.getItem("drawerOpen") === "true";
+
   const classes = useStyles();
   const theme = useTheme();
-  console.log(location);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(drawerOpen);
   const [translate] = useTranslation("common");
 
   const handleDrawerOpen = () => {
+    localStorage.setItem("drawerOpen", "true");
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
+    localStorage.setItem("drawerOpen", "false");
     setOpen(false);
   };
 
