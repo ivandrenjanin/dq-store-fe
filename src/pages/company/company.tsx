@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: 5,
     },
     listValue: {},
+    button: {
+      marginTop: 25,
+    },
   })
 );
 
@@ -150,7 +153,12 @@ export const Company: FunctionComponent<CompanyProps> = ({
               </span>
             </Box>
           </div>
-          <Button variant="contained" color="primary" startIcon={<EditIcon />}>
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            startIcon={<EditIcon />}
+          >
             <Link to={`/company/${company.id}`} className={classes.link}>
               {translate("company.button.edit")}
             </Link>

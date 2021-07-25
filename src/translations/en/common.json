@@ -4,6 +4,7 @@
 		"bankAccountNumber": "Bank Account Number",
 		"bankName": "Bank Name",
 		"button": {
+			"back": "Back",
 			"edit": "Edit",
 			"save": "Save"
 		},

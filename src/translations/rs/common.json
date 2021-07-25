@@ -4,6 +4,7 @@
 		"bankAccountNumber": "Broj bankovnog računa",
 		"bankName": "Ime banke",
 		"button": {
+			"back": "Nazad",
 			"edit": "Izmeni",
 			"save": "Sačuvaj"
 		},

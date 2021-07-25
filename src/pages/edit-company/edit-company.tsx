@@ -11,6 +11,7 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import { Input } from "@material-ui/core";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 export interface EditCompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -47,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     listValue: {
       backgroundColor: "white!important",
+    },
+    button: {
+      marginTop: 25,
+      marginRight: 15,
     },
   })
 );
@@ -208,6 +213,17 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
             </Box>
           </div>
           <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            startIcon={<ArrowBackIcon />}
+          >
+            <Link to={"/company"} className={classes.link}>
+              {translate("company.button.back")}
+            </Link>
+          </Button>
+          <Button
+            className={classes.button}
             type="submit"
             variant="contained"
             color="primary"
