@@ -197,7 +197,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       field: "sellingPrice",
       headerName: translate("singleInventory.list.product.sellingPrice"),
       width: 200,
-      editable: true,
     },
     {
       field: "quantity",
