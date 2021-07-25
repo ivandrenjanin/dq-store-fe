@@ -1,15 +1,18 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { AxiosInstance } from "axios";
 import { FunctionComponent, useEffect, useState } from "react";
-import { Link, RouteComponentProps } from "react-router-dom";
-import { CompanyResponse, getCompany } from "../../api/company";
-import { Layout } from "../../components/layout/layout";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
+import { Link, RouteComponentProps } from "react-router-dom";
+
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import EditIcon from "@material-ui/icons/Edit";
+
+import { CompanyResponse, getCompany } from "../../api/company";
+import { Layout } from "../../components/layout/layout";
+
 export interface CompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
 }

@@ -58,12 +58,6 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
     fetchCompany();
   }, []);
 
-  // const handleClose = () => {
-  //   setCreateCompanyDialog(false);
-  //   localStorage.removeItem("accessToken");
-  //   history.push("/");
-  // };
-
   const handleSubmitCompany = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data: any = {};
@@ -186,13 +180,6 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
               </DialogContent>
               <Grid item xs={12}>
                 <DialogActions>
-                  {/* <Button
-              onClick={handleClose}
-              color="secondary"
-              variant="contained"
-            >
-              {translate("dashboard.dialog.form.button.cancel")}
-            </Button> */}
                   <Button color="primary" type="submit" variant="contained">
                     {translate("dashboard.dialog.form.button.submit")}
                   </Button>
