@@ -1,4 +1,22 @@
 {
+	"company": {
+		"activityCode": "Šifra delatnosti",
+		"bankAccountNumber": "Broj bankovnog računa",
+		"bankName": "Ime banke",
+		"button": {
+			"edit": "Izmeni",
+			"save": "Sačuvaj"
+		},
+		"companyNumber": "Matični broj",
+		"email": "E-mail",
+		"name": "Ime",
+		"pageDescription": "Informacije o kompaniji",
+		"phoneFaxNumber": "Fax",
+		"phoneMobileNumber": "Mobilni",
+		"postalCode": "Poštanski broj",
+		"taxIdNumber": "PIB",
+		"websiteURL": "Veb sajt"
+	},
 	"dashboard": {
 		"dialog": {
 			"form": {

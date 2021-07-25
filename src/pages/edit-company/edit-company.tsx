@@ -2,15 +2,17 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { AxiosInstance } from "axios";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { CompanyResponse, getCompany } from "../../api/company";
+import { CompanyResponse, getCompany, updateCompany } from "../../api/company";
 import { Layout } from "../../components/layout/layout";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Typography from "@material-ui/core/Typography";
 import { useTranslation } from "react-i18next";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import EditIcon from "@material-ui/icons/Edit";
-export interface CompanyProps extends RouteComponentProps {
+import SaveIcon from "@material-ui/icons/Save";
+import { Input } from "@material-ui/core";
+
+export interface EditCompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
 }
 
@@ -43,11 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: "bold",
       marginRight: 5,
     },
-    listValue: {},
+    listValue: {
+      backgroundColor: "white!important",
+    },
   })
 );
 
-export const Company: FunctionComponent<CompanyProps> = ({
+export const EditCompany: FunctionComponent<EditCompanyProps> = ({
   history,
   location,
   match,
@@ -66,12 +70,27 @@ export const Company: FunctionComponent<CompanyProps> = ({
     fetchCompany();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data: any = {};
+    for (const el of e.currentTarget.elements) {
+      const element = el as HTMLInputElement;
+      if (element.nodeName === "INPUT") {
+        data[element.name] = element.value;
+      }
+    }
+
+    const updated = await updateCompany(apiClient, company?.id as number, data);
+    setCompany(updated);
+    history.push("/company");
+  };
+
   return (
     <Layout history={history} location={location} match={match}>
       {!company ? (
         <CircularProgress />
       ) : (
-        <div className={classes.root}>
+        <form className={classes.root} onSubmit={handleSubmit}>
           <Typography variant="h4" component="h4">
             {translate("company.pageDescription")}
           </Typography>
@@ -81,81 +100,122 @@ export const Company: FunctionComponent<CompanyProps> = ({
               <span className={classes.listHeader}>
                 {translate(`company.name`)}:
               </span>
-              <span className={classes.listValue}>{company.name}</span>
+              <Input
+                name="name"
+                className={classes.listValue}
+                defaultValue={company.name}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.websiteURL`)}:
               </span>
-              <span className={classes.listValue}>{company.websiteURL}</span>
+              <Input
+                name="websiteURL"
+                className={classes.listValue}
+                defaultValue={company.websiteURL}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.email`)}:
               </span>
-              <span className={classes.listValue}>{company.email}</span>
+              <Input
+                name="email"
+                className={classes.listValue}
+                defaultValue={company.email}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.phoneFaxNumber`)}:
               </span>
-              <span className={classes.listValue}>
-                {company.phoneFaxNumber}
-              </span>
+              <Input
+                name="phoneFaxNumber"
+                className={classes.listValue}
+                defaultValue={company.phoneFaxNumber}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.phoneMobileNumber`)}:
               </span>
-              <span className={classes.listValue}>
-                {company.phoneMobileNumber}
-              </span>
+              <Input
+                name="phoneMobileNumber"
+                className={classes.listValue}
+                defaultValue={company.phoneMobileNumber}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.postalCode`)}:
               </span>
-              <span className={classes.listValue}> {company.postalCode}</span>
+              <Input
+                name="postalCode"
+                className={classes.listValue}
+                defaultValue={company.postalCode}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.taxIdNumber`)}:
               </span>
-              <span className={classes.listValue}>{company.taxIdNumber}</span>
+              <Input
+                name="taxIdNumber"
+                className={classes.listValue}
+                defaultValue={company.taxIdNumber}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.companyNumber`)}:
               </span>
-              <span className={classes.listValue}>{company.companyNumber}</span>
+              <Input
+                name="companyNumber"
+                className={classes.listValue}
+                defaultValue={company.companyNumber}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.activityCode`)}:
               </span>
-              <span className={classes.listValue}>{company.activityCode}</span>
+              <Input
+                name="activityCode"
+                className={classes.listValue}
+                defaultValue={company.activityCode}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.bankName`)}:
               </span>
-              <span className={classes.listValue}>{company.bankName}</span>
+              <Input
+                name="bankName"
+                className={classes.listValue}
+                defaultValue={company.bankName}
+              />
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
                 {translate(`company.bankAccountNumber`)}:
               </span>
-              <span className={classes.listValue}>
-                {company.bankAccountNumber}
-              </span>
+              <Input
+                name="bankAccountNumber"
+                className={classes.listValue}
+                defaultValue={company.bankAccountNumber}
+              />
             </Box>
           </div>
-          <Button variant="contained" color="primary" startIcon={<EditIcon />}>
-            <Link to={`/company/${company.id}`} className={classes.link}>
-              {translate("company.button.edit")}
-            </Link>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            startIcon={<SaveIcon />}
+          >
+            {translate("company.button.save")}
           </Button>
-        </div>
+        </form>
       )}
     </Layout>
   );

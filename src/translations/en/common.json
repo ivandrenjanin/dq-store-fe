@@ -1,4 +1,22 @@
 {
+	"company": {
+		"activityCode": "Activity Code",
+		"bankAccountNumber": "Bank Account Number",
+		"bankName": "Bank Name",
+		"button": {
+			"edit": "Edit",
+			"save": "Save"
+		},
+		"companyNumber": "Company Number",
+		"email": "E-mail",
+		"name": "Name",
+		"pageDescription": "Company Info",
+		"phoneFaxNumber": "Fax number",
+		"phoneMobileNumber": "Mobile Number",
+		"postalCode": "Postal Code",
+		"taxIdNumber": "Tax Identification Number",
+		"websiteURL": "Website Url"
+	},
 	"dashboard": {
 		"dialog": {
 			"form": {

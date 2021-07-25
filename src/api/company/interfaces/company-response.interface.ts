@@ -1,5 +1,6 @@
 export interface CompanyResponse {
   id: number;
+  publicId: string;
   isActive: boolean;
   name: string;
   postalCode: string;
@@ -12,4 +13,6 @@ export interface CompanyResponse {
   phoneMobileNumber?: string;
   email?: string;
   websiteURL?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

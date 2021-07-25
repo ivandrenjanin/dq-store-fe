@@ -4,6 +4,7 @@ import { BrowserRouter, Switch } from "react-router-dom";
 
 import { Company } from "../pages/company/company";
 import { Dashboard } from "../pages/dashboard/dashboard";
+import { EditCompany } from "../pages/edit-company/edit-company";
 import { Inventory } from "../pages/inventory/inventory";
 import { NotFound } from "../pages/not-found/not-found";
 import { SignIn } from "../pages/sign-in/sign-in";
@@ -34,6 +35,12 @@ export const Router = ({ apiClient }: Props) => (
         component={Company}
         apiClient={apiClient}
         path="/company"
+        exact
+      />
+      <PrivateRoute
+        component={EditCompany}
+        apiClient={apiClient}
+        path="/company/:id"
         exact
       />
       <PrivateRoute
