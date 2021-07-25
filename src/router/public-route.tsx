@@ -1,4 +1,5 @@
-import { Route, Redirect } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+
 import { isLoggedIn } from "../helpers/is-logged-in.helper";
 
 const PublicRoute = ({

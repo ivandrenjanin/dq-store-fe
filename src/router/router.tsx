@@ -1,7 +1,10 @@
 import { AxiosInstance } from "axios";
 import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
+
+import { Company } from "../pages/company/company";
 import { Dashboard } from "../pages/dashboard/dashboard";
+import { Inventory } from "../pages/inventory/inventory";
 import { NotFound } from "../pages/not-found/not-found";
 import { SignIn } from "../pages/sign-in/sign-in";
 import PrivateRoute from "./private-route";
@@ -25,6 +28,18 @@ export const Router = ({ apiClient }: Props) => (
         component={Dashboard}
         apiClient={apiClient}
         path="/dashboard"
+        exact
+      />
+      <PrivateRoute
+        component={Company}
+        apiClient={apiClient}
+        path="/company"
+        exact
+      />
+      <PrivateRoute
+        component={Inventory}
+        apiClient={apiClient}
+        path="/inventory"
         exact
       />
       <PublicRoute restricted={false} component={NotFound} />

@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -7,11 +8,9 @@ import TextField from "@material-ui/core/TextField";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 import { login } from "../../api";
+import { Logo } from "../../components/logo/logo";
 import { validateEmail } from "../../helpers/validate-email";
 import { SignInProps } from "./interfaces/sign-in-props.interface";
-import { Logo } from "../../components/logo/logo";
-
-import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -23,17 +23,14 @@
 				"subTitle": "Please add your company info.",
 				"title": "Missing Company Info"
 			}
-		},
-		"main": {
-			"appBar": {
-				"logout": "Logout"
-			},
-			"tab": {
-				"categories": "Categories",
-				"company": "Company",
-				"inventories": "Inventories",
-				"products": "Products"
-			}
+		}
+	},
+	"layout": {
+		"navigation": {
+			"company": "Company",
+			"dashboard": "Dashboard",
+			"inventory": "Inventory",
+			"logout": "Logout"
 		}
 	},
 	"signup": {

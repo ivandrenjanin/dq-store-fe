@@ -1,12 +1,14 @@
+import "./css/styles.css";
+
+import i18next from "i18next";
 import React from "react";
 import ReactDOM from "react-dom";
+import { I18nextProvider } from "react-i18next";
+
 import client from "./api/client/client";
 import { Router } from "./router/router";
-import { I18nextProvider } from "react-i18next";
-import i18next from "i18next";
-import commonRs from "./translations/rs/common.json";
 import commonEn from "./translations/en/common.json";
-import "./css/styles.css";
+import commonRs from "./translations/rs/common.json";
 
 i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
