@@ -132,64 +132,72 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
 
   return (
     <>
-      <Dialog open={createCompanyDialog}>
-        <form noValidate autoComplete="off" onSubmit={handleSubmitCompany}>
-          <Grid container spacing={0}>
-            <Grid item xs={12}>
-              <DialogTitle id="form-dialog-title">
-                {translate("dashboard.dialog.form.title")}
-              </DialogTitle>
-            </Grid>
-
-            <DialogContent>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <DialogContentText>
-                    {companyDialogError
-                      ? translate("dashboard.dialog.form.error")
-                      : translate("dashboard.dialog.form.subTitle")}
-                  </DialogContentText>
-                </Grid>
-                {dialogFormFields.map((field, i, arr) => (
-                  <Grid
-                    item
-                    key={uuid()}
-                    xs={i === arr.length - 1 && arr.length % 2 !== 0 ? 12 : 6}
-                  >
-                    <TextField
-                      variant="outlined"
-                      color="primary"
-                      autoFocus
-                      margin="dense"
-                      id={field.name}
-                      label={field.label}
-                      type={field.type}
-                      name={field.name}
-                      fullWidth
-                      error={companyDialogError}
-                    />
-                  </Grid>
-                ))}
+      {!company ? (
+        <Dialog open={createCompanyDialog}>
+          <form noValidate autoComplete="off" onSubmit={handleSubmitCompany}>
+            <Grid container spacing={0}>
+              <Grid item xs={12}>
+                <DialogTitle id="form-dialog-title">
+                  {translate("dashboard.dialog.form.title")}
+                </DialogTitle>
               </Grid>
-            </DialogContent>
-            <Grid item xs={12}>
-              <DialogActions>
-                {/* <Button
-                  onClick={handleClose}
-                  color="secondary"
-                  variant="contained"
-                >
-                  {translate("dashboard.dialog.form.button.cancel")}
-                </Button> */}
-                <Button color="primary" type="submit" variant="contained">
-                  {translate("dashboard.dialog.form.button.submit")}
-                </Button>
-              </DialogActions>
+
+              <DialogContent>
+                <Grid container spacing={3}>
+                  <Grid item xs={12}>
+                    <DialogContentText>
+                      {companyDialogError
+                        ? translate("dashboard.dialog.form.error")
+                        : translate("dashboard.dialog.form.subTitle")}
+                    </DialogContentText>
+                  </Grid>
+                  {dialogFormFields.map((field, i, arr) => (
+                    <Grid
+                      item
+                      key={uuid()}
+                      xs={i === arr.length - 1 && arr.length % 2 !== 0 ? 12 : 6}
+                    >
+                      <TextField
+                        variant="outlined"
+                        color="primary"
+                        autoFocus
+                        margin="dense"
+                        id={field.name}
+                        label={field.label}
+                        type={field.type}
+                        name={field.name}
+                        fullWidth
+                        error={companyDialogError}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              </DialogContent>
+              <Grid item xs={12}>
+                <DialogActions>
+                  {/* <Button
+              onClick={handleClose}
+              color="secondary"
+              variant="contained"
+            >
+              {translate("dashboard.dialog.form.button.cancel")}
+            </Button> */}
+                  <Button color="primary" type="submit" variant="contained">
+                    {translate("dashboard.dialog.form.button.submit")}
+                  </Button>
+                </DialogActions>
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </Dialog>
-      <Main history={history} location={location} match={match} />
+          </form>
+        </Dialog>
+      ) : (
+        <Main
+          history={history}
+          location={location}
+          match={match}
+          company={company}
+        />
+      )}
     </>
   );
 };

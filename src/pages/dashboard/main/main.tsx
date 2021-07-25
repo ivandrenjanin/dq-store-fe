@@ -9,6 +9,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
+import { CompanyResponse } from "../../../api/company";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -74,9 +76,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export interface MainProps extends RouteComponentProps {}
+export interface MainProps extends RouteComponentProps {
+  company: CompanyResponse;
+}
 
-export const Main: FunctionComponent<MainProps> = ({ history }) => {
+export const Main: FunctionComponent<MainProps> = ({ history, company }) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [translate] = useTranslation("common");
@@ -98,9 +102,17 @@ export const Main: FunctionComponent<MainProps> = ({ history }) => {
             <Typography variant="h6" className={classes.title}>
               D/q Storehouse
             </Typography>
+
             <Button color="inherit" onClick={handleLogout}>
               {translate("dashboard.main.appBar.logout")}
             </Button>
+            <Avatar>
+              {company.name
+                .split(" ")
+                .map((x) => x[0])
+                .join("")
+                .toUpperCase()}
+            </Avatar>
           </Toolbar>
         </AppBar>
       </div>
