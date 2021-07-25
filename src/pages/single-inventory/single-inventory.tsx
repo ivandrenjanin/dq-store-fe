@@ -30,6 +30,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createCategory } from "../../api/category";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useTranslation } from "react-i18next";
 
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -79,24 +80,6 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-const productColumns: GridColDef[] = [
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "code", headerName: "Code", width: 200 },
-  {
-    field: "sellingPrice",
-    headerName: "Selling Price",
-    width: 200,
-    editable: true,
-  },
-  { field: "quantity", headerName: "Quantity", width: 160, editable: true },
-  { field: "category", headerName: "Category", width: 160 },
-];
-
-const categoryColumns: GridColDef[] = [
-  { field: "name", headerName: "Name", width: 200 },
-  { field: "code", headerName: "Code", width: 200 },
-];
-
 export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   apiClient,
   history,
@@ -104,6 +87,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   match,
 }) => {
   const { id } = useParams<{ id: string }>();
+  const [translate] = useTranslation("common");
   const [inventory, setInventory] = useState<InventoryByIdResponse | null>(
     null
   );
@@ -179,7 +163,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
         category:
           x.productCategories.length > 0
             ? x.productCategories.map((c) => c.category.name).join(", ")
-            : "No category added",
+            : translate("singleInventory.noCategory"),
       }))
     : [];
 
@@ -198,6 +182,49 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     []
   );
 
+  const productColumns: GridColDef[] = [
+    {
+      field: "name",
+      headerName: translate("singleInventory.list.product.name"),
+      width: 200,
+    },
+    {
+      field: "code",
+      headerName: translate("singleInventory.list.product.code"),
+      width: 200,
+    },
+    {
+      field: "sellingPrice",
+      headerName: translate("singleInventory.list.product.sellingPrice"),
+      width: 200,
+      editable: true,
+    },
+    {
+      field: "quantity",
+      headerName: translate("singleInventory.list.product.quantity"),
+      width: 160,
+      editable: true,
+    },
+    {
+      field: "category",
+      headerName: translate("singleInventory.category"),
+      width: 160,
+    },
+  ];
+
+  const categoryColumns: GridColDef[] = [
+    {
+      field: "name",
+      headerName: translate("singleInventory.list.product.name"),
+      width: 200,
+    },
+    {
+      field: "code",
+      headerName: translate("singleInventory.list.product.code"),
+      width: 200,
+    },
+  ];
+
   return (
     <Layout history={history} location={location} match={match}>
       {!inventory ? (
@@ -210,8 +237,14 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               onChange={handleChange}
               aria-label="simple tabs example"
             >
-              <Tab label="Products" {...a11yProps(0)} />
-              <Tab label="Categories" {...a11yProps(1)} />
+              <Tab
+                label={translate("singleInventory.product")}
+                {...a11yProps(0)}
+              />
+              <Tab
+                label={translate("singleInventory.category")}
+                {...a11yProps(1)}
+              />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={0}>
@@ -222,7 +255,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               className={classes.addButton}
               onClick={() => handleClickOpen("product")}
             >
-              Add Product
+              {translate("singleInventory.button.addProduct")}
             </Button>
             <div style={{ height: 650, width: "100%" }}>
               <DataGrid
@@ -243,7 +276,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               className={classes.addButton}
               onClick={() => handleClickOpen("category")}
             >
-              Add Category
+              {translate("singleInventory.button.addCategory")}
             </Button>
             <div style={{ height: 650, width: "100%", padding: 0 }}>
               <DataGrid
@@ -262,14 +295,18 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       >
         {dialog.target === "product" && (
           <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <DialogTitle id="form-dialog-title">Add a new product</DialogTitle>
+            <DialogTitle id="form-dialog-title">
+              {translate("singleInventory.dialog.product.title")}
+            </DialogTitle>
             <DialogContent>
-              <DialogContentText>Add a new product</DialogContentText>
+              <DialogContentText>
+                {translate("singleInventory.dialog.product.description")}
+              </DialogContentText>
               <TextField
                 autoFocus
                 margin="dense"
                 id="name"
-                label="Name"
+                label={translate("singleInventory.dialog.product.name")}
                 type="name"
                 name="name"
                 fullWidth
@@ -278,7 +315,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 autoFocus
                 margin="dense"
                 id="code"
-                label="Code"
+                label={translate("singleInventory.dialog.product.code")}
                 type="code"
                 name="code"
                 fullWidth
@@ -287,7 +324,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 autoFocus
                 margin="dense"
                 id="sellingPrice"
-                label="Selling Price"
+                label={translate("singleInventory.dialog.product.sellingPrice")}
                 type="number"
                 name="sellingPrice"
                 fullWidth
@@ -295,11 +332,13 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               <TextField
                 id="standard-select-currency"
                 select
-                label="Select category"
+                label={translate("singleInventory.dialog.product.category")}
                 value={category}
                 name="category"
                 onChange={handleChangeCategory}
-                helperText="Please select your category"
+                helperText={translate(
+                  "singleInventory.dialog.product.categoryHelper"
+                )}
                 fullWidth
               >
                 {inventory?.categories.map((option) => (
@@ -315,24 +354,28 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 color="secondary"
                 variant="contained"
               >
-                Cancel
+                {translate("singleInventory.dialog.product.cancel")}
               </Button>
               <Button type="submit" color="primary" variant="contained">
-                Submit
+                {translate("singleInventory.dialog.product.submit")}
               </Button>
             </DialogActions>
           </form>
         )}
         {dialog.target === "category" && (
           <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <DialogTitle id="form-dialog-title">Add a new category</DialogTitle>
+            <DialogTitle id="form-dialog-title">
+              {translate("singleInventory.dialog.category.title")}
+            </DialogTitle>
             <DialogContent>
-              <DialogContentText>Add a new category</DialogContentText>
+              <DialogContentText>
+                {translate("singleInventory.dialog.category.description")}
+              </DialogContentText>
               <TextField
                 autoFocus
                 margin="dense"
                 id="name"
-                label="Name"
+                label={translate("singleInventory.dialog.category.name")}
                 type="name"
                 name="name"
                 fullWidth
@@ -341,7 +384,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 autoFocus
                 margin="dense"
                 id="code"
-                label="Code"
+                label={translate("singleInventory.dialog.category.code")}
                 type="code"
                 name="code"
                 fullWidth
@@ -353,10 +396,10 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 color="secondary"
                 variant="contained"
               >
-                Cancel
+                {translate("singleInventory.dialog.category.cancel")}
               </Button>
               <Button type="submit" color="primary" variant="contained">
-                Submit
+                {translate("singleInventory.dialog.category.submit")}
               </Button>
             </DialogActions>
           </form>

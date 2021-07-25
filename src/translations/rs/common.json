@@ -84,5 +84,47 @@
 		"password": {
 			"label": "Lozinka"
 		}
+	},
+	"singleInventory": {
+		"button": {
+			"addCategory": "Dodaj kategoriju",
+			"addProduct": "Dodaj artikal"
+		},
+		"category": "Kategorije",
+		"dialog": {
+			"category": {
+				"cancel": "Otkaži",
+				"category": "Selektuj kategoriju",
+				"categoryHelper": "Izaberite vašu kategoriju.",
+				"code": "Šifra",
+				"description": "Ovde mozede dodati novu kategoriju",
+				"name": "Ime",
+				"sellingPrice": "Cena u prodaji",
+				"submit": "Pošalji",
+				"title": "Dodaj novu kategoriju"
+			},
+			"product": {
+				"cancel": "Otkaži",
+				"category": "Selektuj kategoriju",
+				"categoryHelper": "Izaberite vašu kategoriju.",
+				"code": "Šifra",
+				"description": "Ovde mozede dodati novi artikal i njegov kategoriju",
+				"name": "Ime",
+				"sellingPrice": "Cena u prodaji",
+				"submit": "Pošalji",
+				"title": "Dodaj novi proizvod"
+			}
+		},
+		"list": {
+			"product": {
+				"code": "Šifra",
+				"description": "Ovde mozede dodati novi artikal i njegov kategoriju",
+				"name": "Ime",
+				"quantity": "Količina",
+				"sellingPrice": "Cena u prodaji"
+			}
+		},
+		"noCategory": "Nije dodata kategorija",
+		"product": "Artikli"
 	}
 }
