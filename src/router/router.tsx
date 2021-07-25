@@ -8,6 +8,7 @@ import { EditCompany } from "../pages/edit-company/edit-company";
 import { Inventory } from "../pages/inventory/inventory";
 import { NotFound } from "../pages/not-found/not-found";
 import { SignIn } from "../pages/sign-in/sign-in";
+import { SingleInventory } from "../pages/single-inventory/single-inventory";
 import PrivateRoute from "./private-route";
 import PublicRoute from "./public-route";
 
@@ -47,6 +48,12 @@ export const Router = ({ apiClient }: Props) => (
         component={Inventory}
         apiClient={apiClient}
         path="/inventory"
+        exact
+      />
+      <PrivateRoute
+        component={SingleInventory}
+        apiClient={apiClient}
+        path="/inventory/:id"
         exact
       />
       <PublicRoute restricted={false} component={NotFound} />

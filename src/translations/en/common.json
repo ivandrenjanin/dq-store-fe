@@ -46,6 +46,15 @@
 		"pageDescription": "Dashboard"
 	},
 	"inventory": {
+		"inventoryTable": {
+			"button": {
+				"enter": "Enter"
+			},
+			"categories": "Categories",
+			"empty": "No available inventories",
+			"name": "Name",
+			"products": "Products"
+		},
 		"pageDescription": "Available Inventories"
 	},
 	"layout": {

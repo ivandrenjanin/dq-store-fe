@@ -46,6 +46,15 @@
 		"pageDescription": "Kontrolna Tabla"
 	},
 	"inventory": {
+		"inventoryTable": {
+			"button": {
+				"enter": "Udji u"
+			},
+			"categories": "Kategorije",
+			"empty": "Nema dostupnih magacina",
+			"name": "Ime",
+			"products": "Artikli"
+		},
 		"pageDescription": "Dostupni Magacini"
 	},
 	"layout": {
