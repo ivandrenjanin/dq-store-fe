@@ -42,7 +42,11 @@
 				"subTitle": "Popunite Vaše podatke.",
 				"title": "Nedostatak podataka o kompaniji"
 			}
-		}
+		},
+		"pageDescription": "Kontrolna Tabla"
+	},
+	"inventory": {
+		"pageDescription": "Dostupni Magacini"
 	},
 	"layout": {
 		"navigation": {

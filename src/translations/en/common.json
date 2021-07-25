@@ -42,7 +42,11 @@
 				"subTitle": "Please add your company info.",
 				"title": "Missing Company Info"
 			}
-		}
+		},
+		"pageDescription": "Dashboard"
+	},
+	"inventory": {
+		"pageDescription": "Available Inventories"
 	},
 	"layout": {
 		"navigation": {

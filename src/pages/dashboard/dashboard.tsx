@@ -15,6 +15,16 @@ import TextField from "@material-ui/core/TextField";
 import { CompanyResponse, createCompany, getCompany } from "../../api/company";
 import { Layout } from "../../components/layout/layout";
 import { DashboardProps } from "./interfaces/dashboard-props.interface";
+import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+  })
+);
 
 export const Dashboard: FunctionComponent<DashboardProps> = ({
   apiClient,
@@ -27,6 +37,7 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
     useState<boolean>(false);
   const [companyDialogError, setCompanyDialogError] = useState<boolean>(false);
   const [translate] = useTranslation("common");
+  const classes = useStyles();
 
   useEffect(() => {
     const fetchCompany = async () => {
@@ -192,7 +203,11 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
         </Dialog>
       ) : (
         <Layout history={history} location={location} match={match}>
-          <h1>Dashboard Page</h1>
+          <div className={classes.root}>
+            <Typography variant="h4" component="h4">
+              {translate("dashboard.pageDescription")}
+            </Typography>
+          </div>
         </Layout>
       )}
     </>

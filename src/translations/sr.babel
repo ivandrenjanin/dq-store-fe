@@ -579,6 +579,45 @@
                                     </folder_node>
                                 </children>
                             </folder_node>
+                            <concept_node>
+                                <name>pageDescription</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>sr-Latn-RS</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
+                        </children>
+                    </folder_node>
+                    <folder_node>
+                        <name>inventory</name>
+                        <children>
+                            <concept_node>
+                                <name>pageDescription</name>
+                                <definition_loaded>false</definition_loaded>
+                                <description/>
+                                <comment/>
+                                <default_text/>
+                                <translations>
+                                    <translation>
+                                        <language>en-US</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                    <translation>
+                                        <language>sr-Latn-RS</language>
+                                        <approved>true</approved>
+                                    </translation>
+                                </translations>
+                            </concept_node>
                         </children>
                     </folder_node>
                     <folder_node>
