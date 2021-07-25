@@ -29,6 +29,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { createCategory } from "../../api/category";
+import MenuItem from "@material-ui/core/MenuItem";
 
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -88,7 +89,7 @@ const productColumns: GridColDef[] = [
     editable: true,
   },
   { field: "quantity", headerName: "Quantity", width: 160, editable: true },
-  { field: "category", headerName: "Category", width: 160, editable: true },
+  { field: "category", headerName: "Category", width: 160 },
 ];
 
 const categoryColumns: GridColDef[] = [
@@ -109,6 +110,12 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [dialog, setOpen] = React.useState({ open: false, target: "" });
+
+  const [category, setCategory] = React.useState("");
+
+  const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(event.target.value);
+  };
 
   const handleClickOpen = (target: string) => {
     setOpen({ open: true, target });
@@ -133,10 +140,17 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     }
 
     if (dialog.target === "product") {
-      await createProduct(apiClient, parseInt(id), {
-        ...data,
+      const { category, ...rest } = data;
+      const p = await createProduct(apiClient, parseInt(id), {
+        ...rest,
         sellingPrice: parseInt(data.sellingPrice),
       });
+      await createProductCategory(
+        apiClient,
+        parseInt(id),
+        p.id,
+        parseInt(category)
+      );
       const result = await getInventoryById(apiClient, parseInt(id));
       setInventory(result);
     }
@@ -164,7 +178,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
         ...x,
         category:
           x.productCategories.length > 0
-            ? x.productCategories[0].category.name
+            ? x.productCategories.map((c) => c.category.name).join(", ")
             : "No category added",
       }))
     : [];
@@ -179,18 +193,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
           productId as number,
           parseInt(val)
         );
-      }
-
-      if (field === "category" && props && props.value && inventory) {
-        const ctg = inventory.categories.find((c) => c.name === props.value);
-        if (ctg) {
-          await createProductCategory(
-            apiClient,
-            parseInt(id),
-            productId as number,
-            ctg.id
-          );
-        }
       }
     },
     []
@@ -290,6 +292,22 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 name="sellingPrice"
                 fullWidth
               />
+              <TextField
+                id="standard-select-currency"
+                select
+                label="Select category"
+                value={category}
+                name="category"
+                onChange={handleChangeCategory}
+                helperText="Please select your category"
+                fullWidth
+              >
+                {inventory?.categories.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
             </DialogContent>
             <DialogActions>
               <Button
