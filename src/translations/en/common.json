@@ -46,8 +46,18 @@
 		"pageDescription": "Dashboard"
 	},
 	"inventory": {
+		"dialog": {
+			"button": {
+				"cancel": "Cancel",
+				"submit": "Submit"
+			},
+			"description": "This will create a new empty inventory",
+			"label": "Name of new inventory",
+			"title": "Add new inventory"
+		},
 		"inventoryTable": {
 			"button": {
+				"add": "Add Inventory",
 				"enter": "Enter"
 			},
 			"categories": "Categories",

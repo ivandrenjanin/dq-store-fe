@@ -46,8 +46,18 @@
 		"pageDescription": "Kontrolna Tabla"
 	},
 	"inventory": {
+		"dialog": {
+			"button": {
+				"cancel": "Otkaži",
+				"submit": "Pošalji"
+			},
+			"description": "Ovim dodajete novi prazan magacin bez artikala",
+			"label": "Ime novog magacina",
+			"title": "Dodaj novi magacin"
+		},
 		"inventoryTable": {
 			"button": {
+				"add": "Dodaj magacin",
 				"enter": "Udji u"
 			},
 			"categories": "Kategorije",

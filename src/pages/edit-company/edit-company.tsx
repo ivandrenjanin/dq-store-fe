@@ -89,7 +89,7 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
 
     const updated = await updateCompany(apiClient, company?.id as number, data);
     setCompany(updated);
-    history.push("/company");
+    history.goBack();
   };
 
   return (

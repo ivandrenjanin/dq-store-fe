@@ -19,7 +19,7 @@ export interface Product {
   productCategories: {
     id: number;
     category: Category;
-  };
+  }[];
 }
 
 export interface InventoryByIdResponse {

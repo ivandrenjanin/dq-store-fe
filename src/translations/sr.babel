@@ -602,11 +602,123 @@
                         <name>inventory</name>
                         <children>
                             <folder_node>
+                                <name>dialog</name>
+                                <children>
+                                    <folder_node>
+                                        <name>button</name>
+                                        <children>
+                                            <concept_node>
+                                                <name>cancel</name>
+                                                <definition_loaded>false</definition_loaded>
+                                                <description/>
+                                                <comment/>
+                                                <default_text/>
+                                                <translations>
+                                                    <translation>
+                                                        <language>en-US</language>
+                                                        <approved>true</approved>
+                                                    </translation>
+                                                    <translation>
+                                                        <language>sr-Latn-RS</language>
+                                                        <approved>true</approved>
+                                                    </translation>
+                                                </translations>
+                                            </concept_node>
+                                            <concept_node>
+                                                <name>submit</name>
+                                                <definition_loaded>false</definition_loaded>
+                                                <description/>
+                                                <comment/>
+                                                <default_text/>
+                                                <translations>
+                                                    <translation>
+                                                        <language>en-US</language>
+                                                        <approved>true</approved>
+                                                    </translation>
+                                                    <translation>
+                                                        <language>sr-Latn-RS</language>
+                                                        <approved>true</approved>
+                                                    </translation>
+                                                </translations>
+                                            </concept_node>
+                                        </children>
+                                    </folder_node>
+                                    <concept_node>
+                                        <name>description</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description/>
+                                        <comment/>
+                                        <default_text/>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>sr-Latn-RS</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>label</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description/>
+                                        <comment/>
+                                        <default_text/>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>sr-Latn-RS</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                    <concept_node>
+                                        <name>title</name>
+                                        <definition_loaded>false</definition_loaded>
+                                        <description/>
+                                        <comment/>
+                                        <default_text/>
+                                        <translations>
+                                            <translation>
+                                                <language>en-US</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                            <translation>
+                                                <language>sr-Latn-RS</language>
+                                                <approved>true</approved>
+                                            </translation>
+                                        </translations>
+                                    </concept_node>
+                                </children>
+                            </folder_node>
+                            <folder_node>
                                 <name>inventoryTable</name>
                                 <children>
                                     <folder_node>
                                         <name>button</name>
                                         <children>
+                                            <concept_node>
+                                                <name>add</name>
+                                                <definition_loaded>false</definition_loaded>
+                                                <description/>
+                                                <comment/>
+                                                <default_text/>
+                                                <translations>
+                                                    <translation>
+                                                        <language>en-US</language>
+                                                        <approved>true</approved>
+                                                    </translation>
+                                                    <translation>
+                                                        <language>sr-Latn-RS</language>
+                                                        <approved>true</approved>
+                                                    </translation>
+                                                </translations>
+                                            </concept_node>
                                             <concept_node>
                                                 <name>enter</name>
                                                 <definition_loaded>false</definition_loaded>
