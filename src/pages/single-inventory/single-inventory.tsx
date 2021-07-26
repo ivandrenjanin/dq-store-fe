@@ -237,16 +237,16 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               aria-label="simple tabs example"
             >
               <Tab
-                label={translate("singleInventory.product")}
+                label={translate("singleInventory.category")}
                 {...a11yProps(0)}
               />
               <Tab
-                label={translate("singleInventory.category")}
+                label={translate("singleInventory.product")}
                 {...a11yProps(1)}
               />
             </Tabs>
           </AppBar>
-          <TabPanel value={value} index={0}>
+          <TabPanel value={value} index={1}>
             <Button
               startIcon={<AddIcon />}
               variant="contained"
@@ -267,7 +267,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               />
             </div>
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value={value} index={0}>
             <Button
               startIcon={<AddIcon />}
               variant="contained"
@@ -302,6 +302,24 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 {translate("singleInventory.dialog.product.description")}
               </DialogContentText>
               <TextField
+                id="standard-select-category"
+                select
+                label={translate("singleInventory.dialog.product.category")}
+                value={category}
+                name="category"
+                onChange={handleChangeCategory}
+                helperText={translate(
+                  "singleInventory.dialog.product.categoryHelper"
+                )}
+                fullWidth
+              >
+                {inventory?.categories.map((option) => (
+                  <MenuItem key={option.id} value={option.id}>
+                    {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
                 autoFocus
                 margin="dense"
                 id="name"
@@ -328,24 +346,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 name="sellingPrice"
                 fullWidth
               />
-              <TextField
-                id="standard-select-currency"
-                select
-                label={translate("singleInventory.dialog.product.category")}
-                value={category}
-                name="category"
-                onChange={handleChangeCategory}
-                helperText={translate(
-                  "singleInventory.dialog.product.categoryHelper"
-                )}
-                fullWidth
-              >
-                {inventory?.categories.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.name}
-                  </MenuItem>
-                ))}
-              </TextField>
             </DialogContent>
             <DialogActions>
               <Button
