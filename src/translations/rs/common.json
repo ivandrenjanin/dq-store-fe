@@ -58,7 +58,7 @@
 		"inventoryTable": {
 			"button": {
 				"add": "Dodaj magacin",
-				"enter": "Udji u"
+				"enter": ""
 			},
 			"categories": "Kategorije",
 			"empty": "Nema dostupnih magacina",

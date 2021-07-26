@@ -58,7 +58,7 @@
 		"inventoryTable": {
 			"button": {
 				"add": "Add Inventory",
-				"enter": "Enter"
+				"enter": ""
 			},
 			"categories": "Categories",
 			"empty": "No available inventories",
