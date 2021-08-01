@@ -52,12 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Company: FunctionComponent<CompanyProps> = ({
-  history,
-  location,
-  match,
-  apiClient,
-}) => {
+export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
   const classes = useStyles();
   const [translate] = useTranslation("common");
   const [company, setCompany] = useState<Partial<CompanyResponse> | null>(null);

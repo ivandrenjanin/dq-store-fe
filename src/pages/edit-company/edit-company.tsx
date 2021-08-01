@@ -59,8 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const EditCompany: FunctionComponent<EditCompanyProps> = ({
   history,
-  location,
-  match,
   apiClient,
 }) => {
   const classes = useStyles();

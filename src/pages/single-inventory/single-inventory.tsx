@@ -82,9 +82,6 @@ function TabPanel(props: TabPanelProps) {
 
 export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   apiClient,
-  history,
-  location,
-  match,
 }) => {
   const { id } = useParams<{ id: string }>();
   const [translate] = useTranslation("common");
@@ -167,21 +164,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       }))
     : [];
 
-  const handleEditCellChangeCommittedOnProduct = React.useCallback(
-    async ({ id: productId, field, props }: GridEditCellPropsParams) => {
-      if (field === "quantity" && props && props.value) {
-        const val = props.value as string;
-        await createProductDetails(
-          apiClient,
-          parseInt(id),
-          productId as number,
-          parseInt(val)
-        );
-      }
-    },
-    []
-  );
-
   const productColumns: GridColDef[] = [
     {
       field: "name",
@@ -261,9 +243,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 rows={products}
                 columns={productColumns}
                 pageSize={10}
-                onEditCellChangeCommitted={
-                  handleEditCellChangeCommittedOnProduct
-                }
               />
             </div>
           </TabPanel>

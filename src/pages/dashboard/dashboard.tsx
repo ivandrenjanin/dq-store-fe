@@ -25,12 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Dashboard: FunctionComponent<DashboardProps> = ({
-  apiClient,
-  history,
-  location,
-  match,
-}) => {
+export const Dashboard: FunctionComponent<DashboardProps> = ({ apiClient }) => {
   const [company, setCompany] = useState<CompanyResponse | null>(null);
   const [createCompanyDialog, setCreateCompanyDialog] =
     useState<boolean>(false);

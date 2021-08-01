@@ -12,7 +12,6 @@ import {
   InventoryByIdResponse,
 } from "../../api";
 
-import { Layout } from "../../components/layout/layout";
 import { BasicTable } from "./table";
 import AddIcon from "@material-ui/icons/Add";
 import TextField from "@material-ui/core/TextField";
@@ -37,12 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Inventory: FunctionComponent<InventoryProps> = ({
-  history,
-  location,
-  match,
-  apiClient,
-}) => {
+export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
   const [translate] = useTranslation("common");
   const [populatedInventories, setPopulatedInventories] = useState<
     InventoryByIdResponse[]
