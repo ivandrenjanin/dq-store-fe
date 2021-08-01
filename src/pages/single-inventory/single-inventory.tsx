@@ -14,12 +14,20 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
-import { DataGrid, GridColDef } from "@material-ui/data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridEditCellPropsParams,
+} from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import { getInventoryById, InventoryByIdResponse } from "../../api";
 import { createCategory } from "../../api/category";
-import { createProduct, createProductCategory } from "../../api/product";
+import {
+  createProduct,
+  createProductCategory,
+  createProductDetails,
+} from "../../api/product";
 import { TabPanel } from "../../components/tab-panel/tab-panel";
 
 interface SingleInventoryProps extends RouteComponentProps {
@@ -169,6 +177,20 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     },
   ];
 
+  // const handleEditCellChangeCommittedOnProduct =
+  //   async ({ id: productId, field, props }: GridEditCellPropsParams) => {
+  //     if (field === "quantity" && props && props.value) {
+  //       const val = props.value as string;
+  //       await createProductDetails(
+  //         apiClient,
+  //         parseInt(id),
+  //         productId as number,
+  //         parseInt(val)
+  //       );
+  //     }
+  //   },
+  //   []
+
   return (
     <>
       {!inventory ? (
@@ -206,6 +228,12 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 rows={products}
                 columns={productColumns}
                 pageSize={10}
+                onCellEditCommit={(params, event) => {
+                  console.log({ params });
+                  console.log({ event });
+                }}
+                autoHeight={true}
+                autoPageSize={true}
               />
             </div>
           </TabPanel>
@@ -224,6 +252,8 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 rows={inventory.categories}
                 columns={categoryColumns}
                 pageSize={10}
+                autoHeight={true}
+                autoPageSize={true}
               />
             </div>
           </TabPanel>

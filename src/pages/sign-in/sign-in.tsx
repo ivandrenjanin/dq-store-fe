@@ -11,6 +11,7 @@ import { login } from "../../api";
 import { Logo } from "../../components/logo/logo";
 import { validateEmail } from "../../helpers/validate-email";
 import { SignInProps } from "./interfaces/sign-in-props.interface";
+import SplitButtonTranslate from "../../components/split-button-translate/split-button-translate";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -20,6 +21,11 @@ const useStyles = makeStyles(() => ({
   },
   signInForm: {
     width: "45%",
+  },
+  translateBtn: {
+    position: "absolute",
+    top: "2%",
+    right: "15%",
   },
 }));
 
@@ -69,6 +75,10 @@ export const SignIn: FunctionComponent<SignInProps> = ({
   return (
     <>
       <div className={classes.root}>
+        <div className={classes.translateBtn}>
+          <SplitButtonTranslate />
+        </div>
+
         <form
           noValidate
           autoComplete="off"

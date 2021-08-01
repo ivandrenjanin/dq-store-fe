@@ -27,6 +27,8 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import DnsIcon from "@material-ui/icons/Dns";
 import MenuIcon from "@material-ui/icons/Menu";
 import WorkIcon from "@material-ui/icons/Work";
+import SplitButtonTranslate from "../split-button-translate/split-button-translate";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const drawerWidth = 240;
 
@@ -107,6 +109,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "rgba(0, 0, 0, 0.2)",
     },
     inactive: {},
+    btnGroup: {
+      display: "flex",
+      width: 300,
+    },
   })
 );
 
@@ -162,9 +168,16 @@ export const Layout: FunctionComponent<LayoutProps> = ({
           </IconButton>
           <div className={classes.nav}>
             <Typography variant="h6">D/q Storehouse</Typography>
-            <Button color="inherit" onClick={handleLogout}>
-              {translate("layout.navigation.logout")}
-            </Button>
+            <div className={classes.btnGroup}>
+              <Button
+                color="inherit"
+                onClick={handleLogout}
+                startIcon={<ExitToAppIcon />}
+              >
+                {translate("layout.navigation.logout")}
+              </Button>
+              <SplitButtonTranslate />
+            </div>
           </div>
         </Toolbar>
       </AppBar>
