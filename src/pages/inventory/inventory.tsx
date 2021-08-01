@@ -92,7 +92,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({
   }, []);
 
   return (
-    <Layout history={history} location={location} match={match}>
+    <>
       <div className={classes.root}>
         <Typography variant="h4" component="h4">
           {translate("inventory.pageDescription")}
@@ -145,6 +145,6 @@ export const Inventory: FunctionComponent<InventoryProps> = ({
           </form>
         </Dialog>
       </div>
-    </Layout>
+    </>
   );
 };

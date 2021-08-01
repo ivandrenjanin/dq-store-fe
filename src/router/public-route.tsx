@@ -8,6 +8,7 @@ const PublicRoute = ({
   apiClient,
   ...rest
 }: any) => {
+  console.log({ rest });
   return (
     <Route
       {...rest}

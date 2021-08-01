@@ -13,7 +13,6 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SaveIcon from "@material-ui/icons/Save";
 
 import { CompanyResponse, getCompany, updateCompany } from "../../api/company";
-import { Layout } from "../../components/layout/layout";
 
 export interface EditCompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -93,7 +92,7 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
   };
 
   return (
-    <Layout history={history} location={location} match={match}>
+    <>
       {!company ? (
         <CircularProgress />
       ) : (
@@ -235,6 +234,6 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
           </Button>
         </form>
       )}
-    </Layout>
+    </>
   );
 };

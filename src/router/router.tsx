@@ -1,5 +1,4 @@
 import { AxiosInstance } from "axios";
-import React from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
 
 import { Company } from "../pages/company/company";
@@ -16,47 +15,49 @@ interface Props {
   apiClient: AxiosInstance;
 }
 
-export const Router = ({ apiClient }: Props) => (
-  <BrowserRouter>
-    <Switch>
-      <PublicRoute
-        restricted={true}
-        apiClient={apiClient}
-        component={SignIn}
-        path="/"
-        exact
-      />
-      <PrivateRoute
-        component={Dashboard}
-        apiClient={apiClient}
-        path="/dashboard"
-        exact
-      />
-      <PrivateRoute
-        component={Company}
-        apiClient={apiClient}
-        path="/company"
-        exact
-      />
-      <PrivateRoute
-        component={EditCompany}
-        apiClient={apiClient}
-        path="/company/:id"
-        exact
-      />
-      <PrivateRoute
-        component={Inventory}
-        apiClient={apiClient}
-        path="/inventory"
-        exact
-      />
-      <PrivateRoute
-        component={SingleInventory}
-        apiClient={apiClient}
-        path="/inventory/:id"
-        exact
-      />
-      <PublicRoute restricted={false} component={NotFound} />
-    </Switch>
-  </BrowserRouter>
-);
+export const Router = ({ apiClient }: Props) => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <PublicRoute
+          restricted={true}
+          apiClient={apiClient}
+          component={SignIn}
+          path="/"
+          exact
+        />
+        <PrivateRoute
+          component={Dashboard}
+          apiClient={apiClient}
+          path="/dashboard"
+          exact
+        />
+        <PrivateRoute
+          component={Company}
+          apiClient={apiClient}
+          path="/company"
+          exact
+        />
+        <PrivateRoute
+          component={EditCompany}
+          apiClient={apiClient}
+          path="/company/:id"
+          exact
+        />
+        <PrivateRoute
+          component={Inventory}
+          apiClient={apiClient}
+          path="/inventory"
+          exact
+        />
+        <PrivateRoute
+          component={SingleInventory}
+          apiClient={apiClient}
+          path="/inventory/:id"
+          exact
+        />
+        <PublicRoute restricted={false} component={NotFound} />
+      </Switch>
+    </BrowserRouter>
+  );
+};

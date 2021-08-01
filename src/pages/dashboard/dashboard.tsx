@@ -13,7 +13,6 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 import { CompanyResponse, createCompany, getCompany } from "../../api/company";
-import { Layout } from "../../components/layout/layout";
 import { DashboardProps } from "./interfaces/dashboard-props.interface";
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
@@ -189,13 +188,13 @@ export const Dashboard: FunctionComponent<DashboardProps> = ({
           </form>
         </Dialog>
       ) : (
-        <Layout history={history} location={location} match={match}>
+        <>
           <div className={classes.root}>
             <Typography variant="h4" component="h4">
               {translate("dashboard.pageDescription")}
             </Typography>
           </div>
-        </Layout>
+        </>
       )}
     </>
   );

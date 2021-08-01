@@ -225,7 +225,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   ];
 
   return (
-    <Layout history={history} location={location} match={match}>
+    <>
       {!inventory ? (
         <h1>Nothing here</h1>
       ) : (
@@ -404,7 +404,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
           </form>
         )}
       </Dialog>
-    </Layout>
+    </>
   );
 };
 

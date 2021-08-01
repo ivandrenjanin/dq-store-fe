@@ -11,7 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import EditIcon from "@material-ui/icons/Edit";
 
 import { CompanyResponse, getCompany } from "../../api/company";
-import { Layout } from "../../components/layout/layout";
 
 export interface CompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -73,7 +72,7 @@ export const Company: FunctionComponent<CompanyProps> = ({
   }, []);
 
   return (
-    <Layout history={history} location={location} match={match}>
+    <>
       {!company ? (
         <CircularProgress />
       ) : (
@@ -168,6 +167,6 @@ export const Company: FunctionComponent<CompanyProps> = ({
           </Button>
         </div>
       )}
-    </Layout>
+    </>
   );
 };
