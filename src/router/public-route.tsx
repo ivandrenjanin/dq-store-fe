@@ -14,7 +14,7 @@ const PublicRoute = ({
       {...rest}
       render={(props) =>
         isLoggedIn() && restricted ? (
-          <Redirect to="/dashboard" />
+          <Redirect to="/company" />
         ) : (
           <Component {...props} apiClient={apiClient} />
         )

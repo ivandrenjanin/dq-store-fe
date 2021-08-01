@@ -63,7 +63,7 @@ export const SignIn: FunctionComponent<SignInProps> = ({
           email: email.value,
           password: password.value,
         });
-        history.push("/dashboard");
+        history.push("/company");
       } catch (err) {
         setEmailError(true);
         setPasswordError(true);

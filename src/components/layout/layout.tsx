@@ -205,7 +205,7 @@ export const Layout: FunctionComponent<LayoutProps> = ({
         </div>
         <Divider />
         <List>
-          <Link to="/dashboard" className={classes.link}>
+          {/* <Link to="/dashboard" className={classes.link}>
             <ListItem
               button
               className={
@@ -221,7 +221,7 @@ export const Layout: FunctionComponent<LayoutProps> = ({
                 primary={translate("layout.navigation.dashboard")}
               />
             </ListItem>
-          </Link>
+          </Link> */}
           <Link to="/company" className={classes.link}>
             <ListItem
               button

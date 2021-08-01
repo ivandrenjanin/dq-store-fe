@@ -26,12 +26,12 @@ export const Router = ({ apiClient }: Props) => {
           path="/"
           exact
         />
-        <PrivateRoute
+        {/* <PrivateRoute
           component={Dashboard}
           apiClient={apiClient}
           path="/dashboard"
           exact
-        />
+        /> */}
         <PrivateRoute
           component={Company}
           apiClient={apiClient}
