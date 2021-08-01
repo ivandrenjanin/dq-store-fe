@@ -1,130 +1,130 @@
 {
-	"company": {
-		"activityCode": "Activity Code",
-		"bankAccountNumber": "Bank Account Number",
-		"bankName": "Bank Name",
-		"button": {
-			"back": "Back",
-			"edit": "Edit",
-			"save": "Save"
-		},
-		"companyNumber": "Company Number",
-		"email": "E-mail",
-		"name": "Name",
-		"pageDescription": "Company Info",
-		"phoneFaxNumber": "Fax number",
-		"phoneMobileNumber": "Mobile Number",
-		"postalCode": "Postal Code",
-		"taxIdNumber": "Tax Identification Number",
-		"websiteURL": "Website Url"
-	},
-	"dashboard": {
-		"dialog": {
-			"form": {
-				"button": {
-					"cancel": "Cancel",
-					"submit": "Submit"
-				},
-				"error": "Error while creating a company, please check form fields.",
-				"field": {
-					"activityCode": "Activity Code",
-					"bankAccountNumber": "Bank Account Number",
-					"bankName": "Bank Name",
-					"companyNumber": "Company Number",
-					"email": "E-mail",
-					"name": "Name",
-					"phoneFaxNumber": "Fax number",
-					"phoneMobileNumber": "Mobile Number",
-					"postalCode": "Postal Code",
-					"taxIdNumber": "Tax Identification Number",
-					"websiteURL": "Website Url"
-				},
-				"subTitle": "Please add your company info.",
-				"title": "Missing Company Info"
-			}
-		},
-		"pageDescription": "Dashboard"
-	},
-	"inventory": {
-		"dialog": {
-			"button": {
-				"cancel": "Cancel",
-				"submit": "Submit"
-			},
-			"description": "This will create a new empty inventory",
-			"label": "Name of new inventory",
-			"title": "Add new inventory"
-		},
-		"inventoryTable": {
-			"button": {
-				"add": "Add Inventory",
-				"enter": ""
-			},
-			"categories": "Categories",
-			"empty": "No available inventories",
-			"name": "Name",
-			"products": "Products"
-		},
-		"pageDescription": "Available Inventories"
-	},
-	"layout": {
-		"navigation": {
-			"company": "Company",
-			"dashboard": "Dashboard",
-			"inventory": "Inventory",
-			"logout": "Logout"
-		}
-	},
-	"signup": {
-		"button": "Login",
-		"email": {
-			"label": "E-mail"
-		},
-		"error": "Incorrect entry.",
-		"password": {
-			"label": "Password"
-		}
-	},
-	"singleInventory": {
-		"button": {
-			"addCategory": "Add Category",
-			"addProduct": "Add product"
-		},
-		"category": "Categories",
-		"dialog": {
-			"category": {
-				"cancel": "Cancel",
-				"category": "Select a category",
-				"categoryHelper": "Please, select your category.",
-				"code": "Code",
-				"description": "Here you can add a new category",
-				"name": "name",
-				"sellingPrice": "Selling price",
-				"submit": "Submit",
-				"title": "Add a new category"
-			},
-			"product": {
-				"cancel": "Cancel",
-				"category": "Select a category",
-				"categoryHelper": "Please, select your category.",
-				"code": "Code",
-				"description": "Here you can add a new product and its category",
-				"name": "name",
-				"sellingPrice": "Selling price",
-				"submit": "Submit",
-				"title": "Add a new product"
-			}
-		},
-		"list": {
-			"product": {
-				"code": "Code",
-				"description": "Here you can add a new product and its category",
-				"name": "name",
-				"quantity": "Quantity",
-				"sellingPrice": "Selling price"
-			}
-		},
-		"noCategory": "No category added",
-		"product": "Products"
-	}
+  "company": {
+    "activityCode": "Activity Code",
+    "bankAccountNumber": "Bank Account Number",
+    "bankName": "Bank Name",
+    "button": {
+      "back": "Back",
+      "edit": "Edit",
+      "save": "Save"
+    },
+    "companyNumber": "Company Number",
+    "email": "E-mail",
+    "name": "Name",
+    "pageDescription": "Company Info",
+    "phoneFaxNumber": "Fax number",
+    "phoneMobileNumber": "Mobile Number",
+    "postalCode": "Postal Code",
+    "taxIdNumber": "Tax Identification Number",
+    "websiteURL": "Website Url"
+  },
+  "dashboard": {
+    "dialog": {
+      "form": {
+        "button": {
+          "cancel": "Cancel",
+          "submit": "Submit"
+        },
+        "error": "Error while creating a company, please check form fields.",
+        "field": {
+          "activityCode": "Activity Code",
+          "bankAccountNumber": "Bank Account Number",
+          "bankName": "Bank Name",
+          "companyNumber": "Company Number",
+          "email": "E-mail",
+          "name": "Name",
+          "phoneFaxNumber": "Fax number",
+          "phoneMobileNumber": "Mobile Number",
+          "postalCode": "Postal Code",
+          "taxIdNumber": "Tax Identification Number",
+          "websiteURL": "Website Url"
+        },
+        "subTitle": "Please add your company info.",
+        "title": "Missing Company Info"
+      }
+    },
+    "pageDescription": "Dashboard"
+  },
+  "inventory": {
+    "dialog": {
+      "button": {
+        "cancel": "Cancel",
+        "submit": "Submit"
+      },
+      "description": "This will create a new empty inventory",
+      "label": "Name of new inventory",
+      "title": "Add new inventory"
+    },
+    "inventoryTable": {
+      "button": {
+        "add": "Add Inventory",
+        "enter": ""
+      },
+      "categories": "Categories",
+      "empty": "No available inventories",
+      "name": "Name",
+      "products": "Products"
+    },
+    "pageDescription": "Available Inventories"
+  },
+  "layout": {
+    "navigation": {
+      "company": "Company",
+      "dashboard": "Dashboard",
+      "inventory": "Inventory",
+      "logout": "Logout"
+    }
+  },
+  "signup": {
+    "button": "Login",
+    "email": {
+      "label": "E-mail"
+    },
+    "error": "Incorrect entry.",
+    "password": {
+      "label": "Password"
+    }
+  },
+  "singleInventory": {
+    "button": {
+      "addCategory": "Add Category",
+      "addProduct": "Add product"
+    },
+    "category": "Categories",
+    "dialog": {
+      "category": {
+        "cancel": "Cancel",
+        "category": "Select a category",
+        "categoryHelper": "Please, select your category.",
+        "code": "Code",
+        "description": "Here you can add a new category",
+        "name": "name",
+        "sellingPrice": "Selling price",
+        "submit": "Submit",
+        "title": "Add a new category"
+      },
+      "product": {
+        "cancel": "Cancel",
+        "category": "Select a category",
+        "categoryHelper": "Please, select your category.",
+        "code": "Code",
+        "description": "Here you can add a new product and its category",
+        "name": "name",
+        "sellingPrice": "Selling price",
+        "submit": "Submit",
+        "title": "Add a new product"
+      }
+    },
+    "list": {
+      "product": {
+        "code": "Code",
+        "description": "Here you can add a new product and its category",
+        "name": "name",
+        "quantity": "Quantity",
+        "sellingPrice": "Selling price"
+      }
+    },
+    "noCategory": "No category added",
+    "product": "Products"
+  }
 }

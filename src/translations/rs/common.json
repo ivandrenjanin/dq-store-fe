@@ -1,130 +1,130 @@
 {
-	"company": {
-		"activityCode": "Šifra delatnosti",
-		"bankAccountNumber": "Broj bankovnog računa",
-		"bankName": "Ime banke",
-		"button": {
-			"back": "Nazad",
-			"edit": "Izmeni",
-			"save": "Sačuvaj"
-		},
-		"companyNumber": "Matični broj",
-		"email": "E-mail",
-		"name": "Ime",
-		"pageDescription": "Informacije o kompaniji",
-		"phoneFaxNumber": "Fax",
-		"phoneMobileNumber": "Mobilni",
-		"postalCode": "Poštanski broj",
-		"taxIdNumber": "PIB",
-		"websiteURL": "Veb sajt"
-	},
-	"dashboard": {
-		"dialog": {
-			"form": {
-				"button": {
-					"cancel": "Otkaži",
-					"submit": "Pošalji"
-				},
-				"error": "Greška prilikom unosa podataka, proverite...",
-				"field": {
-					"activityCode": "Šifra delatnosti",
-					"bankAccountNumber": "Broj bankovnog računa",
-					"bankName": "Ime banke",
-					"companyNumber": "Matični broj",
-					"email": "E-mail",
-					"name": "Ime",
-					"phoneFaxNumber": "Fax",
-					"phoneMobileNumber": "Mobilni",
-					"postalCode": "Poštanski broj",
-					"taxIdNumber": "PIB",
-					"websiteURL": "Veb sajt"
-				},
-				"subTitle": "Popunite Vaše podatke.",
-				"title": "Nedostatak podataka o kompaniji"
-			}
-		},
-		"pageDescription": "Kontrolna Tabla"
-	},
-	"inventory": {
-		"dialog": {
-			"button": {
-				"cancel": "Otkaži",
-				"submit": "Pošalji"
-			},
-			"description": "Ovim dodajete novi prazan magacin bez artikala",
-			"label": "Ime novog magacina",
-			"title": "Dodaj novi magacin"
-		},
-		"inventoryTable": {
-			"button": {
-				"add": "Dodaj magacin",
-				"enter": ""
-			},
-			"categories": "Kategorije",
-			"empty": "Nema dostupnih magacina",
-			"name": "Ime",
-			"products": "Artikli"
-		},
-		"pageDescription": "Dostupni Magacini"
-	},
-	"layout": {
-		"navigation": {
-			"company": "Kompanija",
-			"dashboard": "Komandna Tabla",
-			"inventory": "Magacin",
-			"logout": "Odjava"
-		}
-	},
-	"signup": {
-		"button": "Prijava",
-		"email": {
-			"label": "E-mail"
-		},
-		"error": "Pogrešna vrednost.",
-		"password": {
-			"label": "Lozinka"
-		}
-	},
-	"singleInventory": {
-		"button": {
-			"addCategory": "Dodaj kategoriju",
-			"addProduct": "Dodaj artikal"
-		},
-		"category": "Kategorije",
-		"dialog": {
-			"category": {
-				"cancel": "Otkaži",
-				"category": "Selektuj kategoriju",
-				"categoryHelper": "Izaberite vašu kategoriju.",
-				"code": "Šifra",
-				"description": "Ovde mozede dodati novu kategoriju",
-				"name": "Ime",
-				"sellingPrice": "Cena u prodaji",
-				"submit": "Pošalji",
-				"title": "Dodaj novu kategoriju"
-			},
-			"product": {
-				"cancel": "Otkaži",
-				"category": "Selektuj kategoriju",
-				"categoryHelper": "Izaberite vašu kategoriju.",
-				"code": "Šifra",
-				"description": "Ovde mozede dodati novi artikal i njegov kategoriju",
-				"name": "Ime",
-				"sellingPrice": "Cena u prodaji",
-				"submit": "Pošalji",
-				"title": "Dodaj novi proizvod"
-			}
-		},
-		"list": {
-			"product": {
-				"code": "Šifra",
-				"description": "Ovde mozede dodati novi artikal i njegov kategoriju",
-				"name": "Ime",
-				"quantity": "Količina",
-				"sellingPrice": "Cena u prodaji"
-			}
-		},
-		"noCategory": "Nije dodata kategorija",
-		"product": "Artikli"
-	}
+  "company": {
+    "activityCode": "Šifra delatnosti",
+    "bankAccountNumber": "Broj bankovnog računa",
+    "bankName": "Ime banke",
+    "button": {
+      "back": "Nazad",
+      "edit": "Izmeni",
+      "save": "Sačuvaj"
+    },
+    "companyNumber": "Matični broj",
+    "email": "E-mail",
+    "name": "Ime",
+    "pageDescription": "Informacije o kompaniji",
+    "phoneFaxNumber": "Fax",
+    "phoneMobileNumber": "Mobilni",
+    "postalCode": "Poštanski broj",
+    "taxIdNumber": "PIB",
+    "websiteURL": "Veb sajt"
+  },
+  "dashboard": {
+    "dialog": {
+      "form": {
+        "button": {
+          "cancel": "Otkaži",
+          "submit": "Pošalji"
+        },
+        "error": "Greška prilikom unosa podataka, proverite...",
+        "field": {
+          "activityCode": "Šifra delatnosti",
+          "bankAccountNumber": "Broj bankovnog računa",
+          "bankName": "Ime banke",
+          "companyNumber": "Matični broj",
+          "email": "E-mail",
+          "name": "Ime",
+          "phoneFaxNumber": "Fax",
+          "phoneMobileNumber": "Mobilni",
+          "postalCode": "Poštanski broj",
+          "taxIdNumber": "PIB",
+          "websiteURL": "Veb sajt"
+        },
+        "subTitle": "Popunite Vaše podatke.",
+        "title": "Nedostatak podataka o kompaniji"
+      }
+    },
+    "pageDescription": "Kontrolna Tabla"
+  },
+  "inventory": {
+    "dialog": {
+      "button": {
+        "cancel": "Otkaži",
+        "submit": "Pošalji"
+      },
+      "description": "Ovim dodajete novi prazan magacin bez artikala",
+      "label": "Ime novog magacina",
+      "title": "Dodaj novi magacin"
+    },
+    "inventoryTable": {
+      "button": {
+        "add": "Dodaj magacin",
+        "enter": ""
+      },
+      "categories": "Kategorije",
+      "empty": "Nema dostupnih magacina",
+      "name": "Ime",
+      "products": "Artikli"
+    },
+    "pageDescription": "Dostupni Magacini"
+  },
+  "layout": {
+    "navigation": {
+      "company": "Kompanija",
+      "dashboard": "Komandna Tabla",
+      "inventory": "Magacin",
+      "logout": "Odjava"
+    }
+  },
+  "signup": {
+    "button": "Prijava",
+    "email": {
+      "label": "E-mail"
+    },
+    "error": "Pogrešna vrednost.",
+    "password": {
+      "label": "Lozinka"
+    }
+  },
+  "singleInventory": {
+    "button": {
+      "addCategory": "Dodaj kategoriju",
+      "addProduct": "Dodaj artikal"
+    },
+    "category": "Kategorije",
+    "dialog": {
+      "category": {
+        "cancel": "Otkaži",
+        "category": "Selektuj kategoriju",
+        "categoryHelper": "Izaberite vašu kategoriju.",
+        "code": "Šifra",
+        "description": "Ovde mozede dodati novu kategoriju",
+        "name": "Ime",
+        "sellingPrice": "Cena u prodaji",
+        "submit": "Pošalji",
+        "title": "Dodaj novu kategoriju"
+      },
+      "product": {
+        "cancel": "Otkaži",
+        "category": "Selektuj kategoriju",
+        "categoryHelper": "Izaberite vašu kategoriju.",
+        "code": "Šifra",
+        "description": "Ovde mozede dodati novi artikal i njegov kategoriju",
+        "name": "Ime",
+        "sellingPrice": "Cena u prodaji",
+        "submit": "Pošalji",
+        "title": "Dodaj novi proizvod"
+      }
+    },
+    "list": {
+      "product": {
+        "code": "Šifra",
+        "description": "Ovde mozede dodati novi artikal i njegov kategoriju",
+        "name": "Ime",
+        "quantity": "Količina",
+        "sellingPrice": "Cena u prodaji"
+      }
+    },
+    "noCategory": "Nije dodata kategorija",
+    "product": "Artikli"
+  }
 }

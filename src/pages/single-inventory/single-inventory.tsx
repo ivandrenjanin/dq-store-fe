@@ -1,36 +1,26 @@
 import { AxiosInstance } from "axios";
-import React, { FunctionComponent, useEffect } from "react";
-import { useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { RouteComponentProps, useParams } from "react-router-dom";
-import { getInventoryById, InventoryByIdResponse } from "../../api";
-import { Layout } from "../../components/layout/layout";
-import { makeStyles, Theme } from "@material-ui/core/styles";
+
 import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import {
-  DataGrid,
-  GridColDef,
-  GridEditCellPropsParams,
-} from "@material-ui/data-grid";
-import {
-  createProduct,
-  createProductCategory,
-  createProductDetails,
-} from "../../api/product";
-import { Button } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { createCategory } from "../../api/category";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useTranslation } from "react-i18next";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Tab from "@material-ui/core/Tab";
+import Tabs from "@material-ui/core/Tabs";
+import TextField from "@material-ui/core/TextField";
+import { DataGrid, GridColDef } from "@material-ui/data-grid";
+import AddIcon from "@material-ui/icons/Add";
+import Button from "@material-ui/core/Button";
+import { getInventoryById, InventoryByIdResponse } from "../../api";
+import { createCategory } from "../../api/category";
+import { createProduct, createProductCategory } from "../../api/product";
+import { TabPanel } from "../../components/tab-panel/tab-panel";
 
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -52,33 +42,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: 25,
   },
 }));
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: any;
-  value: any;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      style={{ padding: 0 }}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3} style={{ padding: 0 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
 
 export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   apiClient,
@@ -386,27 +349,3 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     </>
   );
 };
-
-// export interface Category {
-//   id: number;
-//   publicId: string;
-//   createdAt: Date;
-//   updatedAt: Date;
-//   name: string;
-//   code: string;
-// }
-
-// export interface Product {
-// id: number;
-// publicId: string;
-// createdAt: Date;
-// updatedAt: Date;
-// name: string;
-// code: string;
-// sellingPrice: number;
-// quantity: number;
-// productCategories: {
-//   id: number;
-//   category: Category;
-// };
-// }
