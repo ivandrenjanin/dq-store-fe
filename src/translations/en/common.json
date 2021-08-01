@@ -113,6 +113,11 @@
         "sellingPrice": "Selling price",
         "submit": "Submit",
         "title": "Add a new product"
+      },
+      "productQuantity": {
+        "title": "Prime price of a product",
+        "description": "Type in the prime price of a product",
+        "primePrice": "Prime Price"
       }
     },
     "list": {

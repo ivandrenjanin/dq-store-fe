@@ -113,6 +113,11 @@
         "sellingPrice": "Cena u prodaji",
         "submit": "Pošalji",
         "title": "Dodaj novi proizvod"
+      },
+      "productQuantity": {
+        "title": "Nabavna cena artikla",
+        "description": "Ukucajte nabavnu cenu artikla",
+        "primePrice": "Nabavna Cena"
       }
     },
     "list": {

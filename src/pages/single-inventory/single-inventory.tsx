@@ -16,8 +16,10 @@ import Tabs from "@material-ui/core/Tabs";
 import TextField from "@material-ui/core/TextField";
 import {
   DataGrid,
+  GridCellEditCommitParams,
   GridColDef,
   GridEditCellPropsParams,
+  MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
@@ -61,6 +63,13 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   );
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const [productQuantityValue, setProductQuantityValue] = React.useState<{
+    quantity: null | number;
+    productId: null | number;
+  }>({
+    quantity: null,
+    productId: null,
+  });
   const [dialog, setOpen] = React.useState({ open: false, target: "" });
 
   const [category, setCategory] = React.useState("");
@@ -75,6 +84,10 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
 
   const handleClose = () => {
     setOpen({ open: false, target: "" });
+    setProductQuantityValue({
+      quantity: null,
+      productId: null,
+    });
   };
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -177,19 +190,48 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     },
   ];
 
-  // const handleEditCellChangeCommittedOnProduct =
-  //   async ({ id: productId, field, props }: GridEditCellPropsParams) => {
-  //     if (field === "quantity" && props && props.value) {
-  //       const val = props.value as string;
-  //       await createProductDetails(
-  //         apiClient,
-  //         parseInt(id),
-  //         productId as number,
-  //         parseInt(val)
-  //       );
-  //     }
-  //   },
-  //   []
+  const handleQuantityCellEdit = async (
+    params: GridCellEditCommitParams,
+    event: MuiEvent<React.SyntheticEvent<Element, Event>>
+  ) => {
+    if (params.field === "quantity" && params && params.value) {
+      const val = params.value as string;
+      const productId = params.id as number;
+      setOpen({ open: true, target: "productQuantity" });
+      setProductQuantityValue({
+        quantity: parseInt(val),
+        productId: productId,
+      });
+    }
+  };
+
+  const handleSubmitProductDetails = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const data: any = {};
+    for (const el of e.currentTarget.elements) {
+      const element = el as HTMLInputElement;
+      if (element.nodeName === "INPUT") {
+        data[element.name] = element.value;
+      }
+    }
+
+    if (productQuantityValue.productId && productQuantityValue.quantity) {
+      await createProductDetails(
+        apiClient,
+        parseInt(id),
+        productQuantityValue.productId,
+        productQuantityValue.quantity,
+        parseInt(data.sellingPrice as string)
+      );
+    }
+    setOpen({ open: false, target: "" });
+    setProductQuantityValue({
+      quantity: null,
+      productId: null,
+    });
+  };
 
   return (
     <>
@@ -228,10 +270,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 rows={products}
                 columns={productColumns}
                 pageSize={10}
-                onCellEditCommit={(params, event) => {
-                  console.log({ params });
-                  console.log({ event });
-                }}
+                onCellEditCommit={handleQuantityCellEdit}
                 autoHeight={true}
                 autoPageSize={true}
               />
@@ -358,6 +397,47 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 label={translate("singleInventory.dialog.category.code")}
                 type="code"
                 name="code"
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                color="secondary"
+                variant="contained"
+              >
+                {translate("singleInventory.dialog.category.cancel")}
+              </Button>
+              <Button type="submit" color="primary" variant="contained">
+                {translate("singleInventory.dialog.category.submit")}
+              </Button>
+            </DialogActions>
+          </form>
+        )}
+        {dialog.target === "productQuantity" && (
+          <form
+            noValidate
+            autoComplete="off"
+            onSubmit={handleSubmitProductDetails}
+          >
+            <DialogTitle id="form-dialog-title">
+              {translate("singleInventory.dialog.productQuantity.title")}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                {translate(
+                  "singleInventory.dialog.productQuantity.description"
+                )}
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="sellingPrice"
+                label={translate(
+                  "singleInventory.dialog.productQuantity.primePrice"
+                )}
+                type="number"
+                name="sellingPrice"
                 fullWidth
               />
             </DialogContent>

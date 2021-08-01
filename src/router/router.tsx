@@ -2,7 +2,7 @@ import { AxiosInstance } from "axios";
 import { BrowserRouter, Switch } from "react-router-dom";
 
 import { Company } from "../pages/company/company";
-import { Dashboard } from "../pages/dashboard/dashboard";
+// import { Dashboard } from "../pages/dashboard/dashboard";
 import { EditCompany } from "../pages/edit-company/edit-company";
 import { Inventory } from "../pages/inventory/inventory";
 import { NotFound } from "../pages/not-found/not-found";
