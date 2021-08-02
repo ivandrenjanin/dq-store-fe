@@ -89,7 +89,8 @@
     "button": {
       "addCategory": "Add Category",
       "addProduct": "Add Product",
-      "addNewOrder": "Add New Order"
+      "addNewOrder": "Add New Order",
+      "addNewOrderDisabled": "Select a product..."
     },
     "category": "Categories",
     "order": "Orders",
@@ -123,11 +124,8 @@
       },
       "order": {
         "cancel": "Cancel",
-        "product": "Select a product",
-        "productHelper": "Please, select your products.",
-        "code": "Code",
-        "description": "Here you can add a new product to the order",
-        "name": "Name",
+        "description": "Here you can create a order from selected products",
+        "formDesc": "Add quantity for",
         "submit": "Submit",
         "title": "Add a new order",
         "quantity": "Quantity"
@@ -143,7 +141,8 @@
       },
       "order": {
         "total": "Grand Total",
-        "products": "Products"
+        "products": "Products",
+        "createdAt": "Created At"
       }
     },
     "noCategory": "No category added",

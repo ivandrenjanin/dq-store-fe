@@ -89,7 +89,8 @@
     "button": {
       "addCategory": "Dodaj Kategoriju",
       "addProduct": "Dodaj Artikal",
-      "addNewOrder": "Dodaj Novu Porudžbinu"
+      "addNewOrder": "Dodaj Novu Porudžbinu",
+      "addNewOrderDisabled": "Selektujte artikal..."
     },
     "category": "Kategorije",
     "order": "Porudžbine",
@@ -122,14 +123,12 @@
         "primePrice": "Nabavna Cena"
       },
       "order": {
-        "cancel": "Cancel",
-        "category": "Select a product",
-        "categoryHelper": "Please, select your products.",
-        "code": "Code",
-        "description": "Here you can add a new product to the order",
-        "name": "Name",
-        "submit": "Submit",
-        "title": "Add a new order"
+        "cancel": "Otkaži",
+        "description": "Ovde možete napraviti novu porudžbinu",
+        "formDesc": "Dodaj količinu za",
+        "submit": "Pošalji",
+        "title": "Napravi novu porudžbinu",
+        "quantity": "Količina"
       }
     },
     "list": {
@@ -142,7 +141,8 @@
       },
       "order": {
         "total": "Ukupna cena",
-        "products": "Artikli"
+        "products": "Artikli",
+        "createdAt": "Vreme"
       }
     },
     "noCategory": "Nije dodata kategorija",

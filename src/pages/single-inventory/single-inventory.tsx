@@ -1,5 +1,10 @@
 import { AxiosInstance } from "axios";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, useParams } from "react-router-dom";
 
@@ -18,12 +23,19 @@ import {
   DataGrid,
   GridCellEditCommitParams,
   GridColDef,
+  GridRowId,
+  GridRowParams,
   GridToolbar,
   MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
-import { getInventoryById, InventoryByIdResponse } from "../../api";
+import {
+  createOrder,
+  getInventoryById,
+  InventoryByIdResponse,
+  Product,
+} from "../../api";
 import { createCategory } from "../../api/category";
 import {
   createProduct,
@@ -31,9 +43,19 @@ import {
   createProductDetails,
 } from "../../api/product";
 import { TabPanel } from "../../components/tab-panel/tab-panel";
-
+import { Divider, Typography } from "@material-ui/core";
+import Slider from "@material-ui/core/Slider";
+import { v4 as uuid } from "uuid";
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
+}
+
+export function useForceUpdate() {
+  const [, setTick] = useState(0);
+  const update = useCallback(() => {
+    setTick((tick) => tick + 1);
+  }, []);
+  return update;
 }
 
 function a11yProps(index: any) {
@@ -82,6 +104,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   noButton: {
     height: 86,
   },
+  orderForm: {
+    marginBottom: 15,
+  },
+  orderFormDivider: {
+    marginTop: 50,
+    marginBottom: 50,
+    backgroundColor: "grey",
+  },
+  hidden: {
+    display: "none",
+  },
 }));
 
 export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
@@ -89,10 +122,10 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
   const [translate] = useTranslation("common");
+  const classes = useStyles();
   const [inventory, setInventory] = useState<InventoryByIdResponse | null>(
     null
   );
-  const classes = useStyles();
   const [value, setValue] = useState(0);
   const [productQuantityValue, setProductQuantityValue] = useState<{
     quantity: null | number;
@@ -102,8 +135,18 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     productId: null,
   });
   const [dialog, setOpen] = useState({ open: false, target: "" });
-
   const [category, setCategory] = useState("");
+  const [selectionProductModel, setSelectionProductModel] = React.useState<
+    GridRowId[]
+  >([]);
+  const [sliderValue, setSliderValue] = React.useState<
+    number | string | Array<number | string>
+  >(30);
+  const forceUpdate = useForceUpdate();
+
+  const handleSliderChange = (event: any, newValue: number | number[]) => {
+    setSliderValue(newValue);
+  };
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(event.target.value);
@@ -239,6 +282,16 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       headerName: translate("singleInventory.list.order.total"),
       width: 260,
     },
+    {
+      field: "createdAt",
+      headerName: translate("singleInventory.list.order.createdAt"),
+      valueFormatter: (params) => {
+        const d = new Date(params.value as string);
+
+        return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()} | ${d.getHours()}:${d.getMinutes()}`;
+      },
+      width: 260,
+    },
   ];
 
   const handleQuantityCellEdit = async (
@@ -282,6 +335,35 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       quantity: null,
       productId: null,
     });
+    const result = await getInventoryById(apiClient, parseInt(id));
+    setInventory(result);
+  };
+
+  const handleSubmitOrder = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(e.target);
+    const data: any = [];
+    let d: any = {};
+    let i = 0;
+    for (const el of e.currentTarget.elements) {
+      const element = el as HTMLInputElement;
+      if (element.nodeName === "INPUT") {
+        console.log({ [element.name]: element.value });
+        d[element.name] = parseInt(element.value);
+        if (i === 1) {
+          i = 0;
+          data.push(d);
+          d = {};
+        } else {
+          i++;
+        }
+      }
+    }
+
+    await createOrder(apiClient, parseInt(id), { order: data });
+    const result = await getInventoryById(apiClient, parseInt(id));
+    setInventory(result);
+    setOpen({ open: false, target: "" });
   };
 
   return (
@@ -325,9 +407,12 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               variant="contained"
               color="primary"
               className={classes.addButton}
+              disabled={selectionProductModel.length === 0}
               onClick={() => handleClickOpen("order")}
             >
-              {translate("singleInventory.button.addNewOrder")}
+              {selectionProductModel.length > 0
+                ? translate("singleInventory.button.addNewOrder")
+                : translate("singleInventory.button.addNewOrderDisabled")}
             </Button>
             <div style={{ width: "100%" }}>
               <DataGrid
@@ -338,9 +423,16 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 autoHeight={true}
                 autoPageSize={true}
                 checkboxSelection={true}
+                onSelectionModelChange={(newSelectionModel) => {
+                  setSelectionProductModel(newSelectionModel);
+                }}
+                selectionModel={selectionProductModel}
                 components={{
                   Toolbar: GridToolbar,
                 }}
+                isRowSelectable={(params: GridRowParams) =>
+                  params.row.quantity > 0
+                }
               />
             </div>
           </TabPanel>
@@ -539,7 +631,72 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
             </DialogActions>
           </form>
         )}
-        {dialog.target === "order" && <></>}
+        {dialog.target === "order" && (
+          <form noValidate autoComplete="off" onSubmit={handleSubmitOrder}>
+            <DialogTitle id="form-dialog-title">
+              {translate("singleInventory.dialog.order.title")}
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                {translate("singleInventory.dialog.order.description")}
+              </DialogContentText>
+              {selectionProductModel.map((id, i, arr) => {
+                const product = inventory?.products.find(
+                  (x) => x.id === id
+                ) as Product;
+
+                return (
+                  <div className={classes.orderForm} key={uuid()}>
+                    <Typography>
+                      {" "}
+                      {translate("singleInventory.dialog.order.formDesc")}:{" "}
+                      <b>{product.name}</b>
+                    </Typography>
+                    <TextField
+                      className={classes.hidden}
+                      margin="dense"
+                      label={product.name}
+                      value={product.id}
+                      disabled={true}
+                      type="number"
+                      name="productId"
+                      fullWidth
+                    />
+                    <Slider
+                      name="quantity"
+                      defaultValue={1}
+                      aria-labelledby="discrete-slider-always"
+                      step={1}
+                      marks={[
+                        { value: 1, label: 1 },
+                        {
+                          value: Math.round(product.quantity / 2),
+                          label: Math.round(product.quantity / 2),
+                        },
+                        { value: product.quantity, label: product.quantity },
+                      ]}
+                      min={1}
+                      max={product.quantity}
+                      valueLabelDisplay="auto"
+                    />
+                  </div>
+                );
+              })}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={handleClose}
+                color="secondary"
+                variant="contained"
+              >
+                {translate("singleInventory.dialog.order.cancel")}
+              </Button>
+              <Button type="submit" color="primary" variant="contained">
+                {translate("singleInventory.dialog.order.submit")}
+              </Button>
+            </DialogActions>
+          </form>
+        )}
       </Dialog>
     </>
   );
