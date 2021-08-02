@@ -18,7 +18,6 @@ import {
   DataGrid,
   GridCellEditCommitParams,
   GridColDef,
-  GridEditCellPropsParams,
   MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
