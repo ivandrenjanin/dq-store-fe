@@ -14,7 +14,7 @@ const lng = localStorage.getItem("language");
 
 i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
-  lng: lng ?? "en",
+  lng: lng ?? "rs",
   resources: {
     en: {
       common: commonEn,

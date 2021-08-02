@@ -157,7 +157,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   const handleChangeUnitOfMessure = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setCategory(event.target.value);
+    setUnitOfMessure(event.target.value);
   };
 
   const handleClickOpen = (target: string) => {
@@ -532,7 +532,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 select
                 label={translate("singleInventory.list.product.unitOfMessure")}
                 value={unitOfMessure}
-                name="category"
+                name="unitOfMessure"
                 onChange={handleChangeUnitOfMessure}
                 helperText={translate(
                   "singleInventory.list.product.unitOfMessure"
