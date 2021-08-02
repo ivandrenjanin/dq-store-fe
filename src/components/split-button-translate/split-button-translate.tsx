@@ -16,7 +16,7 @@ const options = ["EN", "RS"];
 export default function SplitButtonTranslate() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
   const { i18n } = useTranslation();
 
   const handleClick = () => {

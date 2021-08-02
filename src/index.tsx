@@ -12,7 +12,7 @@ import commonRs from "./translations/rs/common.json";
 
 i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
-  lng: "rs",
+  lng: "en",
   resources: {
     en: {
       common: commonEn,

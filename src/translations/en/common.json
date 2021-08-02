@@ -88,9 +88,11 @@
   "singleInventory": {
     "button": {
       "addCategory": "Add Category",
-      "addProduct": "Add product"
+      "addProduct": "Add Product",
+      "addNewOrder": "Add New Order"
     },
     "category": "Categories",
+    "order": "Orders",
     "dialog": {
       "category": {
         "cancel": "Cancel",
@@ -98,7 +100,7 @@
         "categoryHelper": "Please, select your category.",
         "code": "Code",
         "description": "Here you can add a new category",
-        "name": "name",
+        "name": "Name",
         "sellingPrice": "Selling price",
         "submit": "Submit",
         "title": "Add a new category"
@@ -109,7 +111,7 @@
         "categoryHelper": "Please, select your category.",
         "code": "Code",
         "description": "Here you can add a new product and its category",
-        "name": "name",
+        "name": "Name",
         "sellingPrice": "Selling price",
         "submit": "Submit",
         "title": "Add a new product"
@@ -118,15 +120,30 @@
         "title": "Prime price of a product",
         "description": "Type in the prime price of a product",
         "primePrice": "Prime Price"
+      },
+      "order": {
+        "cancel": "Cancel",
+        "product": "Select a product",
+        "productHelper": "Please, select your products.",
+        "code": "Code",
+        "description": "Here you can add a new product to the order",
+        "name": "Name",
+        "submit": "Submit",
+        "title": "Add a new order",
+        "quantity": "Quantity"
       }
     },
     "list": {
       "product": {
         "code": "Code",
         "description": "Here you can add a new product and its category",
-        "name": "name",
+        "name": "Name",
         "quantity": "Quantity",
         "sellingPrice": "Selling price"
+      },
+      "order": {
+        "total": "Grand Total",
+        "products": "Products"
       }
     },
     "noCategory": "No category added",

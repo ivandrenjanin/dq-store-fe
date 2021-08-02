@@ -22,6 +22,21 @@ export interface Product {
   }[];
 }
 
+export interface ProductOrder {
+  id: number;
+  total: number;
+  quantity: number;
+  product: Product;
+}
+
+export interface Order {
+  id: number;
+  total: number;
+  publicId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  productOrders: ProductOrder[];
+}
 export interface InventoryByIdResponse {
   id: number;
   publicId: string;
@@ -30,4 +45,5 @@ export interface InventoryByIdResponse {
   name: String;
   categories: Category[];
   products: Product[];
+  orders: Order[];
 }

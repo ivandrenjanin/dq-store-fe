@@ -87,10 +87,12 @@
   },
   "singleInventory": {
     "button": {
-      "addCategory": "Dodaj kategoriju",
-      "addProduct": "Dodaj artikal"
+      "addCategory": "Dodaj Kategoriju",
+      "addProduct": "Dodaj Artikal",
+      "addNewOrder": "Dodaj Novu Porudžbinu"
     },
     "category": "Kategorije",
+    "order": "Porudžbine",
     "dialog": {
       "category": {
         "cancel": "Otkaži",
@@ -118,6 +120,16 @@
         "title": "Nabavna cena artikla",
         "description": "Ukucajte nabavnu cenu artikla",
         "primePrice": "Nabavna Cena"
+      },
+      "order": {
+        "cancel": "Cancel",
+        "category": "Select a product",
+        "categoryHelper": "Please, select your products.",
+        "code": "Code",
+        "description": "Here you can add a new product to the order",
+        "name": "Name",
+        "submit": "Submit",
+        "title": "Add a new order"
       }
     },
     "list": {
@@ -127,6 +139,10 @@
         "name": "Ime",
         "quantity": "Količina",
         "sellingPrice": "Cena u prodaji"
+      },
+      "order": {
+        "total": "Ukupna cena",
+        "products": "Artikli"
       }
     },
     "noCategory": "Nije dodata kategorija",

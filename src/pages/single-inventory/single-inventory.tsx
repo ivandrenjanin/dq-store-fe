@@ -18,6 +18,7 @@ import {
   DataGrid,
   GridCellEditCommitParams,
   GridColDef,
+  GridToolbar,
   MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
@@ -49,6 +50,37 @@ const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
     marginTop: 25,
     marginBottom: 25,
+    marginRight: 25,
+  },
+  paper: {
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    listStyle: "none",
+    padding: theme.spacing(0.5),
+    margin: 0,
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+  dialogActions: {
+    display: "flex",
+    flexDirection: "column",
+    flexGrow: 1,
+  },
+  dialogAdd: {
+    alignSelf: "flex-start",
+    padding: 15,
+  },
+  dialogFinalize: {
+    alignSelf: "flex-end",
+    padding: 15,
+    "& button:first-child": {
+      marginRight: 15,
+    },
+  },
+  noButton: {
+    height: 86,
   },
 }));
 
@@ -61,17 +93,17 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     null
   );
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [productQuantityValue, setProductQuantityValue] = React.useState<{
+  const [value, setValue] = useState(0);
+  const [productQuantityValue, setProductQuantityValue] = useState<{
     quantity: null | number;
     productId: null | number;
   }>({
     quantity: null,
     productId: null,
   });
-  const [dialog, setOpen] = React.useState({ open: false, target: "" });
+  const [dialog, setOpen] = useState({ open: false, target: "" });
 
-  const [category, setCategory] = React.useState("");
+  const [category, setCategory] = useState("");
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(event.target.value);
@@ -189,6 +221,26 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     },
   ];
 
+  const orders = inventory
+    ? inventory.orders.map((d) => ({
+        ...d,
+        products: d.productOrders.map((x) => x.product.name).join(", "),
+      }))
+    : [];
+
+  const orderColumns: GridColDef[] = [
+    {
+      field: "products",
+      headerName: translate("singleInventory.list.order.products"),
+      width: 200,
+    },
+    {
+      field: "total",
+      headerName: translate("singleInventory.list.order.total"),
+      width: 260,
+    },
+  ];
+
   const handleQuantityCellEdit = async (
     params: GridCellEditCommitParams,
     event: MuiEvent<React.SyntheticEvent<Element, Event>>
@@ -252,6 +304,10 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 label={translate("singleInventory.product")}
                 {...a11yProps(1)}
               />
+              <Tab
+                label={translate("singleInventory.order")}
+                {...a11yProps(2)}
+              />
             </Tabs>
           </AppBar>
           <TabPanel value={value} index={1}>
@@ -264,14 +320,27 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
             >
               {translate("singleInventory.button.addProduct")}
             </Button>
-            <div style={{ height: 650, width: "100%" }}>
+            <Button
+              startIcon={<AddIcon />}
+              variant="contained"
+              color="primary"
+              className={classes.addButton}
+              onClick={() => handleClickOpen("order")}
+            >
+              {translate("singleInventory.button.addNewOrder")}
+            </Button>
+            <div style={{ width: "100%" }}>
               <DataGrid
                 rows={products}
                 columns={productColumns}
-                pageSize={10}
+                pageSize={20}
                 onCellEditCommit={handleQuantityCellEdit}
                 autoHeight={true}
                 autoPageSize={true}
+                checkboxSelection={true}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
               />
             </div>
           </TabPanel>
@@ -285,13 +354,32 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
             >
               {translate("singleInventory.button.addCategory")}
             </Button>
-            <div style={{ height: 650, width: "100%", padding: 0 }}>
+            <div style={{ width: "100%" }}>
               <DataGrid
                 rows={inventory.categories}
                 columns={categoryColumns}
-                pageSize={10}
+                pageSize={20}
                 autoHeight={true}
                 autoPageSize={true}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
+              />
+            </div>
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <div className={classes.noButton} />
+            <div style={{ width: "100%" }}>
+              <DataGrid
+                rows={orders}
+                columns={orderColumns}
+                pageSize={20}
+                autoHeight={true}
+                autoPageSize={true}
+                checkboxSelection={true}
+                components={{
+                  Toolbar: GridToolbar,
+                }}
               />
             </div>
           </TabPanel>
@@ -312,6 +400,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 {translate("singleInventory.dialog.product.description")}
               </DialogContentText>
               <TextField
+                autoFocus
                 id="standard-select-category"
                 select
                 label={translate("singleInventory.dialog.product.category")}
@@ -330,7 +419,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 ))}
               </TextField>
               <TextField
-                autoFocus
                 margin="dense"
                 id="name"
                 label={translate("singleInventory.dialog.product.name")}
@@ -339,7 +427,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 fullWidth
               />
               <TextField
-                autoFocus
                 margin="dense"
                 id="code"
                 label={translate("singleInventory.dialog.product.code")}
@@ -348,7 +435,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 fullWidth
               />
               <TextField
-                autoFocus
                 margin="dense"
                 id="sellingPrice"
                 label={translate("singleInventory.dialog.product.sellingPrice")}
@@ -390,7 +476,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 fullWidth
               />
               <TextField
-                autoFocus
                 margin="dense"
                 id="code"
                 label={translate("singleInventory.dialog.category.code")}
@@ -454,6 +539,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
             </DialogActions>
           </form>
         )}
+        {dialog.target === "order" && <></>}
       </Dialog>
     </>
   );
