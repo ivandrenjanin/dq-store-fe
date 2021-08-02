@@ -115,7 +115,15 @@
         "name": "Ime",
         "sellingPrice": "Cena u prodaji",
         "submit": "Pošalji",
-        "title": "Dodaj novi proizvod"
+        "title": "Dodaj novi proizvod",
+        "unitOfMessureList": {
+          "metre": "Metar (m)",
+          "centimetre": "Centimetar (cm)",
+          "kilogram": "Kilogram (kg)",
+          "gram": "Gram (g)",
+          "litre": "Litar (l)",
+          "each": "Komad (kom)"
+        }
       },
       "productQuantity": {
         "title": "Nabavna cena artikla",
@@ -137,7 +145,16 @@
         "description": "Ovde mozede dodati novi artikal i njegov kategoriju",
         "name": "Ime",
         "quantity": "Količina",
-        "sellingPrice": "Cena u prodaji"
+        "sellingPrice": "Cena u prodaji",
+        "unitOfMessure": "Jedinica Mere",
+        "unitOfMessureList": {
+          "metre": "m",
+          "centimetre": "cm",
+          "kilogram": "kg",
+          "gram": "g",
+          "litre": "l",
+          "each": "kom"
+        }
       },
       "order": {
         "total": "Ukupna cena",

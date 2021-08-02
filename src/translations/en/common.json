@@ -115,7 +115,15 @@
         "name": "Name",
         "sellingPrice": "Selling price",
         "submit": "Submit",
-        "title": "Add a new product"
+        "title": "Add a new product",
+        "unitOfMessureList": {
+          "metre": "Metre (m)",
+          "centimetre": "Centimetre (cm)",
+          "kilogram": "Kilogram (kg)",
+          "gram": "Gram (g)",
+          "litre": "Litre (l)",
+          "each": "Each (ea)"
+        }
       },
       "productQuantity": {
         "title": "Prime price of a product",
@@ -137,7 +145,16 @@
         "description": "Here you can add a new product and its category",
         "name": "Name",
         "quantity": "Quantity",
-        "sellingPrice": "Selling price"
+        "sellingPrice": "Selling price",
+        "unitOfMessure": "Unit of Messure",
+        "unitOfMessureList": {
+          "metre": "m",
+          "centimetre": "cm",
+          "kilogram": "kg",
+          "gram": "g",
+          "litre": "l",
+          "each": "ea"
+        }
       },
       "order": {
         "total": "Grand Total",

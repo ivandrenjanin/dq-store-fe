@@ -1,3 +1,5 @@
+import { UnitOfMessure } from "../../enum/unit-of-messure.enum";
+
 export interface ProductResponse {
   id: number;
   publicId: string;
@@ -7,4 +9,5 @@ export interface ProductResponse {
   code: string;
   sellingPrice: number;
   quantity: number;
+  unitOfMessure: UnitOfMessure;
 }

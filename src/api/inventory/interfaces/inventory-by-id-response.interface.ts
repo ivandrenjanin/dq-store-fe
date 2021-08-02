@@ -1,3 +1,5 @@
+import { UnitOfMessure } from "../../enum/unit-of-messure.enum";
+
 export interface Category {
   id: number;
   publicId: string;
@@ -16,6 +18,7 @@ export interface Product {
   code: string;
   sellingPrice: number;
   quantity: number;
+  unitOfMessure: UnitOfMessure;
   productCategories: {
     id: number;
     category: Category;

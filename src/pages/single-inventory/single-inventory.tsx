@@ -46,6 +46,7 @@ import { TabPanel } from "../../components/tab-panel/tab-panel";
 import { Divider, Typography } from "@material-ui/core";
 import Slider from "@material-ui/core/Slider";
 import { v4 as uuid } from "uuid";
+import { UnitOfMessure } from "../../api/enum/unit-of-messure.enum";
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
 }
@@ -136,6 +137,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   });
   const [dialog, setOpen] = useState({ open: false, target: "" });
   const [category, setCategory] = useState("");
+  const [unitOfMessure, setUnitOfMessure] = useState("");
   const [selectionProductModel, setSelectionProductModel] = React.useState<
     GridRowId[]
   >([]);
@@ -149,6 +151,12 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   };
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(event.target.value);
+  };
+
+  const handleChangeUnitOfMessure = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setCategory(event.target.value);
   };
 
@@ -219,10 +227,18 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
           x.productCategories.length > 0
             ? x.productCategories.map((c) => c.category.name).join(", ")
             : translate("singleInventory.noCategory"),
+        unitOfMessure: translate(
+          `singleInventory.list.product.unitOfMessureList.${x.unitOfMessure}`
+        ),
       }))
     : [];
 
   const productColumns: GridColDef[] = [
+    {
+      field: "category",
+      headerName: translate("singleInventory.category"),
+      width: 160,
+    },
     {
       field: "name",
       headerName: translate("singleInventory.list.product.name"),
@@ -233,11 +249,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       headerName: translate("singleInventory.list.product.code"),
       width: 200,
     },
-    {
-      field: "sellingPrice",
-      headerName: translate("singleInventory.list.product.sellingPrice"),
-      width: 200,
-    },
+
     {
       field: "quantity",
       headerName: translate("singleInventory.list.product.quantity"),
@@ -245,9 +257,14 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       editable: true,
     },
     {
-      field: "category",
-      headerName: translate("singleInventory.category"),
-      width: 160,
+      field: "unitOfMessure",
+      headerName: translate("singleInventory.list.product.unitOfMessure"),
+      width: 200,
+    },
+    {
+      field: "sellingPrice",
+      headerName: translate("singleInventory.list.product.sellingPrice"),
+      width: 200,
     },
   ];
 
@@ -507,6 +524,26 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 {inventory?.categories.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
                     {option.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                id="standard-select-unit-of-messure"
+                select
+                label={translate("singleInventory.list.product.unitOfMessure")}
+                value={unitOfMessure}
+                name="category"
+                onChange={handleChangeUnitOfMessure}
+                helperText={translate(
+                  "singleInventory.list.product.unitOfMessure"
+                )}
+                fullWidth
+              >
+                {Object.values(UnitOfMessure).map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {translate(
+                      `singleInventory.dialog.product.unitOfMessureList.${option}`
+                    )}
                   </MenuItem>
                 ))}
               </TextField>

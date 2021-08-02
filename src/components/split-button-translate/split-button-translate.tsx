@@ -16,7 +16,12 @@ const options = ["EN", "RS"];
 export default function SplitButtonTranslate() {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+  const lng = localStorage.getItem("language");
+
+  const lngChosen = lng ? options.indexOf(lng.toUpperCase()) : 0;
+
+  const [selectedIndex, setSelectedIndex] = React.useState(lngChosen);
   const { i18n } = useTranslation();
 
   const handleClick = () => {
@@ -30,6 +35,7 @@ export default function SplitButtonTranslate() {
     setSelectedIndex(index);
     setOpen(false);
     i18n.changeLanguage(options[index].toLocaleLowerCase());
+    localStorage.setItem("language", options[index].toLocaleLowerCase());
   };
 
   const handleToggle = () => {

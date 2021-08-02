@@ -10,9 +10,11 @@ import { Router } from "./router/router";
 import commonEn from "./translations/en/common.json";
 import commonRs from "./translations/rs/common.json";
 
+const lng = localStorage.getItem("language");
+
 i18next.init({
   interpolation: { escapeValue: false }, // React already does escaping
-  lng: "en",
+  lng: lng ?? "en",
   resources: {
     en: {
       common: commonEn,
