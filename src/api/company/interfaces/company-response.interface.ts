@@ -4,6 +4,8 @@ export interface CompanyResponse {
   isActive: boolean;
   name: string;
   postalCode: string;
+  street?: string;
+  city?: string;
   taxIdNumber: string;
   companyNumber: string;
   activityCode?: string;
@@ -12,7 +14,6 @@ export interface CompanyResponse {
   phoneFaxNumber?: string;
   phoneMobileNumber?: string;
   email?: string;
-  websiteURL?: string;
   createdAt: Date;
   updatedAt: Date;
 }

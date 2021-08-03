@@ -16,7 +16,8 @@
     "phoneMobileNumber": "Mobile Number",
     "postalCode": "Postal Code",
     "taxIdNumber": "Tax Identification Number",
-    "websiteURL": "Website Url"
+    "city": "City",
+    "street": "Street"
   },
   "dashboard": {
     "dialog": {
@@ -37,7 +38,8 @@
           "phoneMobileNumber": "Mobile Number",
           "postalCode": "Postal Code",
           "taxIdNumber": "Tax Identification Number",
-          "websiteURL": "Website Url"
+          "city": "City",
+          "street": "Street"
         },
         "subTitle": "Please add your company info.",
         "title": "Missing Company Info"
@@ -90,7 +92,8 @@
       "addCategory": "Add Category",
       "addProduct": "Add Product",
       "addNewOrder": "Add New Order",
-      "addNewOrderDisabled": "Select a product..."
+      "addNewOrderDisabled": "Select a product...",
+      "downloadOrderInvoice": "Download Order Invoice"
     },
     "category": "Categories",
     "order": "Orders",
@@ -116,6 +119,8 @@
         "sellingPrice": "Selling price",
         "submit": "Submit",
         "title": "Add a new product",
+        "taxRate": "Tax Rate (%)",
+        "primePrice": "Prime Price",
         "unitOfMessureList": {
           "metre": "Metre (m)",
           "centimetre": "Centimetre (cm)",
@@ -127,7 +132,8 @@
       },
       "productQuantity": {
         "title": "Prime price of a product",
-        "description": "Type in the prime price of a product",
+        "descriptionStart": "Are you sure you want to add",
+        "descriptionEnd": "to a previous quantity?",
         "primePrice": "Prime Price"
       },
       "order": {

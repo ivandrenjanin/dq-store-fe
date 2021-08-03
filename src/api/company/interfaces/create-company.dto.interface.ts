@@ -1,6 +1,8 @@
 export interface CreateCompanyDto {
   name: string;
   postalCode: string;
+  street?: string;
+  city?: string;
   taxIdNumber: string;
   companyNumber: string;
   activityCode?: string;
@@ -9,5 +11,4 @@ export interface CreateCompanyDto {
   phoneFaxNumber?: string;
   phoneMobileNumber?: string;
   email?: string;
-  websiteURL?: string;
 }

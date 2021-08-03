@@ -121,6 +121,17 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
       type: "name",
       label: translate("dashboard.dialog.form.field.name"),
     },
+
+    {
+      name: "city",
+      type: "city",
+      label: translate("dashboard.dialog.form.field.city"),
+    },
+    {
+      name: "street",
+      type: "street",
+      label: translate("dashboard.dialog.form.field.street"),
+    },
     {
       name: "postalCode",
       type: "postalCode",
@@ -165,11 +176,6 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
       name: "email",
       type: "email",
       label: translate("dashboard.dialog.form.field.email"),
-    },
-    {
-      name: "websiteURL",
-      type: "websiteURL",
-      label: translate("dashboard.dialog.form.field.websiteURL"),
     },
   ];
 
@@ -241,12 +247,6 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
-                {translate(`company.websiteURL`)}:
-              </span>
-              <span className={classes.listValue}>{company.websiteURL}</span>
-            </Box>
-            <Box component="div">
-              <span className={classes.listHeader}>
                 {translate(`company.email`)}:
               </span>
               <span className={classes.listValue}>{company.email}</span>
@@ -266,6 +266,18 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
               <span className={classes.listValue}>
                 {company.phoneMobileNumber}
               </span>
+            </Box>
+            <Box component="div">
+              <span className={classes.listHeader}>
+                {translate(`company.city`)}:
+              </span>
+              <span className={classes.listValue}> {company.city}</span>
+            </Box>
+            <Box component="div">
+              <span className={classes.listHeader}>
+                {translate(`company.street`)}:
+              </span>
+              <span className={classes.listValue}> {company.street}</span>
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>

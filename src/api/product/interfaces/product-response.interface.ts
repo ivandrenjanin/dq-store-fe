@@ -8,6 +8,9 @@ export interface ProductResponse {
   name: string;
   code: string;
   sellingPrice: number;
+  primePrice: number;
+  taxRate: number;
+  taxedPrice: number;
   quantity: number;
   unitOfMessure: UnitOfMessure;
 }

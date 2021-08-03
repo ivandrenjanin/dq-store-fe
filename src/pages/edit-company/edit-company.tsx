@@ -112,16 +112,6 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
             </Box>
             <Box component="div">
               <span className={classes.listHeader}>
-                {translate(`company.websiteURL`)}:
-              </span>
-              <Input
-                name="websiteURL"
-                className={classes.listValue}
-                defaultValue={company.websiteURL}
-              />
-            </Box>
-            <Box component="div">
-              <span className={classes.listHeader}>
                 {translate(`company.email`)}:
               </span>
               <Input
@@ -148,6 +138,26 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
                 name="phoneMobileNumber"
                 className={classes.listValue}
                 defaultValue={company.phoneMobileNumber}
+              />
+            </Box>
+            <Box component="div">
+              <span className={classes.listHeader}>
+                {translate(`company.city`)}:
+              </span>
+              <Input
+                name="city"
+                className={classes.listValue}
+                defaultValue={company.city}
+              />
+            </Box>
+            <Box component="div">
+              <span className={classes.listHeader}>
+                {translate(`company.street`)}:
+              </span>
+              <Input
+                name="street"
+                className={classes.listValue}
+                defaultValue={company.street}
               />
             </Box>
             <Box component="div">

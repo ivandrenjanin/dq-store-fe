@@ -16,7 +16,8 @@
     "phoneMobileNumber": "Mobilni",
     "postalCode": "Poštanski broj",
     "taxIdNumber": "PIB",
-    "websiteURL": "Veb sajt"
+    "city": "Grad",
+    "street": "Ulica"
   },
   "dashboard": {
     "dialog": {
@@ -37,7 +38,8 @@
           "phoneMobileNumber": "Mobilni",
           "postalCode": "Poštanski broj",
           "taxIdNumber": "PIB",
-          "websiteURL": "Veb sajt"
+          "city": "Grad",
+          "street": "Ulica"
         },
         "subTitle": "Popunite Vaše podatke.",
         "title": "Nedostatak podataka o kompaniji"
@@ -90,7 +92,8 @@
       "addCategory": "Dodaj Kategoriju",
       "addProduct": "Dodaj Artikal",
       "addNewOrder": "Dodaj Novu Porudžbinu",
-      "addNewOrderDisabled": "Selektujte artikal..."
+      "addNewOrderDisabled": "Selektujte artikal...",
+      "downloadOrderInvoice": "Preuzmi fakturu za porudžbinu"
     },
     "category": "Kategorije",
     "order": "Porudžbine",
@@ -111,11 +114,13 @@
         "category": "Selektuj kategoriju",
         "categoryHelper": "Izaberite vašu kategoriju.",
         "code": "Šifra",
-        "description": "Ovde mozede dodati novi artikal i njegov kategoriju",
+        "description": "Ovde mozede dodati novi artikal i njegovu kategoriju",
         "name": "Ime",
         "sellingPrice": "Cena u prodaji",
         "submit": "Pošalji",
         "title": "Dodaj novi proizvod",
+        "taxRate": "PDV",
+        "primePrice": "Nabavna cena",
         "unitOfMessureList": {
           "metre": "Metar (m)",
           "centimetre": "Centimetar (cm)",
@@ -127,7 +132,8 @@
       },
       "productQuantity": {
         "title": "Nabavna cena artikla",
-        "description": "Ukucajte nabavnu cenu artikla",
+        "descriptionStart": "Da li ste sigurni da želite da dodate",
+        "descriptionEnd": "na prethodnu količinu?",
         "primePrice": "Nabavna Cena"
       },
       "order": {

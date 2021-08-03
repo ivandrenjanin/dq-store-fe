@@ -7,14 +7,18 @@ import React, {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps, useParams } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
+import { Typography } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MenuItem from "@material-ui/core/MenuItem";
+import Slider from "@material-ui/core/Slider";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -29,7 +33,7 @@ import {
   MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
-import Button from "@material-ui/core/Button";
+
 import {
   createOrder,
   getInventoryById,
@@ -37,16 +41,16 @@ import {
   Product,
 } from "../../api";
 import { createCategory } from "../../api/category";
+import { UnitOfMessure } from "../../api/enum/unit-of-messure.enum";
 import {
   createProduct,
   createProductCategory,
   createProductDetails,
 } from "../../api/product";
 import { TabPanel } from "../../components/tab-panel/tab-panel";
-import { Divider, Typography } from "@material-ui/core";
-import Slider from "@material-ui/core/Slider";
-import { v4 as uuid } from "uuid";
-import { UnitOfMessure } from "../../api/enum/unit-of-messure.enum";
+import { getOrderInvoice } from "../../api/order/get-order-invoice";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
 }
@@ -141,14 +145,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
   const [selectionProductModel, setSelectionProductModel] = React.useState<
     GridRowId[]
   >([]);
-  const [sliderValue, setSliderValue] = React.useState<
-    number | string | Array<number | string>
-  >(30);
-  const forceUpdate = useForceUpdate();
-
-  const handleSliderChange = (event: any, newValue: number | number[]) => {
-    setSliderValue(newValue);
-  };
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(event.target.value);
@@ -190,6 +186,8 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       const { category, ...rest } = data;
       const p = await createProduct(apiClient, parseInt(id), {
         ...rest,
+        primePrice: parseInt(data.primePrice),
+        taxRate: parseInt(data.taxRate),
         sellingPrice: parseInt(data.sellingPrice),
       });
       await createProductCategory(
@@ -266,6 +264,27 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
       headerName: translate("singleInventory.list.product.sellingPrice"),
       width: 200,
     },
+    {
+      field: "primePrice",
+      // headerName: translate("singleInventory.list.product.sellingPrice"),
+      headerName: "Nabavna Cena",
+      width: 200,
+    },
+    {
+      field: "taxRate",
+      // headerName: translate("singleInventory.list.product.sellingPrice"),
+      headerName: "PDV (%)",
+      valueFormatter: (param) => {
+        return `${param.value}%`;
+      },
+      width: 200,
+    },
+    {
+      field: "taxedPrice",
+      // headerName: translate("singleInventory.list.product.sellingPrice"),
+      headerName: "Cena sa PDV-om",
+      width: 200,
+    },
   ];
 
   const categoryColumns: GridColDef[] = [
@@ -330,21 +349,24 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    const data: any = {};
-    for (const el of e.currentTarget.elements) {
-      const element = el as HTMLInputElement;
-      if (element.nodeName === "INPUT") {
-        data[element.name] = element.value;
-      }
-    }
+    // const data: any = {};
+    // for (const el of e.currentTarget.elements) {
+    //   const element = el as HTMLInputElement;
+    //   if (element.nodeName === "INPUT") {
+    //     data[element.name] = element.value;
+    //   }
+    // }
 
     if (productQuantityValue.productId && productQuantityValue.quantity) {
+      const pr = products.find(
+        (x) => x.id === productQuantityValue.productId
+      ) as Product;
       await createProductDetails(
         apiClient,
         parseInt(id),
         productQuantityValue.productId,
         productQuantityValue.quantity,
-        parseInt(data.sellingPrice as string)
+        pr.primePrice
       );
     }
     setOpen({ open: false, target: "" });
@@ -358,7 +380,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
 
   const handleSubmitOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e.target);
     const data: any = [];
     let d: any = {};
     let i = 0;
@@ -477,7 +498,16 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
             </div>
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <div className={classes.noButton} />
+            {/* <div className={classes.noButton} /> */}
+            <Button
+              startIcon={<AddIcon />}
+              variant="contained"
+              color="primary"
+              className={classes.addButton}
+              onClick={() => getOrderInvoice(apiClient, 1, 1)}
+            >
+              {translate("singleInventory.button.downloadOrderInvoice")}
+            </Button>
             <div style={{ width: "100%" }}>
               <DataGrid
                 rows={orders}
@@ -520,6 +550,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                   "singleInventory.dialog.product.categoryHelper"
                 )}
                 fullWidth
+                variant="outlined"
               >
                 {inventory?.categories.map((option) => (
                   <MenuItem key={option.id} value={option.id}>
@@ -538,6 +569,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                   "singleInventory.list.product.unitOfMessure"
                 )}
                 fullWidth
+                variant="outlined"
               >
                 {Object.values(UnitOfMessure).map((option) => (
                   <MenuItem key={option} value={option}>
@@ -554,6 +586,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 type="name"
                 name="name"
                 fullWidth
+                variant="outlined"
               />
               <TextField
                 margin="dense"
@@ -562,6 +595,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 type="code"
                 name="code"
                 fullWidth
+                variant="outlined"
               />
               <TextField
                 margin="dense"
@@ -570,6 +604,30 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 type="number"
                 name="sellingPrice"
                 fullWidth
+                variant="outlined"
+              />
+              <TextField
+                margin="dense"
+                id="primePrice"
+                label={translate("singleInventory.dialog.product.primePrice")}
+                type="number"
+                name="primePrice"
+                fullWidth
+                variant="outlined"
+              />
+              <TextField
+                margin="dense"
+                id="taxRate"
+                label={translate("singleInventory.dialog.product.taxRate")}
+                type="number"
+                name="taxRate"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">%</InputAdornment>
+                  ),
+                }}
+                fullWidth
+                variant="outlined"
               />
             </DialogContent>
             <DialogActions>
@@ -603,6 +661,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 type="name"
                 name="name"
                 fullWidth
+                variant="outlined"
               />
               <TextField
                 margin="dense"
@@ -611,6 +670,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                 type="code"
                 name="code"
                 fullWidth
+                variant="outlined"
               />
             </DialogContent>
             <DialogActions>
@@ -639,20 +699,13 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
             <DialogContent>
               <DialogContentText>
                 {translate(
-                  "singleInventory.dialog.productQuantity.description"
+                  "singleInventory.dialog.productQuantity.descriptionStart"
+                )}
+                {productQuantityValue.quantity}
+                {translate(
+                  "singleInventory.dialog.productQuantity.descriptionEnd"
                 )}
               </DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="sellingPrice"
-                label={translate(
-                  "singleInventory.dialog.productQuantity.primePrice"
-                )}
-                type="number"
-                name="sellingPrice"
-                fullWidth
-              />
             </DialogContent>
             <DialogActions>
               <Button
@@ -698,6 +751,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
                       type="number"
                       name="productId"
                       fullWidth
+                      variant="outlined"
                     />
                     <Slider
                       name="quantity"

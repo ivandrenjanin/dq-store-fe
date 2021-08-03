@@ -19,6 +19,9 @@ export interface Product {
   sellingPrice: number;
   quantity: number;
   unitOfMessure: UnitOfMessure;
+  primePrice: number;
+  taxRate: number;
+  taxedPrice: number;
   productCategories: {
     id: number;
     category: Category;
