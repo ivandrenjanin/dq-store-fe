@@ -700,8 +700,8 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               <DialogContentText>
                 {translate(
                   "singleInventory.dialog.productQuantity.descriptionStart"
-                )}
-                {productQuantityValue.quantity}
+                )}{" "}
+                {productQuantityValue.quantity}{" "}
                 {translate(
                   "singleInventory.dialog.productQuantity.descriptionEnd"
                 )}
