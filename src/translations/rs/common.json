@@ -63,6 +63,8 @@
         "enter": ""
       },
       "categories": "Kategorije",
+      "sellingPrice": "Ukupna vrednost robe",
+      "taxedPrice": "Ukupna vrednost robe sa PDV-om",
       "empty": "Nema dostupnih magacina",
       "name": "Ime",
       "products": "Artikli"

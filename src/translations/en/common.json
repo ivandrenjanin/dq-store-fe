@@ -65,7 +65,9 @@
       "categories": "Categories",
       "empty": "No available inventories",
       "name": "Name",
-      "products": "Products"
+      "products": "Products",
+      "sellingPrice": "Total value of products",
+      "taxedPrice": "Total value of products with tax"
     },
     "pageDescription": "Available Inventories"
   },

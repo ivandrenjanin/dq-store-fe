@@ -46,6 +46,12 @@ export const BasicTable: FunctionComponent<BasicTableProps> = ({ rows }) => {
             <TableCell align="right">
               {translate("inventory.inventoryTable.categories")}
             </TableCell>
+            <TableCell align="right">
+              {translate("inventory.inventoryTable.sellingPrice")}
+            </TableCell>
+            <TableCell align="right">
+              {translate("inventory.inventoryTable.taxedPrice")}
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,6 +72,18 @@ export const BasicTable: FunctionComponent<BasicTableProps> = ({ rows }) => {
                 </TableCell>
                 <TableCell align="right">{row.products.length}</TableCell>
                 <TableCell align="right">{row.categories.length}</TableCell>
+                <TableCell align="right">
+                  {row.products.reduce(
+                    (acc, p) => (acc += p.sellingPrice * p.quantity),
+                    0
+                  )}
+                </TableCell>
+                <TableCell align="right">
+                  {row.products.reduce(
+                    (acc, p) => (acc += p.taxedPrice * p.quantity),
+                    0
+                  )}
+                </TableCell>
               </TableRow>
             ))
           ) : (
