@@ -4,7 +4,7 @@ import { CreateCategoryDto } from "./interfaces/create-category.dto.interface";
 
 export const createCategory = async (
   client: AxiosInstance,
-  inventoryId: number,
+  inventoryId: string,
   dto: CreateCategoryDto
 ) => {
   try {

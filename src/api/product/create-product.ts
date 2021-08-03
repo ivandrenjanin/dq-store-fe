@@ -4,7 +4,7 @@ import { ProductResponse } from "./interfaces/product-response.interface";
 
 export const createProduct = async (
   client: AxiosInstance,
-  inventoryId: number,
+  inventoryId: string,
   dto: CreateProductDto
 ) => {
   try {

@@ -2,7 +2,7 @@ import { AxiosInstance } from "axios";
 import { CreateOrderDto } from "./interfaces/create-order.dto";
 export const createOrder = async (
   client: AxiosInstance,
-  inventoryId: number,
+  inventoryId: string,
   dto: CreateOrderDto
 ) => {
   try {

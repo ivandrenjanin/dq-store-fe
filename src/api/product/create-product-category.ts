@@ -2,8 +2,8 @@ import { AxiosInstance } from "axios";
 
 export const createProductCategory = async (
   client: AxiosInstance,
-  inventoryId: number,
-  productId: number,
+  inventoryId: string,
+  productId: string,
   categoryId: number
 ) => {
   try {
