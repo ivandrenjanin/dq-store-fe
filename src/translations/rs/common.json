@@ -153,6 +153,9 @@
         "quantity": "Količina",
         "sellingPrice": "Cena u prodaji",
         "unitOfMessure": "Jedinica Mere",
+        "primePrice": "Nabavna Cena",
+        "taxRate": "PDV (%)",
+        "taxedPrice": "Cena sa PDV-om",
         "unitOfMessureList": {
           "metre": "m",
           "centimetre": "cm",

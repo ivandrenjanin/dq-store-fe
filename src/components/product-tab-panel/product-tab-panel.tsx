@@ -249,14 +249,12 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     },
     {
       field: "primePrice",
-      // headerName: translate("singleInventory.list.product.sellingPrice"),
-      headerName: "Nabavna Cena",
+      headerName: translate("singleInventory.list.product.primePrice"),
       width: 200,
     },
     {
       field: "taxRate",
-      // headerName: translate("singleInventory.list.product.sellingPrice"),
-      headerName: "PDV (%)",
+      headerName: translate("singleInventory.list.product.taxRate"),
       valueFormatter: (param) => {
         return `${param.value}%`;
       },
@@ -264,8 +262,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     },
     {
       field: "taxedPrice",
-      // headerName: translate("singleInventory.list.product.sellingPrice"),
-      headerName: "Cena sa PDV-om",
+      headerName: translate("singleInventory.list.product.taxedPrice"),
       width: 200,
     },
   ];

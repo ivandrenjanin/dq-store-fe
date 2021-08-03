@@ -153,6 +153,9 @@
         "quantity": "Quantity",
         "sellingPrice": "Selling price",
         "unitOfMessure": "Unit of Messure",
+        "primePrice": "Prime Price",
+        "taxRate": "Tax Rate (%)",
+        "taxedPrice": "Taxed Price",
         "unitOfMessureList": {
           "metre": "m",
           "centimetre": "cm",
