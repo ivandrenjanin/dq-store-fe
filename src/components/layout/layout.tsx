@@ -28,6 +28,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import WorkIcon from "@material-ui/icons/Work";
 import SplitButtonTranslate from "../split-button-translate/split-button-translate";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useSnackbar } from "notistack";
+import { useAppSelector } from "../../hooks/redux.hooks";
+import { SnackbarState } from "../../reducers/snackbar.reducer";
+import { useEffect } from "react";
 
 const drawerWidth = 240;
 
@@ -112,6 +116,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       width: 300,
     },
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
   })
 );
 
@@ -123,11 +131,23 @@ export const Layout: FunctionComponent<LayoutProps> = ({
   children,
 }) => {
   const drawerOpen = localStorage.getItem("drawerOpen") === "true";
+  const [open, setOpen] = React.useState(drawerOpen);
+  const snackbarState = useAppSelector<SnackbarState>(
+    (state) => state.snackbar
+  );
+  const { enqueueSnackbar } = useSnackbar();
 
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(drawerOpen);
   const [translate] = useTranslation("common");
+
+  useEffect(() => {
+    if (snackbarState.variant !== "") {
+      enqueueSnackbar(snackbarState.message, {
+        variant: snackbarState.variant,
+      });
+    }
+  }, [enqueueSnackbar, snackbarState]);
 
   const handleDrawerOpen = () => {
     localStorage.setItem("drawerOpen", "true");

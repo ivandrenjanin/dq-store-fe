@@ -15,6 +15,8 @@ import { TabPanel } from "../../components/tab-panel/tab-panel";
 import { CategoryTabPanel } from "../../components/category-tab-panel/category-tab-panel";
 import { ProductTabPanel } from "../../components/product-tab-panel/product-tab-panel";
 import { OrderTabPanel } from "../../components/order-tab-panel/order-tab-panel";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
+import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -42,6 +44,8 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     null
   );
   const [value, setValue] = useState(0);
+  const isLoading = useAppSelector((state) => state.loading.value);
+  const dispatch = useAppDispatch();
 
   const [translate] = useTranslation("common");
   const classes = useStyles();
@@ -52,16 +56,20 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
 
   useEffect(() => {
     const fetchInventoryById = async () => {
+      dispatch(loadingStarted());
       const result = await getInventoryById(apiClient, parseInt(id));
       setInventory(result);
+      dispatch(loadingFinished());
     };
 
     fetchInventoryById();
   }, []);
 
   const handleSetInventory = async () => {
+    dispatch(loadingStarted());
     const result = await getInventoryById(apiClient, parseInt(id));
     setInventory(result);
+    dispatch(loadingFinished());
   };
 
   return (
@@ -95,6 +103,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               inventoryId={id}
               categories={inventory.categories}
               handleSetInventory={handleSetInventory}
+              isLoading={isLoading}
             />
           </TabPanel>
           <TabPanel value={value} index={1}>
@@ -104,6 +113,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               products={inventory.products}
               categories={inventory.categories}
               handleSetInventory={handleSetInventory}
+              isLoading={isLoading}
             />
           </TabPanel>
           <TabPanel value={value} index={2}>
@@ -112,6 +122,7 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               inventoryId={id}
               orders={inventory.orders}
               handleSetInventory={handleSetInventory}
+              isLoading={isLoading}
             />
           </TabPanel>
         </div>

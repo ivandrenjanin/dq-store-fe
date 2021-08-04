@@ -1,4 +1,17 @@
 {
+  "error": {
+    "UNKNOWN_ERROR": "Unknown error!",
+    "CATEGORY_CODE_OR_NAME_EXIST": "Category with code already exists!!",
+    "CATEGORY_NOT_FOUND": "Category does not exist!"
+  },
+  "successMessage": {
+    "CATEGORY_CREATED": "Category added successfully.",
+    "INVENTORY_CREATED": "Inventory added successfully.",
+    "PRODUCT_CREATED": "Product added successfully.",
+    "PRODUCT_DETAILS_CREATED": "New quantity added successfully.",
+    "PRODUCT_ORDER_CREATED": "Order added successfully.",
+    "DEFAULT": "Operation executed successfully."
+  },
   "company": {
     "activityCode": "Activity Code",
     "bankAccountNumber": "Bank Account Number",

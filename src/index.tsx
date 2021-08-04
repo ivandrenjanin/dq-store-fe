@@ -4,11 +4,13 @@ import i18next from "i18next";
 import React from "react";
 import ReactDOM from "react-dom";
 import { I18nextProvider } from "react-i18next";
-
-import client from "./api/client/client";
+import { Provider } from "react-redux";
+import { createClient } from "./api/client/client";
 import { Router } from "./router/router";
 import commonEn from "./translations/en/common.json";
 import commonRs from "./translations/rs/common.json";
+import { store } from "./store/configure-store";
+import { SnackbarProvider } from "notistack";
 
 const lng = localStorage.getItem("language");
 
@@ -28,8 +30,12 @@ i18next.init({
 });
 
 ReactDOM.render(
-  <I18nextProvider i18n={i18next}>
-    <Router apiClient={client} />
-  </I18nextProvider>,
+  <Provider store={store}>
+    <I18nextProvider i18n={i18next}>
+      <SnackbarProvider maxSnack={6}>
+        <Router apiClient={createClient()} />
+      </SnackbarProvider>
+    </I18nextProvider>
+  </Provider>,
   document.getElementById("root")
 );

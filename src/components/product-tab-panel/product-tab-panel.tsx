@@ -35,6 +35,13 @@ import {
   Product,
 } from "../../api";
 import { UnitOfMessure } from "../../api/enum/unit-of-messure.enum";
+import { useAppDispatch } from "../../hooks/redux.hooks";
+import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
+import {
+  handleSuccessMessage,
+  SuccessMessage,
+} from "../../helpers/handle-success-message.helper";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -55,6 +62,7 @@ interface ProductTabPanelProps {
   inventoryId: string;
   products: Product[];
   categories: Category[];
+  isLoading: boolean;
   handleSetInventory: () => Promise<void>;
 }
 
@@ -64,10 +72,12 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
   products,
   categories,
   handleSetInventory,
+  isLoading,
 }) => {
   const [dialog, setOpenDialog] = useState(false);
   const [dialogQty, setOpenDialogQty] = useState(false);
   const [dialogOrder, setOpenDialogOrder] = useState(false);
+  const [dialogError, setDialogError] = useState<boolean>(false);
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
   const [category, setCategory] = useState("");
   const [unitOfMessure, setUnitOfMessure] = useState("");
@@ -78,27 +88,33 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     quantity: null,
     productId: null,
   });
+  const dispatch = useAppDispatch();
   const [translate] = useTranslation("common");
   const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpenDialog(true);
+    setDialogError(false);
   };
 
   const handleClickOpenOrder = () => {
     setOpenDialogOrder(true);
+    setDialogError(false);
   };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
+    setDialogError(false);
   };
 
   const handleCloseQty = () => {
     setOpenDialogQty(false);
+    setDialogError(false);
   };
 
   const handleCloseOrder = () => {
     setOpenDialogOrder(false);
+    setDialogError(false);
   };
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,21 +138,38 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     }
 
     const { category, ...rest } = data;
-    const p = await createProduct(apiClient, inventoryId, {
-      ...rest,
-      primePrice: parseInt(data.primePrice),
-      taxRate: parseInt(data.taxRate),
-      sellingPrice: parseInt(data.sellingPrice),
-    });
-    await createProductCategory(
-      apiClient,
-      inventoryId,
-      p.id.toString(),
-      parseInt(category)
-    );
-    await handleSetInventory();
-
-    setOpenDialog(false);
+    try {
+      const p = await createProduct(apiClient, inventoryId, {
+        ...rest,
+        primePrice: parseInt(data.primePrice),
+        taxRate: parseInt(data.taxRate),
+        sellingPrice: parseInt(data.sellingPrice),
+      });
+      await createProductCategory(
+        apiClient,
+        inventoryId,
+        p.id.toString(),
+        parseInt(category)
+      );
+      await handleSetInventory();
+      setOpenDialog(false);
+      setDialogError(false);
+      dispatch(
+        snackbarSuccess(
+          handleSuccessMessage(SuccessMessage.PRODUCT_CREATED, translate)
+        )
+      );
+    } catch (error) {
+      setDialogError(true);
+      dispatch(
+        snackbarError(
+          handleErrorMessage(
+            error.response.data.details.message || error.message,
+            translate
+          )
+        )
+      );
+    }
   };
 
   const handleSubmitProductDetails = async (
@@ -147,20 +180,41 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       const pr = products.find(
         (x) => x.id === productQuantityValue.productId
       ) as Product;
-      await createProductDetails(
-        apiClient,
-        inventoryId,
-        productQuantityValue.productId.toString(),
-        productQuantityValue.quantity,
-        pr.primePrice
-      );
+      try {
+        await createProductDetails(
+          apiClient,
+          inventoryId,
+          productQuantityValue.productId.toString(),
+          productQuantityValue.quantity,
+          pr.primePrice
+        );
+        setOpenDialogQty(false);
+        setDialogError(false);
+        setProductQuantityValue({
+          quantity: null,
+          productId: null,
+        });
+        await handleSetInventory();
+        dispatch(
+          snackbarSuccess(
+            handleSuccessMessage(
+              SuccessMessage.PRODUCT_DETAILS_CREATED,
+              translate
+            )
+          )
+        );
+      } catch (error) {
+        setDialogError(true);
+        dispatch(
+          snackbarError(
+            handleErrorMessage(
+              error.response.data.details.message || error.message,
+              translate
+            )
+          )
+        );
+      }
     }
-    setOpenDialogQty(false);
-    setProductQuantityValue({
-      quantity: null,
-      productId: null,
-    });
-    await handleSetInventory();
   };
 
   const handleSubmitOrder = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -171,7 +225,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
       if (element.nodeName === "INPUT") {
-        console.log({ [element.name]: element.value });
         d[element.name] = parseInt(element.value);
         if (i === 1) {
           i = 0;
@@ -183,9 +236,28 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       }
     }
 
-    await createOrder(apiClient, inventoryId, { order: data });
-    await handleSetInventory();
-    setOpenDialogOrder(false);
+    try {
+      await createOrder(apiClient, inventoryId, { order: data });
+      await handleSetInventory();
+      setOpenDialogOrder(false);
+      setDialogError(false);
+
+      dispatch(
+        snackbarSuccess(
+          handleSuccessMessage(SuccessMessage.PRODUCT_ORDER_CREATED, translate)
+        )
+      );
+    } catch (error) {
+      setDialogError(true);
+      dispatch(
+        snackbarError(
+          handleErrorMessage(
+            error.response.data.details.message || error.message,
+            translate
+          )
+        )
+      );
+    }
   };
 
   const handleQuantityCellEdit = async (
@@ -292,6 +364,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       </Button>
       <div style={{ width: "100%" }}>
         <DataGrid
+          loading={isLoading}
           rows={mappedProducts}
           columns={productColumns}
           pageSize={20}
@@ -335,6 +408,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               )}
               fullWidth
               variant="outlined"
+              error={dialogError}
             >
               {categories.map((option) => (
                 <MenuItem key={option.id} value={option.id}>
@@ -354,6 +428,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               )}
               fullWidth
               variant="outlined"
+              error={dialogError}
             >
               {Object.values(UnitOfMessure).map((option) => (
                 <MenuItem key={option} value={option}>
@@ -371,6 +446,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               name="name"
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
             <TextField
               margin="dense"
@@ -380,6 +456,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               name="code"
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
             <TextField
               margin="dense"
@@ -389,6 +466,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               name="sellingPrice"
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
             <TextField
               margin="dense"
@@ -398,6 +476,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               name="primePrice"
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
             <TextField
               margin="dense"
@@ -410,6 +489,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               }}
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
           </DialogContent>
           <DialogActions>

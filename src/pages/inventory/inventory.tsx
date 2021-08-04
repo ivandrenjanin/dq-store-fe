@@ -20,6 +20,15 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
+import { Loader } from "../../components/loader/loader";
+import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import {
+  handleSuccessMessage,
+  SuccessMessage,
+} from "../../helpers/handle-success-message.helper";
+import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 
 export interface InventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -43,6 +52,9 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
   >([]);
   const [open, setOpen] = React.useState(false);
 
+  const isLoading = useAppSelector((state) => state.loading.value);
+  const dispatch = useAppDispatch();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -53,6 +65,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(loadingStarted());
     const data: any = {};
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
@@ -60,26 +73,42 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
         data[element.name] = element.value;
       }
     }
-    const newInventory = await createInventory(apiClient, data);
-    const populated = await getInventoryById(apiClient, newInventory.id);
-    const newData = populatedInventories;
-    newData.push(populated);
-    setPopulatedInventories(newData);
-    setOpen(false);
+
+    try {
+      const newInventory = await createInventory(apiClient, data);
+      const populated = await getInventoryById(apiClient, newInventory.id);
+      setPopulatedInventories((s) => s.concat(populated));
+      setOpen(false);
+      dispatch(loadingFinished());
+      dispatch(
+        snackbarSuccess(
+          handleSuccessMessage(SuccessMessage.INVENTORY_CREATED, translate)
+        )
+      );
+    } catch (error) {
+      dispatch(
+        snackbarError(
+          handleErrorMessage(
+            error.response.data.details.message || error.message,
+            translate
+          )
+        )
+      );
+    }
   };
 
   const classes = useStyles();
 
   useEffect(() => {
     const fetchInventories = async () => {
+      dispatch(loadingStarted());
       const inventories = await getInventories(apiClient);
-      const arr: InventoryByIdResponse[] = [];
       for (const inventory of inventories) {
         const populated = await getInventoryById(apiClient, inventory.id);
-        arr.push(populated);
+        setPopulatedInventories((s) => s.concat(populated));
       }
 
-      setPopulatedInventories(arr);
+      dispatch(loadingFinished());
     };
 
     fetchInventories();
@@ -87,6 +116,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
 
   return (
     <>
+      <Loader isLoading={isLoading} />
       <div className={classes.root}>
         <Typography variant="h4" component="h4">
           {translate("inventory.pageDescription")}

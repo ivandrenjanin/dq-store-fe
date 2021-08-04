@@ -9,7 +9,6 @@ const PrivateRoute = ({ component: Component, apiClient, ...rest }: any) => {
     <Route
       {...rest}
       render={(props) => {
-        console.log({ props });
         return isLoggedIn() ? (
           <Layout
             history={props.history}

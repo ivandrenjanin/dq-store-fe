@@ -21,6 +21,8 @@ interface OrderTabPanelProps {
   apiClient: AxiosInstance;
   inventoryId: string;
   orders: Order[];
+  isLoading: boolean;
+
   handleSetInventory: () => Promise<void>;
 }
 
@@ -29,6 +31,7 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
   inventoryId,
   orders,
   handleSetInventory,
+  isLoading,
 }) => {
   const [translate] = useTranslation("common");
   const classes = useStyles();
@@ -78,6 +81,7 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
       </Button>
       <div style={{ width: "100%" }}>
         <DataGrid
+          loading={isLoading}
           rows={mappedOrders}
           columns={orderColumns}
           pageSize={20}

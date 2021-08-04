@@ -19,6 +19,9 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
 import { CompanyResponse, getCompany, createCompany } from "../../api/company";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
+import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import { Loader } from "../../components/loader/loader";
 
 export interface CompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -63,6 +66,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
   const classes = useStyles();
   const [translate] = useTranslation("common");
+
+  const isLoading = useAppSelector((state) => state.loading.value);
+  const dispatch = useAppDispatch();
+
   const [company, setCompany] = useState<CompanyResponse | null>(null);
   const [createCompanyDialog, setCreateCompanyDialog] =
     useState<boolean>(false);
@@ -79,18 +86,20 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
 
   useEffect(() => {
     const fetchCompany = async () => {
+      dispatch(loadingStarted());
+
       try {
         const company = await getCompany(apiClient);
         setCompany(company);
       } catch (e) {
         const err = e as AxiosError;
         if (err.response?.status === 404) {
-          console.log("COMPANY NOT FOUND");
           setCreateCompanyDialog(true);
         } else {
           console.error(err);
         }
       }
+      dispatch(loadingFinished());
     };
 
     fetchCompany();
@@ -98,6 +107,7 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
 
   const handleSubmitCompany = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    dispatch(loadingStarted());
     const data: any = {};
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
@@ -113,6 +123,7 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
     } catch (e) {
       setCompanyDialogError(true);
     }
+    dispatch(loadingFinished());
   };
 
   const dialogFormFields = [
@@ -181,6 +192,7 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
 
   return (
     <>
+      <Loader isLoading={isLoading} />
       {!company ? (
         <Dialog open={createCompanyDialog}>
           <form noValidate autoComplete="off" onSubmit={handleSubmitCompany}>

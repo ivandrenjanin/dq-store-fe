@@ -14,6 +14,13 @@ import { DataGrid, GridColDef, GridToolbar } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
 import { Category, createCategory } from "../../api";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import {
+  handleSuccessMessage,
+  SuccessMessage,
+} from "../../helpers/handle-success-message.helper";
+import { useAppDispatch } from "../../hooks/redux.hooks";
+import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -27,6 +34,7 @@ interface CategoryTabPanelProps {
   apiClient: AxiosInstance;
   inventoryId: string;
   categories: Category[];
+  isLoading: boolean;
   handleSetInventory: () => Promise<void>;
 }
 
@@ -35,8 +43,11 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
   inventoryId,
   apiClient,
   handleSetInventory,
+  isLoading,
 }) => {
   const [dialog, setOpenDialog] = useState(false);
+  const [dialogError, setDialogError] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   const [translate] = useTranslation("common");
   const classes = useStyles();
@@ -72,9 +83,27 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
       }
     }
 
-    await createCategory(apiClient, inventoryId, data);
-    await handleSetInventory();
-    setOpenDialog(false);
+    try {
+      await createCategory(apiClient, inventoryId, data);
+      dispatch(
+        snackbarSuccess(
+          handleSuccessMessage(SuccessMessage.CATEGORY_CREATED, translate)
+        )
+      );
+      await handleSetInventory();
+      setOpenDialog(false);
+      setDialogError(false);
+    } catch (error) {
+      setDialogError(true);
+      dispatch(
+        snackbarError(
+          handleErrorMessage(
+            error.response.data.details.message || error.message,
+            translate
+          )
+        )
+      );
+    }
   };
 
   return (
@@ -90,6 +119,7 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
       </Button>
       <div style={{ width: "100%" }}>
         <DataGrid
+          loading={isLoading}
           rows={categories}
           columns={categoryColumns}
           pageSize={20}
@@ -122,6 +152,7 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
               name="name"
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
             <TextField
               margin="dense"
@@ -131,6 +162,7 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
               name="code"
               fullWidth
               variant="outlined"
+              error={dialogError}
             />
           </DialogContent>
           <DialogActions>
