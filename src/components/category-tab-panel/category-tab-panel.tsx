@@ -34,7 +34,6 @@ interface CategoryTabPanelProps {
   apiClient: AxiosInstance;
   inventoryId: string;
   categories: Category[];
-  isLoading: boolean;
   handleSetInventory: () => Promise<void>;
 }
 
@@ -43,7 +42,6 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
   inventoryId,
   apiClient,
   handleSetInventory,
-  isLoading,
 }) => {
   const [dialog, setOpenDialog] = useState(false);
   const [dialogError, setDialogError] = useState<boolean>(false);
@@ -119,7 +117,6 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
       </Button>
       <div style={{ width: "100%" }}>
         <DataGrid
-          loading={isLoading}
           rows={categories}
           columns={categoryColumns}
           pageSize={20}

@@ -2,8 +2,8 @@ import { AxiosInstance } from "axios";
 
 export const getOrderInvoice = async (
   client: AxiosInstance,
-  inventoryId: number,
-  orderId: number
+  inventoryId: string,
+  orderId: string
 ) => {
   try {
     const res = await client.get(

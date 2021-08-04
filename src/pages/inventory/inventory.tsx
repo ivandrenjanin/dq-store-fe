@@ -79,7 +79,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
       const populated = await getInventoryById(apiClient, newInventory.id);
       setPopulatedInventories((s) => s.concat(populated));
       setOpen(false);
-      dispatch(loadingFinished());
+
       dispatch(
         snackbarSuccess(
           handleSuccessMessage(SuccessMessage.INVENTORY_CREATED, translate)
@@ -95,6 +95,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
         )
       );
     }
+    dispatch(loadingFinished());
   };
 
   const classes = useStyles();

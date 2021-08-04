@@ -62,7 +62,6 @@ interface ProductTabPanelProps {
   inventoryId: string;
   products: Product[];
   categories: Category[];
-  isLoading: boolean;
   handleSetInventory: () => Promise<void>;
 }
 
@@ -72,7 +71,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
   products,
   categories,
   handleSetInventory,
-  isLoading,
 }) => {
   const [dialog, setOpenDialog] = useState(false);
   const [dialogQty, setOpenDialogQty] = useState(false);
@@ -364,7 +362,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       </Button>
       <div style={{ width: "100%" }}>
         <DataGrid
-          loading={isLoading}
           rows={mappedProducts}
           columns={productColumns}
           pageSize={20}
