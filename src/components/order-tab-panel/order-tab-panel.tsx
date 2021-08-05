@@ -113,7 +113,7 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
           onClick={() => handleDownloadClick(params.value as number)}
           disabled={isLoading}
         >
-          Preuzmi
+          {translate("singleInventory.button.downloadOrderInvoiceButton")}
         </Button>
       ),
     },

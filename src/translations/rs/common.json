@@ -108,7 +108,8 @@
       "addProduct": "Dodaj Artikal",
       "addNewOrder": "Dodaj Novu Porudžbinu",
       "addNewOrderDisabled": "Selektujte artikal...",
-      "downloadOrderInvoice": "Preuzmi fakturu za porudžbinu"
+      "downloadOrderInvoice": "Preuzmi fakturu za porudžbinu",
+      "downloadOrderInvoiceButton": "Preuzmi"
     },
     "category": "Kategorije",
     "order": "Porudžbine",

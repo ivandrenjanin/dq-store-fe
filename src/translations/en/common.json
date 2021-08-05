@@ -108,7 +108,8 @@
       "addProduct": "Add Product",
       "addNewOrder": "Add New Order",
       "addNewOrderDisabled": "Select a product...",
-      "downloadOrderInvoice": "Download Order Invoice"
+      "downloadOrderInvoice": "Download Order Invoice",
+      "downloadOrderInvoiceButton": "Download"
     },
     "category": "Categories",
     "order": "Orders",
