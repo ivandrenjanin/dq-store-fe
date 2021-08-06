@@ -25,7 +25,7 @@ import {
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { Inventory as InventoryEntity } from "../../entities";
-import { setInventory } from "../../actions/inventory.action";
+import { setInventories, setInventory } from "../../actions/inventory.action";
 
 export interface InventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -98,11 +98,12 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
     const fetchInventories = async () => {
       dispatch(loadingStarted());
       const inventories = await getInventories(apiClient);
+      const i = [];
       for (const inventory of inventories) {
         const populated = await getInventoryById(apiClient, inventory.id);
-        dispatch(setInventory(populated));
+        i.push(populated);
       }
-
+      dispatch(setInventories(i));
       dispatch(loadingFinished());
     };
 
