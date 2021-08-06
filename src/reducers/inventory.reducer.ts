@@ -17,7 +17,7 @@ export const inventoryReducer = (
     case InventoryActionType.SET_INVENTORY:
       return state.concat(action.payload);
     case InventoryActionType.SET_INVENTORIES:
-      return state.concat(action.payload);
+      return action.payload;
     case InventoryActionType.UPDATE_INVENTORY:
       const newState = state.filter((i) => i.id !== action.payload.id);
       return [...newState, action.payload];

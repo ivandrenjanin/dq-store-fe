@@ -16,7 +16,7 @@ export const companyClientReducer = (
     case CompanyClientActionType.SET_COMPANY_CLIENT:
       return state.concat(action.payload);
     case CompanyClientActionType.SET_COMPANY_CLIENTS:
-      return state.concat(action.payload);
+      return action.payload;
     default:
       return state;
   }
