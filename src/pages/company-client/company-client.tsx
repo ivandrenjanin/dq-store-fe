@@ -1,35 +1,36 @@
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import Typography from "@material-ui/core/Typography";
-import { DataGrid, GridColDef, GridToolbar } from "@material-ui/data-grid";
 import { AxiosInstance } from "axios";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { RouteComponentProps } from "react-router";
-import AddIcon from "@material-ui/icons/Add";
 import { useTranslation } from "react-i18next";
-import { makeStyles, Theme } from "@material-ui/core/styles";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import InputMask from "react-input-mask";
+import { RouteComponentProps } from "react-router";
+import { v4 as uuid } from "uuid";
+
+import { Grid, TextField } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
-import {
-  handleSuccessMessage,
-  SuccessMessage,
-} from "../../helpers/handle-success-message.helper";
-import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
-import { Grid, TextField } from "@material-ui/core";
-import { v4 as uuid } from "uuid";
-import InputMask from "react-input-mask";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import { DataGrid, GridColDef, GridToolbar } from "@material-ui/data-grid";
+import AddIcon from "@material-ui/icons/Add";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { BankInfo } from "../../entities";
-import { createCompanyClient, getCompanyClients } from "../../api";
+
 import {
   setCompanyClient,
   setCompanyClients,
 } from "../../actions/company-client.action";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
+import { createCompanyClient, getCompanyClients } from "../../api";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import {
+  handleSuccessMessage,
+  SuccessMessage,
+} from "../../helpers/handle-success-message.helper";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 
 interface CompanyClientProps extends RouteComponentProps {
   apiClient: AxiosInstance;

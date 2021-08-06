@@ -1,28 +1,29 @@
 import { AxiosError, AxiosInstance } from "axios";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import InputMask from "react-input-mask";
 import { Link, RouteComponentProps } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import EditIcon from "@material-ui/icons/Edit";
-import { v4 as uuid } from "uuid";
-
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import EditIcon from "@material-ui/icons/Edit";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import { getCompany, createCompany } from "../../api/company";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import { createCompany, getCompany } from "../../api/company";
 import { Loader } from "../../components/loader/loader";
 import { Company as CompanyEntity } from "../../entities";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 
 export interface CompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -70,6 +71,7 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
 
   const isLoading = useAppSelector((state) => state.loading.value);
   const dispatch = useAppDispatch();
+  const bankInfo = useAppSelector((state) => state.bankInfo);
 
   const [company, setCompany] = useState<CompanyEntity | null>(null);
   const [createCompanyDialog, setCreateCompanyDialog] =
@@ -131,63 +133,86 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
     {
       name: "name",
       type: "name",
+      required: true,
+      mask: "",
       label: translate("dashboard.dialog.form.field.name"),
     },
-
+    {
+      name: "email",
+      type: "email",
+      mask: "",
+      required: true,
+      label: translate("dashboard.dialog.form.field.email"),
+    },
     {
       name: "city",
       type: "city",
+      required: true,
+      mask: "",
       label: translate("dashboard.dialog.form.field.city"),
     },
     {
       name: "street",
       type: "street",
+      required: true,
+      mask: "",
       label: translate("dashboard.dialog.form.field.street"),
     },
     {
       name: "postalCode",
       type: "postalCode",
+      required: true,
+      mask: "",
       label: translate("dashboard.dialog.form.field.postalCode"),
     },
     {
       name: "taxIdNumber",
       type: "taxIdNumber",
+      required: true,
+      mask: "",
       label: translate("dashboard.dialog.form.field.taxIdNumber"),
     },
     {
       name: "companyNumber",
       type: "companyNumber",
+      required: true,
+      mask: "",
       label: translate("dashboard.dialog.form.field.companyNumber"),
     },
     {
       name: "activityCode",
       type: "activityCode",
+      mask: "",
+      required: true,
       label: translate("dashboard.dialog.form.field.activityCode"),
-    },
-    {
-      name: "bankName",
-      type: "bankName",
-      label: translate("dashboard.dialog.form.field.bankName"),
-    },
-    {
-      name: "bankAccountNumber",
-      type: "bankAccountNumber",
-      label: translate("dashboard.dialog.form.field.bankAccountNumber"),
     },
     {
       name: "phoneFaxNumber",
       type: "phoneFaxNumber",
+      required: true,
+      mask: "+381 099 999 99 99",
       label: translate("dashboard.dialog.form.field.phoneFaxNumber"),
     },
     {
       name: "phoneMobileNumber",
       type: "phoneMobileNumber",
+      mask: "+381 099 999 99 99",
+      required: true,
       label: translate("dashboard.dialog.form.field.phoneMobileNumber"),
     },
     {
-      name: "email",
-      type: "email",
-      label: translate("dashboard.dialog.form.field.email"),
+      name: "bankName",
+      type: "bankName",
+      required: true,
+      mask: "",
+      label: translate("dashboard.dialog.form.field.bankName"),
+    },
+    {
+      name: "bankAccountNumber",
+      type: "bankAccountNumber",
+      required: true,
+      mask: "999-9999999999999-99",
+      label: translate("dashboard.dialog.form.field.bankAccountNumber"),
     },
   ];
 
@@ -219,18 +244,50 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
                       key={uuid()}
                       xs={i === arr.length - 1 && arr.length % 2 !== 0 ? 12 : 6}
                     >
-                      <TextField
-                        variant="outlined"
-                        color="primary"
-                        autoFocus
-                        margin="dense"
-                        id={field.name}
-                        label={field.label}
-                        type={field.type}
-                        name={field.name}
-                        fullWidth
-                        error={companyDialogError}
-                      />
+                      {field.name === "bankName" ? (
+                        <Autocomplete
+                          options={bankInfo.map((option) => option.name)}
+                          renderInput={(params: any) => {
+                            return (
+                              <TextField
+                                {...params}
+                                variant="outlined"
+                                color="primary"
+                                autoFocus={i === 0 && true}
+                                margin="dense"
+                                id={field.name}
+                                label={field.label}
+                                type={field.type}
+                                name={field.name}
+                                fullWidth
+                                required={field.required}
+                                error={field.required && companyDialogError}
+                              />
+                            );
+                          }}
+                        />
+                      ) : (
+                        <InputMask mask={field.mask}>
+                          {(inputProps: any) => {
+                            return (
+                              <TextField
+                                {...inputProps}
+                                variant="outlined"
+                                color="primary"
+                                autoFocus={i === 0 && true}
+                                margin="dense"
+                                id={field.name}
+                                label={field.label}
+                                type={field.type}
+                                name={field.name}
+                                fullWidth
+                                required={field.required}
+                                error={field.required && companyDialogError}
+                              />
+                            );
+                          }}
+                        </InputMask>
+                      )}
                     </Grid>
                   ))}
                 </Grid>
