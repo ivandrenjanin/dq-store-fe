@@ -1,9 +1,9 @@
 import { AxiosInstance } from "axios";
-import { CompanyResponse } from "./interfaces/company-response.interface";
+import { Company } from "../../entities";
 
 export const getCompany = async (client: AxiosInstance) => {
   try {
-    const { data } = await client.get<CompanyResponse>("/company");
+    const { data } = await client.get<Company>("/company");
     return data;
   } catch (error) {
     throw error;

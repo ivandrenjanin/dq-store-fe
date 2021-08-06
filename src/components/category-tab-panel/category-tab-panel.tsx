@@ -13,7 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import { DataGrid, GridColDef, GridToolbar } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
-import { Category, createCategory } from "../../api";
+import { createCategory } from "../../api";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import {
   handleSuccessMessage,
@@ -21,6 +21,7 @@ import {
 } from "../../helpers/handle-success-message.helper";
 import { useAppDispatch } from "../../hooks/redux.hooks";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
+import { Category } from "../../entities";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {

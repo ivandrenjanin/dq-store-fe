@@ -75,9 +75,9 @@ export const SignIn: FunctionComponent<SignInProps> = ({
   return (
     <>
       <div className={classes.root}>
-        <div className={classes.translateBtn}>
+        {/* <div className={classes.translateBtn}>
           <SplitButtonTranslate />
-        </div>
+        </div> */}
 
         <form
           noValidate

@@ -9,7 +9,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
-import { getInventoryById, InventoryByIdResponse } from "../../api";
+import { getCompanyClients, getInventoryById } from "../../api";
 
 import { TabPanel } from "../../components/tab-panel/tab-panel";
 import { CategoryTabPanel } from "../../components/category-tab-panel/category-tab-panel";
@@ -18,6 +18,9 @@ import { OrderTabPanel } from "../../components/order-tab-panel/order-tab-panel"
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 import { Loader } from "../../components/loader/loader";
+import { Inventory } from "../../entities";
+import { setInventory, updateInventory } from "../../actions/inventory.action";
+import { setCompanyClients } from "../../actions/company-client.action";
 
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -41,9 +44,11 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
 
-  const [inventory, setInventory] = useState<InventoryByIdResponse | null>(
-    null
+  const inventory = useAppSelector((state) =>
+    state.inventories.find((i) => i.id === parseInt(id))
   );
+  const companyClients = useAppSelector((state) => state.companyClients);
+
   const [value, setValue] = useState(0);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector((state) => state.loading.value);
@@ -54,23 +59,41 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
     setValue(newValue);
   };
 
-  useEffect(() => {
-    const fetchInventoryById = async () => {
-      dispatch(loadingStarted());
-      const result = await getInventoryById(apiClient, parseInt(id));
-      setInventory(result);
-      dispatch(loadingFinished());
-    };
-
-    fetchInventoryById();
-  }, []);
-
   const handleSetInventory = async () => {
     dispatch(loadingStarted());
     const result = await getInventoryById(apiClient, parseInt(id));
-    setInventory(result);
+    dispatch(updateInventory(result));
     dispatch(loadingFinished());
   };
+
+  useEffect(() => {
+    if (!inventory) {
+      const fetchInventoryById = async () => {
+        dispatch(loadingStarted());
+        const result = await getInventoryById(apiClient, parseInt(id));
+        dispatch(setInventory(result));
+        dispatch(loadingFinished());
+      };
+
+      fetchInventoryById();
+    }
+
+    if (companyClients.length === 0) {
+      const fetchCompanyClients = async () => {
+        dispatch(loadingStarted());
+
+        try {
+          const companyClients = await getCompanyClients(apiClient);
+          dispatch(setCompanyClients(companyClients));
+        } catch (e) {
+          console.error(e);
+        }
+        dispatch(loadingFinished());
+      };
+
+      fetchCompanyClients();
+    }
+  }, []);
 
   return (
     <>
@@ -120,7 +143,6 @@ export const SingleInventory: FunctionComponent<SingleInventoryProps> = ({
               apiClient={apiClient}
               inventoryId={id}
               orders={inventory.orders}
-              handleSetInventory={handleSetInventory}
             />
           </TabPanel>
         </div>

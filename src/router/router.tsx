@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import { BrowserRouter, Switch } from "react-router-dom";
+import { CompanyClient } from "../pages/company-client/company-client";
 
 import { Company } from "../pages/company/company";
 // import { Dashboard } from "../pages/dashboard/dashboard";
@@ -36,6 +37,12 @@ export const Router = ({ apiClient }: Props) => {
           component={Company}
           apiClient={apiClient}
           path="/company"
+          exact
+        />
+        <PrivateRoute
+          component={CompanyClient}
+          apiClient={apiClient}
+          path="/client"
           exact
         />
         <PrivateRoute

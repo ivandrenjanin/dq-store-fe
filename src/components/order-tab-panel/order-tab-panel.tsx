@@ -11,7 +11,6 @@ import {
   GridColDef,
   GridToolbar,
 } from "@material-ui/data-grid";
-import { Order } from "../../api";
 import { getOrderInvoice } from "../../api/order/get-order-invoice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
@@ -21,6 +20,7 @@ import {
 } from "../../helpers/handle-success-message.helper";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import { Order } from "../../entities";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -37,15 +37,12 @@ interface OrderTabPanelProps {
   apiClient: AxiosInstance;
   inventoryId: string;
   orders: Order[];
-
-  handleSetInventory: () => Promise<void>;
 }
 
 export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
   apiClient,
   inventoryId,
   orders,
-  handleSetInventory,
 }) => {
   const [translate] = useTranslation("common");
   const isLoading = useAppSelector((state) => state.loading.value);
@@ -77,9 +74,15 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
   const mappedOrders = orders.map((d) => ({
     ...d,
     products: d.productOrders.map((x) => x.product.name).join(", "),
+    companyClient: d.companyClient.name,
   }));
 
   const orderColumns: GridColDef[] = [
+    {
+      field: "companyClient",
+      headerName: translate("singleInventory.list.order.companyClient"),
+      width: 200,
+    },
     {
       field: "products",
       headerName: translate("singleInventory.list.order.products"),

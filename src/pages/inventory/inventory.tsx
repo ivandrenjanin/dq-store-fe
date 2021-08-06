@@ -5,12 +5,7 @@ import { AxiosInstance } from "axios";
 import React, { useEffect, useState, FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps } from "react-router-dom";
-import {
-  createInventory,
-  getInventories,
-  getInventoryById,
-  InventoryByIdResponse,
-} from "../../api";
+import { createInventory, getInventories, getInventoryById } from "../../api";
 
 import { BasicTable } from "./table";
 import AddIcon from "@material-ui/icons/Add";
@@ -29,6 +24,8 @@ import {
 } from "../../helpers/handle-success-message.helper";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import { Inventory as InventoryEntity } from "../../entities";
+import { setInventory } from "../../actions/inventory.action";
 
 export interface InventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -47,11 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
   const [translate] = useTranslation("common");
-  const [populatedInventories, setPopulatedInventories] = useState<
-    InventoryByIdResponse[]
-  >([]);
   const [open, setOpen] = React.useState(false);
-
+  const inventories = useAppSelector((state) => state.inventories);
   const isLoading = useAppSelector((state) => state.loading.value);
   const dispatch = useAppDispatch();
 
@@ -77,7 +71,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
     try {
       const newInventory = await createInventory(apiClient, data);
       const populated = await getInventoryById(apiClient, newInventory.id);
-      setPopulatedInventories((s) => s.concat(populated));
+      dispatch(setInventory(populated));
       setOpen(false);
 
       dispatch(
@@ -106,7 +100,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
       const inventories = await getInventories(apiClient);
       for (const inventory of inventories) {
         const populated = await getInventoryById(apiClient, inventory.id);
-        setPopulatedInventories((s) => s.concat(populated));
+        dispatch(setInventory(populated));
       }
 
       dispatch(loadingFinished());
@@ -131,7 +125,7 @@ export const Inventory: FunctionComponent<InventoryProps> = ({ apiClient }) => {
         >
           {translate("inventory.inventoryTable.button.add")}
         </Button>
-        <BasicTable rows={populatedInventories} />
+        <BasicTable rows={inventories} />
         <Dialog
           open={open}
           onClose={handleClose}

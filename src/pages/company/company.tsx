@@ -18,10 +18,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 
-import { CompanyResponse, getCompany, createCompany } from "../../api/company";
+import { getCompany, createCompany } from "../../api/company";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 import { Loader } from "../../components/loader/loader";
+import { Company as CompanyEntity } from "../../entities";
 
 export interface CompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -70,7 +71,7 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
   const isLoading = useAppSelector((state) => state.loading.value);
   const dispatch = useAppDispatch();
 
-  const [company, setCompany] = useState<CompanyResponse | null>(null);
+  const [company, setCompany] = useState<CompanyEntity | null>(null);
   const [createCompanyDialog, setCreateCompanyDialog] =
     useState<boolean>(false);
   const [companyDialogError, setCompanyDialogError] = useState<boolean>(false);

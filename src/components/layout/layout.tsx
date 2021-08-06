@@ -32,6 +32,7 @@ import { useSnackbar } from "notistack";
 import { useAppSelector } from "../../hooks/redux.hooks";
 import { SnackbarState } from "../../reducers/snackbar.reducer";
 import { useEffect } from "react";
+import PeopleIcon from "@material-ui/icons/People";
 
 const drawerWidth = 240;
 
@@ -187,16 +188,16 @@ export const Layout: FunctionComponent<LayoutProps> = ({
           </IconButton>
           <div className={classes.nav}>
             <Typography variant="h6">D/q Storehouse</Typography>
-            <div className={classes.btnGroup}>
-              <Button
-                color="inherit"
-                onClick={handleLogout}
-                startIcon={<ExitToAppIcon />}
-              >
-                {translate("layout.navigation.logout")}
-              </Button>
-              <SplitButtonTranslate />
-            </div>
+            {/* <div className={classes.btnGroup}> */}
+            <Button
+              color="inherit"
+              onClick={handleLogout}
+              startIcon={<ExitToAppIcon />}
+            >
+              {translate("layout.navigation.logout")}
+            </Button>
+            {/* <SplitButtonTranslate /> */}
+            {/* </div> */}
           </div>
         </Toolbar>
       </AppBar>
@@ -254,6 +255,23 @@ export const Layout: FunctionComponent<LayoutProps> = ({
                 <WorkIcon />
               </ListItemIcon>
               <ListItemText primary={translate("layout.navigation.company")} />
+            </ListItem>
+          </Link>
+          <Link to="/client" className={classes.link}>
+            <ListItem
+              button
+              className={
+                location.pathname.includes("client")
+                  ? classes.active
+                  : classes.inactive
+              }
+            >
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={translate("layout.navigation.companyClient")}
+              />
             </ListItem>
           </Link>
           <Link to="/inventory" className={classes.link}>

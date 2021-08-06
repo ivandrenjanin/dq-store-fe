@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
+import { Product } from "../../entities";
 import { CreateProductDto } from "./interfaces/create-prodduct.dto.interface";
-import { ProductResponse } from "./interfaces/product-response.interface";
 
 export const createProduct = async (
   client: AxiosInstance,
@@ -8,7 +8,7 @@ export const createProduct = async (
   dto: CreateProductDto
 ) => {
   try {
-    const { data } = await client.post<ProductResponse>(
+    const { data } = await client.post<Product>(
       `/inventory/${inventoryId}/product`,
       dto
     );

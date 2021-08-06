@@ -10,6 +10,7 @@
     "PRODUCT_CREATED": "Artikal uspešno dodat.",
     "PRODUCT_DETAILS_CREATED": "Nova količina uspešno dodata.",
     "PRODUCT_ORDER_CREATED": "Nova porudžbina uspešno dodata.",
+    "COMPANY_CLIENT_CREATED": "Novi klijent uspešno dodat.",
     "DEFAULT": "Operacija uspešno izvršena."
   },
   "company": {
@@ -31,6 +32,18 @@
     "taxIdNumber": "PIB",
     "city": "Grad",
     "street": "Ulica"
+  },
+  "companyClient": {
+    "button": {
+      "addClient": "Dodaj novog klijenta"
+    },
+    "dialog": {
+      "cancel": "Otkaži",
+      "description": "Ovde mozete dodati novog klijenta",
+      "submit": "Pošalji",
+      "title": "Dodaj novog klijenta"
+    },
+    "title": "Lista klijenata"
   },
   "dashboard": {
     "dialog": {
@@ -89,6 +102,7 @@
       "company": "Kompanija",
       "dashboard": "Komandna Tabla",
       "inventory": "Magacin",
+      "companyClient": "Klijenti",
       "logout": "Odjava"
     }
   },
@@ -137,6 +151,8 @@
         "title": "Dodaj novi proizvod",
         "taxRate": "PDV",
         "primePrice": "Nabavna cena",
+        "companyClient": "Klijenti",
+        "companyClientHelper": "Izaberite klijenta",
         "unitOfMessureList": {
           "metre": "Metar (m)",
           "centimetre": "Centimetar (cm)",
@@ -182,6 +198,7 @@
         }
       },
       "order": {
+        "companyClient": "Za klijenta",
         "total": "Ukupna cena",
         "products": "Artikli",
         "createdAt": "Vreme"

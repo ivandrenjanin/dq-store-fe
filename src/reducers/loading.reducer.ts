@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 
-interface LoadingState {
+export interface LoadingState {
   value: boolean;
 }
 

@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { CompanyResponse } from "./interfaces/company-response.interface";
+import { Company } from "../../entities";
 import { CreateCompanyDto } from "./interfaces/create-company.dto.interface";
 
 export const updateCompany = async (
@@ -8,7 +8,7 @@ export const updateCompany = async (
   dto: Partial<CreateCompanyDto>
 ) => {
   try {
-    const { data } = await client.patch<CompanyResponse>(`/company/${id}`, dto);
+    const { data } = await client.patch<Company>(`/company/${id}`, dto);
     return data;
   } catch (error) {
     throw error;

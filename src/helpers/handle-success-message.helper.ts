@@ -12,6 +12,9 @@ export enum SuccessMessage {
   PRODUCT_DETAILS_CREATED = "PRODUCT_DETAILS_CREATED",
   PRODUCT_ORDER_CREATED = "PRODUCT_ORDER_CREATED",
 
+  // Company Client Related Messages
+  COMPANY_CLIENT_CREATED = "COMPANY_CLIENT_CREATED",
+
   // DEFAULT
   DEFAULT = "DEFAULT",
 }
@@ -34,6 +37,10 @@ export const handleSuccessMessage = (
     case SuccessMessage.PRODUCT_ORDER_CREATED:
       return translate(
         `successMessage.${SuccessMessage.PRODUCT_ORDER_CREATED}`
+      );
+    case SuccessMessage.COMPANY_CLIENT_CREATED:
+      return translate(
+        `successMessage.${SuccessMessage.COMPANY_CLIENT_CREATED}`
       );
     default:
       return translate(`successMessage.${SuccessMessage.DEFAULT}`);

@@ -7,11 +7,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { InventoryByIdResponse } from "../../api";
 import { Button } from "@material-ui/core";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Inventory } from "../../entities";
 
 const useStyles = makeStyles({
   root: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 interface BasicTableProps {
-  rows: InventoryByIdResponse[];
+  rows: Inventory[];
 }
 
 export const BasicTable: FunctionComponent<BasicTableProps> = ({ rows }) => {

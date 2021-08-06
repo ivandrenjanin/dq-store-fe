@@ -3,5 +3,6 @@ export interface CreateOrderInnerDto {
   quantity: number;
 }
 export interface CreateOrderDto {
+  companyClientId: number;
   order: CreateOrderInnerDto[];
 }

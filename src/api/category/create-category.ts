@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { CategoryResponse } from "./interfaces/category-response.interface";
+import { Category } from "../../entities";
 import { CreateCategoryDto } from "./interfaces/create-category.dto.interface";
 
 export const createCategory = async (
@@ -8,7 +8,7 @@ export const createCategory = async (
   dto: CreateCategoryDto
 ) => {
   try {
-    const { data } = await client.post<CategoryResponse>(
+    const { data } = await client.post<Category>(
       `/inventory/${inventoryId}/category`,
       dto
     );

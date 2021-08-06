@@ -1,4 +1,4 @@
-export interface CompanyResponse {
+export interface Company {
   id: number;
   publicId: string;
   isActive: boolean;

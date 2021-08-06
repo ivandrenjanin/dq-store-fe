@@ -1,11 +1,9 @@
 import { AxiosInstance } from "axios";
-import { InventoryByIdResponse } from "./interfaces/inventory-by-id-response.interface";
+import { Inventory } from "../../entities";
 
 export const getInventoryById = async (client: AxiosInstance, id: number) => {
   try {
-    const { data } = await client.get<InventoryByIdResponse>(
-      `/inventory/${id}`
-    );
+    const { data } = await client.get<Inventory>(`/inventory/${id}`);
     return data;
   } catch (error) {
     throw error;

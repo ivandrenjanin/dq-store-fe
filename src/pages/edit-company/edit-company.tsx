@@ -12,7 +12,8 @@ import Typography from "@material-ui/core/Typography";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import SaveIcon from "@material-ui/icons/Save";
 
-import { CompanyResponse, getCompany, updateCompany } from "../../api/company";
+import { getCompany, updateCompany } from "../../api/company";
+import { Company } from "../../entities";
 
 export interface EditCompanyProps extends RouteComponentProps {
   apiClient: AxiosInstance;
@@ -63,7 +64,7 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
 }) => {
   const classes = useStyles();
   const [translate] = useTranslation("common");
-  const [company, setCompany] = useState<Partial<CompanyResponse> | null>(null);
+  const [company, setCompany] = useState<Partial<Company> | null>(null);
 
   useEffect(() => {
     const fetchCompany = async () => {

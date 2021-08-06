@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
-import { CompanyResponse, getCompany } from "../../api/company";
 import { DashboardProps } from "./interfaces/dashboard-props.interface";
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";

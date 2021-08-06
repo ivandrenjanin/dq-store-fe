@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
+import { Inventory } from "../../entities";
 import { CreateInventoryDto } from "./interfaces/create-inventory.dto.interface";
-import { InventoryResponse } from "./interfaces/inventory-response.interface";
 
 export const updateInventory = async (
   client: AxiosInstance,
@@ -8,10 +8,9 @@ export const updateInventory = async (
   dto: Partial<CreateInventoryDto>
 ) => {
   try {
-    const { data } = await client.patch<InventoryResponse>(
-      `/inventory/${id}`,
-      dto
-    );
+    const { data } = await client.patch<
+      Pick<Inventory, "id" | "name" | "publicId" | "createdAt" | "updatedAt">
+    >(`/inventory/${id}`, dto);
     return data;
   } catch (error) {
     throw error;

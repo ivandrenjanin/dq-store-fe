@@ -27,21 +27,20 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 
 import {
-  Category,
   createOrder,
   createProduct,
   createProductCategory,
   createProductDetails,
-  Product,
 } from "../../api";
-import { UnitOfMessure } from "../../api/enum/unit-of-messure.enum";
-import { useAppDispatch } from "../../hooks/redux.hooks";
+import { UnitOfMessure } from "../../entities/enum/unit-of-messure.enum";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 import {
   handleSuccessMessage,
   SuccessMessage,
 } from "../../helpers/handle-success-message.helper";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import { Category, Product } from "../../entities";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -78,6 +77,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
   const [dialogError, setDialogError] = useState<boolean>(false);
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
   const [category, setCategory] = useState("");
+  const [selectedCompanyClient, setSelectedCompanyClient] = useState("");
   const [unitOfMessure, setUnitOfMessure] = useState("");
   const [productQuantityValue, setProductQuantityValue] = useState<{
     quantity: null | number;
@@ -86,6 +86,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     quantity: null,
     productId: null,
   });
+  const companyClients = useAppSelector((state) => state.companyClients);
   const dispatch = useAppDispatch();
   const [translate] = useTranslation("common");
   const classes = useStyles();
@@ -117,6 +118,12 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
 
   const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCategory(event.target.value);
+  };
+
+  const handleChangeCompanyClient = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSelectedCompanyClient(event.target.value);
   };
 
   const handleChangeUnitOfMessure = (
@@ -222,7 +229,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     let i = 0;
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
-      if (element.nodeName === "INPUT") {
+      if (element.nodeName === "INPUT" && element.name !== "companyClientId") {
         d[element.name] = parseInt(element.value);
         if (i === 1) {
           i = 0;
@@ -233,9 +240,11 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
         }
       }
     }
-
     try {
-      await createOrder(apiClient, inventoryId, { order: data });
+      await createOrder(apiClient, inventoryId, {
+        companyClientId: parseInt(selectedCompanyClient),
+        order: data,
+      });
       await handleSetInventory();
       setOpenDialogOrder(false);
       setDialogError(false);
@@ -353,7 +362,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
         variant="contained"
         color="primary"
         className={classes.addButton}
-        disabled={selectionModel.length === 0}
+        disabled={selectionModel.length === 0 || companyClients.length === 0}
         onClick={() => handleClickOpenOrder()}
       >
         {selectionModel.length > 0
@@ -554,6 +563,26 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
             <DialogContentText>
               {translate("singleInventory.dialog.order.description")}
             </DialogContentText>
+            <TextField
+              autoFocus
+              select
+              label={translate("singleInventory.dialog.product.companyClient")}
+              value={selectedCompanyClient}
+              name="companyClientId"
+              onChange={handleChangeCompanyClient}
+              helperText={translate(
+                "singleInventory.dialog.product.companyClientHelper"
+              )}
+              fullWidth
+              variant="outlined"
+              error={dialogError}
+            >
+              {companyClients.map((option) => (
+                <MenuItem key={option.id} value={option.id}>
+                  {option.name}
+                </MenuItem>
+              ))}
+            </TextField>
             {selectionModel.map((id, i, arr) => {
               const product = products.find((x) => x.id === id) as Product;
 

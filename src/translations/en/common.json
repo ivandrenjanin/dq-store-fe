@@ -89,6 +89,7 @@
       "company": "Company",
       "dashboard": "Dashboard",
       "inventory": "Inventory",
+      "companyClient": "Clients",
       "logout": "Logout"
     }
   },

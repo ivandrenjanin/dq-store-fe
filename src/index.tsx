@@ -11,6 +11,7 @@ import commonEn from "./translations/en/common.json";
 import commonRs from "./translations/rs/common.json";
 import { store } from "./store/configure-store";
 import { SnackbarProvider } from "notistack";
+import { getBankInfo } from "./api";
 
 const lng = localStorage.getItem("language");
 
@@ -28,6 +29,10 @@ i18next.init({
   whitelist: ["en", "rs"],
   fallbackLng: ["rs"],
 });
+
+getBankInfo(createClient()).then((data) =>
+  store.dispatch({ type: "BANK_INFO", payload: data })
+);
 
 ReactDOM.render(
   <Provider store={store}>
