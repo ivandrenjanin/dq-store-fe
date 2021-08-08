@@ -146,9 +146,9 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     try {
       const p = await createProduct(apiClient, inventoryId, {
         ...rest,
-        primePrice: parseInt(data.primePrice),
-        taxRate: parseInt(data.taxRate),
-        sellingPrice: parseInt(data.sellingPrice),
+        primePrice: parseFloat(data.primePrice),
+        taxRate: parseFloat(data.taxRate),
+        sellingPrice: parseFloat(data.sellingPrice),
       });
       await createProductCategory(
         apiClient,
@@ -230,7 +230,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
       if (element.nodeName === "INPUT" && element.name !== "companyClientId") {
-        d[element.name] = parseInt(element.value);
+        d[element.name] = parseFloat(element.value);
         if (i === 1) {
           i = 0;
           data.push(d);
