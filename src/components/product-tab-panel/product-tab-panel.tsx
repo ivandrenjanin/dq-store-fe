@@ -41,6 +41,7 @@ import {
 } from "../../helpers/handle-success-message.helper";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { Category, Product } from "../../entities";
+import { formatNumber } from "../../helpers/format-number.helper";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -325,11 +326,13 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       field: "sellingPrice",
       headerName: translate("singleInventory.list.product.sellingPrice"),
       width: 200,
+      valueFormatter: (params) => formatNumber(params.value as number),
     },
     {
       field: "primePrice",
       headerName: translate("singleInventory.list.product.primePrice"),
       width: 200,
+      valueFormatter: (params) => formatNumber(params.value as number),
     },
     {
       field: "taxRate",
@@ -343,6 +346,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       field: "taxedPrice",
       headerName: translate("singleInventory.list.product.taxedPrice"),
       width: 200,
+      valueFormatter: (params) => formatNumber(params.value as number),
     },
   ];
 

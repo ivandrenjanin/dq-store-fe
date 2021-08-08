@@ -21,6 +21,7 @@ import {
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 import { Order } from "../../entities";
+import { formatNumber } from "../../helpers/format-number.helper";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -92,6 +93,7 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
       field: "total",
       headerName: translate("singleInventory.list.order.total"),
       width: 260,
+      valueFormatter: (params) => formatNumber(params.value as number),
     },
     {
       field: "createdAt",
