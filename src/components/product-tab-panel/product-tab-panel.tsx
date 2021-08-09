@@ -73,20 +73,20 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
   handleSetInventory,
 }) => {
   const [dialog, setOpenDialog] = useState(false);
-  const [dialogQty, setOpenDialogQty] = useState(false);
+  // const [dialogQty, setOpenDialogQty] = useState(false);
   const [dialogOrder, setOpenDialogOrder] = useState(false);
   const [dialogError, setDialogError] = useState<boolean>(false);
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
   const [category, setCategory] = useState("");
   const [selectedCompanyClient, setSelectedCompanyClient] = useState("");
   const [unitOfMessure, setUnitOfMessure] = useState("");
-  const [productQuantityValue, setProductQuantityValue] = useState<{
-    quantity: null | number;
-    productId: null | number;
-  }>({
-    quantity: null,
-    productId: null,
-  });
+  // const [productQuantityValue, setProductQuantityValue] = useState<{
+  //   quantity: null | number;
+  //   productId: null | number;
+  // }>({
+  //   quantity: null,
+  //   productId: null,
+  // });
   const companyClients = useAppSelector((state) => state.companyClients);
   const dispatch = useAppDispatch();
   const [translate] = useTranslation("common");
@@ -107,10 +107,10 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     setDialogError(false);
   };
 
-  const handleCloseQty = () => {
-    setOpenDialogQty(false);
-    setDialogError(false);
-  };
+  // const handleCloseQty = () => {
+  //   setOpenDialogQty(false);
+  //   setDialogError(false);
+  // };
 
   const handleCloseOrder = () => {
     setOpenDialogOrder(false);
@@ -143,7 +143,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       }
     }
 
-    const { category, ...rest } = data;
+    const { category, quantity, ...rest } = data;
     try {
       const p = await createProduct(apiClient, inventoryId, {
         ...rest,
@@ -156,6 +156,13 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
         inventoryId,
         p.id.toString(),
         parseInt(category)
+      );
+      await createProductDetails(
+        apiClient,
+        inventoryId,
+        p.id.toString(),
+        parseInt(quantity),
+        p.primePrice
       );
       await handleSetInventory();
       setOpenDialog(false);
@@ -178,50 +185,50 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     }
   };
 
-  const handleSubmitProductDetails = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    if (productQuantityValue.productId && productQuantityValue.quantity) {
-      const pr = products.find(
-        (x) => x.id === productQuantityValue.productId
-      ) as Product;
-      try {
-        await createProductDetails(
-          apiClient,
-          inventoryId,
-          productQuantityValue.productId.toString(),
-          productQuantityValue.quantity,
-          pr.primePrice
-        );
-        setOpenDialogQty(false);
-        setDialogError(false);
-        setProductQuantityValue({
-          quantity: null,
-          productId: null,
-        });
-        await handleSetInventory();
-        dispatch(
-          snackbarSuccess(
-            handleSuccessMessage(
-              SuccessMessage.PRODUCT_DETAILS_CREATED,
-              translate
-            )
-          )
-        );
-      } catch (error) {
-        setDialogError(true);
-        dispatch(
-          snackbarError(
-            handleErrorMessage(
-              error.response.data.details.message || error.message,
-              translate
-            )
-          )
-        );
-      }
-    }
-  };
+  // const handleSubmitProductDetails = async (
+  //   e: React.FormEvent<HTMLFormElement>
+  // ) => {
+  //   e.preventDefault();
+  //   if (productQuantityValue.productId && productQuantityValue.quantity) {
+  //     const pr = products.find(
+  //       (x) => x.id === productQuantityValue.productId
+  //     ) as Product;
+  //     try {
+  //       await createProductDetails(
+  //         apiClient,
+  //         inventoryId,
+  //         productQuantityValue.productId.toString(),
+  //         productQuantityValue.quantity,
+  //         pr.primePrice
+  //       );
+  //       setOpenDialogQty(false);
+  //       setDialogError(false);
+  //       setProductQuantityValue({
+  //         quantity: null,
+  //         productId: null,
+  //       });
+  //       await handleSetInventory();
+  //       dispatch(
+  //         snackbarSuccess(
+  //           handleSuccessMessage(
+  //             SuccessMessage.PRODUCT_DETAILS_CREATED,
+  //             translate
+  //           )
+  //         )
+  //       );
+  //     } catch (error) {
+  //       setDialogError(true);
+  //       dispatch(
+  //         snackbarError(
+  //           handleErrorMessage(
+  //             error.response.data.details.message || error.message,
+  //             translate
+  //           )
+  //         )
+  //       );
+  //     }
+  //   }
+  // };
 
   const handleSubmitOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -268,21 +275,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     }
   };
 
-  const handleQuantityCellEdit = async (
-    params: GridCellEditCommitParams,
-    event: MuiEvent<React.SyntheticEvent<Element, Event>>
-  ) => {
-    if (params.field === "quantity" && params && params.value) {
-      const val = params.value as string;
-      const productId = params.id as number;
-      setOpenDialogQty(true);
-      setProductQuantityValue({
-        quantity: parseInt(val),
-        productId: productId,
-      });
-    }
-  };
-
   const mappedProducts = products.map((x) => ({
     ...x,
     category:
@@ -315,7 +307,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       field: "quantity",
       headerName: translate("singleInventory.list.product.quantity"),
       width: 160,
-      editable: true,
     },
     {
       field: "unitOfMessure",
@@ -378,7 +369,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
           rows={mappedProducts}
           columns={productColumns}
           pageSize={20}
-          onCellEditCommit={handleQuantityCellEdit}
           autoHeight={true}
           autoPageSize={true}
           checkboxSelection={true}
@@ -491,6 +481,16 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               variant="outlined"
               error={dialogError}
             />
+            <TextField
+              margin="dense"
+              id="quantity"
+              label={translate("singleInventory.list.product.quantity")}
+              type="number"
+              name="quantity"
+              fullWidth
+              variant="outlined"
+              error={dialogError}
+            />
           </DialogContent>
           <DialogActions>
             <Button
@@ -506,7 +506,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
           </DialogActions>
         </form>
       </Dialog>
-      <Dialog
+      {/* <Dialog
         open={dialogQty}
         onClose={handleCloseQty}
         aria-labelledby="form-dialog-title"
@@ -543,7 +543,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
             </Button>
           </DialogActions>
         </form>
-      </Dialog>
+      </Dialog> */}
       <Dialog
         open={dialogOrder}
         onClose={handleCloseOrder}
