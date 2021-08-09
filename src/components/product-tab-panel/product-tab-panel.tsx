@@ -460,16 +460,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
             />
             <TextField
               margin="dense"
-              id="code"
-              label={translate("singleInventory.dialog.product.code")}
-              type="code"
-              name="code"
-              fullWidth
-              variant="outlined"
-              error={dialogError}
-            />
-            <TextField
-              margin="dense"
               id="sellingPrice"
               label={translate("singleInventory.dialog.product.sellingPrice")}
               type="number"
