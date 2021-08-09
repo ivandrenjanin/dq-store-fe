@@ -152,16 +152,6 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
               variant="outlined"
               error={dialogError}
             />
-            <TextField
-              margin="dense"
-              id="code"
-              label={translate("singleInventory.dialog.category.code")}
-              type="code"
-              name="code"
-              fullWidth
-              variant="outlined"
-              error={dialogError}
-            />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="secondary" variant="contained">
