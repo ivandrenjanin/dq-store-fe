@@ -163,10 +163,8 @@
         }
       },
       "productQuantity": {
-        "title": "Nabavna cena artikla",
-        "descriptionStart": "Da li ste sigurni da želite da dodate",
-        "descriptionEnd": "na prethodnu količinu?",
-        "primePrice": "Nabavna Cena"
+        "title": "Nova količina",
+        "description": "Dodajte novu količinu artikala"
       },
       "order": {
         "cancel": "Otkaži",

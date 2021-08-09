@@ -17,12 +17,11 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
   DataGrid,
-  GridCellEditCommitParams,
+  GridCellParams,
   GridColDef,
   GridRowId,
   GridRowParams,
   GridToolbar,
-  MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -42,6 +41,7 @@ import {
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { Category, Product } from "../../entities";
 import { formatNumber } from "../../helpers/format-number.helper";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -73,20 +73,16 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
   handleSetInventory,
 }) => {
   const [dialog, setOpenDialog] = useState(false);
-  // const [dialogQty, setOpenDialogQty] = useState(false);
+  const [dialogQty, setOpenDialogQty] = useState(false);
   const [dialogOrder, setOpenDialogOrder] = useState(false);
   const [dialogError, setDialogError] = useState<boolean>(false);
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
   const [category, setCategory] = useState("");
   const [selectedCompanyClient, setSelectedCompanyClient] = useState("");
   const [unitOfMessure, setUnitOfMessure] = useState("");
-  // const [productQuantityValue, setProductQuantityValue] = useState<{
-  //   quantity: null | number;
-  //   productId: null | number;
-  // }>({
-  //   quantity: null,
-  //   productId: null,
-  // });
+  const [productIdForQuantity, setProductIdForQuantity] = useState<"" | number>(
+    ""
+  );
   const companyClients = useAppSelector((state) => state.companyClients);
   const dispatch = useAppDispatch();
   const [translate] = useTranslation("common");
@@ -107,10 +103,17 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     setDialogError(false);
   };
 
-  // const handleCloseQty = () => {
-  //   setOpenDialogQty(false);
-  //   setDialogError(false);
-  // };
+  const handleCloseQty = () => {
+    setOpenDialogQty(false);
+    setDialogError(false);
+    setProductIdForQuantity("");
+  };
+
+  const handleOpenQty = (productId: number) => {
+    setOpenDialogQty(true);
+    setProductIdForQuantity(productId);
+    setDialogError(false);
+  };
 
   const handleCloseOrder = () => {
     setOpenDialogOrder(false);
@@ -185,50 +188,55 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     }
   };
 
-  // const handleSubmitProductDetails = async (
-  //   e: React.FormEvent<HTMLFormElement>
-  // ) => {
-  //   e.preventDefault();
-  //   if (productQuantityValue.productId && productQuantityValue.quantity) {
-  //     const pr = products.find(
-  //       (x) => x.id === productQuantityValue.productId
-  //     ) as Product;
-  //     try {
-  //       await createProductDetails(
-  //         apiClient,
-  //         inventoryId,
-  //         productQuantityValue.productId.toString(),
-  //         productQuantityValue.quantity,
-  //         pr.primePrice
-  //       );
-  //       setOpenDialogQty(false);
-  //       setDialogError(false);
-  //       setProductQuantityValue({
-  //         quantity: null,
-  //         productId: null,
-  //       });
-  //       await handleSetInventory();
-  //       dispatch(
-  //         snackbarSuccess(
-  //           handleSuccessMessage(
-  //             SuccessMessage.PRODUCT_DETAILS_CREATED,
-  //             translate
-  //           )
-  //         )
-  //       );
-  //     } catch (error) {
-  //       setDialogError(true);
-  //       dispatch(
-  //         snackbarError(
-  //           handleErrorMessage(
-  //             error.response.data.details.message || error.message,
-  //             translate
-  //           )
-  //         )
-  //       );
-  //     }
-  //   }
-  // };
+  const handleSubmitProductDetails = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    e.preventDefault();
+    const data: any = {};
+    for (const el of e.currentTarget.elements) {
+      const element = el as HTMLInputElement;
+      if (element.nodeName === "INPUT") {
+        data[element.name] = element.value;
+      }
+    }
+
+    const pr = products.find((x) => x.id === productIdForQuantity) as Product;
+
+    if (productIdForQuantity) {
+      try {
+        await createProductDetails(
+          apiClient,
+          inventoryId,
+          productIdForQuantity.toString(),
+          parseInt(data.quantity),
+          pr.primePrice
+        );
+        setOpenDialogQty(false);
+        setDialogError(false);
+        setProductIdForQuantity("");
+        await handleSetInventory();
+        dispatch(
+          snackbarSuccess(
+            handleSuccessMessage(
+              SuccessMessage.PRODUCT_DETAILS_CREATED,
+              translate
+            )
+          )
+        );
+      } catch (error) {
+        setDialogError(true);
+        dispatch(
+          snackbarError(
+            handleErrorMessage(
+              error.response.data.details.message || error.message,
+              translate
+            )
+          )
+        );
+      }
+    }
+  };
 
   const handleSubmitOrder = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -307,6 +315,26 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       field: "quantity",
       headerName: translate("singleInventory.list.product.quantity"),
       width: 160,
+      renderCell: (params: GridCellParams) => (
+        <>
+          <div
+            style={{
+              display: "flex",
+              flex: 1,
+              justifyContent: "space-between",
+            }}
+          >
+            <div>{params.value} </div>
+            <IconButton
+              aria-label="add-quantity"
+              color="primary"
+              onClick={() => handleOpenQty(params.id as number)}
+            >
+              <AddIcon />
+            </IconButton>
+          </div>
+        </>
+      ),
     },
     {
       field: "unitOfMessure",
@@ -506,7 +534,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
           </DialogActions>
         </form>
       </Dialog>
-      {/* <Dialog
+      <Dialog
         open={dialogQty}
         onClose={handleCloseQty}
         aria-labelledby="form-dialog-title"
@@ -521,14 +549,29 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {translate(
-                "singleInventory.dialog.productQuantity.descriptionStart"
-              )}{" "}
-              {productQuantityValue.quantity}{" "}
-              {translate(
-                "singleInventory.dialog.productQuantity.descriptionEnd"
-              )}
+              {translate("singleInventory.dialog.productQuantity.description")}
             </DialogContentText>
+            <TextField
+              className={classes.hidden}
+              margin="dense"
+              id="productId"
+              type="number"
+              name="productId"
+              fullWidth
+              variant="outlined"
+              value={productIdForQuantity}
+              disabled={true}
+            />
+            <TextField
+              margin="dense"
+              id="quantity"
+              label={translate("singleInventory.list.product.quantity")}
+              type="number"
+              name="quantity"
+              fullWidth
+              variant="outlined"
+              error={dialogError}
+            />
           </DialogContent>
           <DialogActions>
             <Button
@@ -543,7 +586,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
             </Button>
           </DialogActions>
         </form>
-      </Dialog> */}
+      </Dialog>
       <Dialog
         open={dialogOrder}
         onClose={handleCloseOrder}
