@@ -228,7 +228,7 @@ export const EditCompany: FunctionComponent<EditCompanyProps> = ({
             color="primary"
             startIcon={<ArrowBackIcon />}
           >
-            <Link to={"/company"} className={classes.link}>
+            <Link to={"/firma"} className={classes.link}>
               {translate("company.button.back")}
             </Link>
           </Button>

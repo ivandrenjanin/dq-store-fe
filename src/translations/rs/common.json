@@ -10,7 +10,7 @@
     "PRODUCT_CREATED": "Artikal uspešno dodat.",
     "PRODUCT_DETAILS_CREATED": "Nova količina uspešno dodata.",
     "PRODUCT_ORDER_CREATED": "Nova porudžbina uspešno dodata.",
-    "COMPANY_CLIENT_CREATED": "Novi klijent uspešno dodat.",
+    "COMPANY_CLIENT_CREATED": "Novi komitent uspešno dodat.",
     "DEFAULT": "Operacija uspešno izvršena."
   },
   "company": {
@@ -25,7 +25,7 @@
     "companyNumber": "Matični broj",
     "email": "E-mail",
     "name": "Ime",
-    "pageDescription": "Informacije o kompaniji",
+    "pageDescription": "Informacije o firmi",
     "phoneFaxNumber": "Fax",
     "phoneMobileNumber": "Mobilni",
     "postalCode": "Poštanski broj",
@@ -35,15 +35,15 @@
   },
   "companyClient": {
     "button": {
-      "addClient": "Dodaj novog klijenta"
+      "addClient": "Dodaj novog komitenta"
     },
     "dialog": {
       "cancel": "Otkaži",
-      "description": "Ovde mozete dodati novog klijenta",
+      "description": "Ovde mozete dodati novog komitenta",
       "submit": "Pošalji",
-      "title": "Dodaj novog klijenta"
+      "title": "Dodaj novog komitenta"
     },
-    "title": "Lista klijenata"
+    "title": "Lista komitenata"
   },
   "dashboard": {
     "dialog": {
@@ -68,7 +68,7 @@
           "street": "Ulica"
         },
         "subTitle": "Popunite Vaše podatke.",
-        "title": "Nedostatak podataka o kompaniji"
+        "title": "Nedostatak podataka o firmi"
       }
     },
     "pageDescription": "Kontrolna Tabla"
@@ -99,10 +99,10 @@
   },
   "layout": {
     "navigation": {
-      "company": "Kompanija",
+      "company": "Firma",
       "dashboard": "Komandna Tabla",
-      "inventory": "Magacin",
-      "companyClient": "Klijenti",
+      "inventory": "Magacini",
+      "companyClient": "Komitenti",
       "logout": "Odjava"
     }
   },
@@ -151,8 +151,8 @@
         "title": "Dodaj novi proizvod",
         "taxRate": "PDV",
         "primePrice": "Nabavna cena",
-        "companyClient": "Klijenti",
-        "companyClientHelper": "Izaberite klijenta",
+        "companyClient": "Komitenti",
+        "companyClientHelper": "Izaberite komitenta",
         "unitOfMessureList": {
           "metre": "Metar (m)",
           "centimetre": "Centimetar (cm)",
@@ -196,7 +196,7 @@
         }
       },
       "order": {
-        "companyClient": "Za klijenta",
+        "companyClient": "Za komitenta",
         "total": "Ukupna cena",
         "products": "Artikli",
         "createdAt": "Vreme"

@@ -394,7 +394,7 @@ export const Company: FunctionComponent<CompanyProps> = ({ apiClient }) => {
             color="primary"
             startIcon={<EditIcon />}
           >
-            <Link to={`/company/${company.id}`} className={classes.link}>
+            <Link to={`/firma/${company.id}`} className={classes.link}>
               {translate("company.button.edit")}
             </Link>
           </Button>

@@ -64,7 +64,7 @@ export const BasicTable: FunctionComponent<BasicTableProps> = ({ rows }) => {
                     color="primary"
                     startIcon={<ArrowForwardIcon />}
                   >
-                    <Link to={`/inventory/${row.id}`} className={classes.link}>
+                    <Link to={`/magacin/${row.id}`} className={classes.link}>
                       {translate("inventory.inventoryTable.button.enter")}{" "}
                       {row.name}
                     </Link>

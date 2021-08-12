@@ -190,8 +190,10 @@ export const Layout: FunctionComponent<LayoutProps> = ({
           </IconButton>
           <div className={classes.nav}>
             <div style={{ display: "flex" }}>
-              <Logo style={{ width: 50, height: "auto" }} />
-              <Typography variant="h6">D/q Storehouse</Typography>
+              {/* <Logo style={{ width: 50, height: "auto" }} /> */}
+              <Typography variant="h6" style={{ fontWeight: "bold" }}>
+                D/q Storehouse
+              </Typography>
             </div>
             {/* <div className={classes.btnGroup}> */}
             <Button
@@ -247,11 +249,11 @@ export const Layout: FunctionComponent<LayoutProps> = ({
               />
             </ListItem>
           </Link> */}
-          <Link to="/company" className={classes.link}>
+          <Link to="/firma" className={classes.link}>
             <ListItem
               button
               className={
-                location.pathname.includes("/company")
+                location.pathname.includes("/firma")
                   ? classes.active
                   : classes.inactive
               }
@@ -262,11 +264,11 @@ export const Layout: FunctionComponent<LayoutProps> = ({
               <ListItemText primary={translate("layout.navigation.company")} />
             </ListItem>
           </Link>
-          <Link to="/client" className={classes.link}>
+          <Link to="/komitent" className={classes.link}>
             <ListItem
               button
               className={
-                location.pathname.includes("client")
+                location.pathname.includes("komitent")
                   ? classes.active
                   : classes.inactive
               }
@@ -279,11 +281,11 @@ export const Layout: FunctionComponent<LayoutProps> = ({
               />
             </ListItem>
           </Link>
-          <Link to="/inventory" className={classes.link}>
+          <Link to="/magacin" className={classes.link}>
             <ListItem
               button
               className={
-                location.pathname.includes("/inventory")
+                location.pathname.includes("/magacin")
                   ? classes.active
                   : classes.inactive
               }

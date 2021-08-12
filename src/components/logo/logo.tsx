@@ -18,7 +18,10 @@ export const Logo: FunctionComponent<LogoProps> = ({ variant }) => (
     >
       <LogoSvg fontSize="inherit" width={150} height={"auto"} />
     </div>
-    <Typography variant={variant} style={{ textAlign: "center" }}>
+    <Typography
+      variant={variant}
+      style={{ textAlign: "center", fontWeight: "bold" }}
+    >
       D/q Storehouse
     </Typography>
   </div>

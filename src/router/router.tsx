@@ -36,31 +36,31 @@ export const Router = ({ apiClient }: Props) => {
         <PrivateRoute
           component={Company}
           apiClient={apiClient}
-          path="/company"
+          path="/firma"
           exact
         />
         <PrivateRoute
           component={CompanyClient}
           apiClient={apiClient}
-          path="/client"
+          path="/komitent"
           exact
         />
         <PrivateRoute
           component={EditCompany}
           apiClient={apiClient}
-          path="/company/:id"
+          path="/firma/:id"
           exact
         />
         <PrivateRoute
           component={Inventory}
           apiClient={apiClient}
-          path="/inventory"
+          path="/magacin"
           exact
         />
         <PrivateRoute
           component={SingleInventory}
           apiClient={apiClient}
-          path="/inventory/:id"
+          path="/magacin/:id"
           exact
         />
         <PublicRoute restricted={false} component={NotFound} />
