@@ -12,6 +12,8 @@ import commonRs from "./translations/rs/common.json";
 import { store } from "./store/configure-store";
 import { SnackbarProvider } from "notistack";
 import { getBankInfo } from "./api";
+import { ThemeProvider } from "@material-ui/core";
+import { createTheme, lighten, darken } from "@material-ui/core/styles";
 
 const lng = localStorage.getItem("language");
 
@@ -34,12 +36,16 @@ getBankInfo(createClient()).then((data) =>
   store.dispatch({ type: "BANK_INFO", payload: data })
 );
 
+const theme = createTheme({});
+
 ReactDOM.render(
   <Provider store={store}>
     <I18nextProvider i18n={i18next}>
-      <SnackbarProvider maxSnack={6}>
-        <Router apiClient={createClient()} />
-      </SnackbarProvider>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider maxSnack={6}>
+          <Router apiClient={createClient()} />
+        </SnackbarProvider>
+      </ThemeProvider>
     </I18nextProvider>
   </Provider>,
   document.getElementById("root")

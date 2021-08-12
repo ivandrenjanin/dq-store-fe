@@ -33,6 +33,7 @@ import { useAppSelector } from "../../hooks/redux.hooks";
 import { SnackbarState } from "../../reducers/snackbar.reducer";
 import { useEffect } from "react";
 import PeopleIcon from "@material-ui/icons/People";
+import { ReactComponent as Logo } from "../../assets/Mark.svg";
 
 const drawerWidth = 240;
 
@@ -170,6 +171,7 @@ export const Layout: FunctionComponent<LayoutProps> = ({
       <CssBaseline />
       <AppBar
         position="fixed"
+        variant="outlined"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -187,7 +189,10 @@ export const Layout: FunctionComponent<LayoutProps> = ({
             <MenuIcon />
           </IconButton>
           <div className={classes.nav}>
-            <Typography variant="h6">D/q Storehouse</Typography>
+            <div style={{ display: "flex" }}>
+              <Logo style={{ width: 50, height: "auto" }} />
+              <Typography variant="h6">D/q Storehouse</Typography>
+            </div>
             {/* <div className={classes.btnGroup}> */}
             <Button
               color="inherit"
