@@ -42,6 +42,7 @@ import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { Category, Product } from "../../entities";
 import { formatNumber } from "../../helpers/format-number.helper";
 import { IconButton } from "@material-ui/core";
+import { InputSlider } from "../slider/slider";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -245,7 +246,11 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     let i = 0;
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
-      if (element.nodeName === "INPUT" && element.name !== "companyClientId") {
+      if (
+        element.nodeName === "INPUT" &&
+        element.name &&
+        element.name !== "companyClientId"
+      ) {
         d[element.name] = parseFloat(element.value);
         if (i === 1) {
           i = 0;
@@ -590,6 +595,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       <Dialog
         open={dialogOrder}
         onClose={handleCloseOrder}
+        fullWidth
         aria-labelledby="form-dialog-title"
       >
         <form noValidate autoComplete="off" onSubmit={handleSubmitOrder}>
@@ -641,7 +647,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
                     fullWidth
                     variant="outlined"
                   />
-                  <Slider
+                  <InputSlider
                     name="quantity"
                     defaultValue={1}
                     aria-labelledby="discrete-slider-always"
