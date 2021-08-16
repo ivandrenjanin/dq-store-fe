@@ -10,10 +10,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { DataGrid, GridColDef, GridToolbar } from "@material-ui/data-grid";
+import {
+  DataGrid,
+  GridCellEditCommitParams,
+  GridColDef,
+  GridToolbar,
+} from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
-import { createCategory } from "../../api";
+import { createCategory, updateCategory } from "../../api";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import {
   handleSuccessMessage,
@@ -56,6 +61,7 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
       field: "name",
       headerName: translate("singleInventory.list.product.name"),
       width: 200,
+      editable: true,
     },
     {
       field: "code",
@@ -105,6 +111,29 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
     }
   };
 
+  const handleEditName = async (params: GridCellEditCommitParams) => {
+    try {
+      await updateCategory(apiClient, inventoryId, params.id.toString(), {
+        name: params.value as string,
+      });
+      await handleSetInventory();
+      dispatch(
+        snackbarSuccess(
+          handleSuccessMessage(SuccessMessage.CATEGORY_UPDATE_NAME, translate)
+        )
+      );
+    } catch (error) {
+      dispatch(
+        snackbarError(
+          handleErrorMessage(
+            error.response.data.details.message || error.message,
+            translate
+          )
+        )
+      );
+    }
+  };
+
   return (
     <>
       <Button
@@ -126,6 +155,7 @@ export const CategoryTabPanel: FunctionComponent<CategoryTabPanelProps> = ({
           components={{
             Toolbar: GridToolbar,
           }}
+          onCellEditCommit={(params, event) => handleEditName(params)}
         />
       </div>
       <Dialog

@@ -6,6 +6,7 @@
   },
   "successMessage": {
     "CATEGORY_CREATED": "Kategorija uspešno dodata.",
+    "CATEGORY_UPDATE_NAME": "Kategorija uspešno ažurirana.",
     "INVENTORY_CREATED": "Magacin uspešno dodat.",
     "PRODUCT_CREATED": "Artikal uspešno dodat.",
     "PRODUCT_DETAILS_CREATED": "Nova količina uspešno dodata.",

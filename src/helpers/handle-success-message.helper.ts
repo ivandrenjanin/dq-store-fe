@@ -3,6 +3,7 @@ import { TFunction } from "react-i18next";
 export enum SuccessMessage {
   // Category Related Messages
   CATEGORY_CREATED = "CATEGORY_CREATED",
+  CATEGORY_UPDATE_NAME = "CATEGORY_UPDATE_NAME",
 
   // Inventory Related Messages
   INVENTORY_CREATED = "INVENTORY_CREATED",
@@ -26,6 +27,8 @@ export const handleSuccessMessage = (
   switch (message) {
     case SuccessMessage.CATEGORY_CREATED:
       return translate(`successMessage.${SuccessMessage.CATEGORY_CREATED}`);
+    case SuccessMessage.CATEGORY_UPDATE_NAME:
+      return translate(`successMessage.${SuccessMessage.CATEGORY_UPDATE_NAME}`);
     case SuccessMessage.INVENTORY_CREATED:
       return translate(`successMessage.${SuccessMessage.INVENTORY_CREATED}`);
     case SuccessMessage.PRODUCT_CREATED:
