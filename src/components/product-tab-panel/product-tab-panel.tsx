@@ -11,17 +11,19 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import MenuItem from "@material-ui/core/MenuItem";
-import Slider from "@material-ui/core/Slider";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
   DataGrid,
+  GridCellEditCommitParams,
   GridCellParams,
   GridColDef,
   GridRowId,
   GridRowParams,
   GridToolbar,
+  GridValueFormatterParams,
+  MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -30,6 +32,7 @@ import {
   createProduct,
   createProductCategory,
   createProductDetails,
+  updateProduct,
 } from "../../api";
 import { UnitOfMessure } from "../../entities/enum/unit-of-messure.enum";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
@@ -193,7 +196,6 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    e.preventDefault();
     const data: any = {};
     for (const el of e.currentTarget.elements) {
       const element = el as HTMLInputElement;
@@ -299,6 +301,14 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
     ),
   }));
 
+  const formatNumberLocal = (params: GridValueFormatterParams) => {
+    if (typeof params.value === "string") {
+      return formatNumber(parseFloat(params.value));
+    } else {
+      return formatNumber(params.value as number);
+    }
+  };
+
   const productColumns: GridColDef[] = [
     {
       field: "category",
@@ -350,13 +360,15 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       field: "sellingPrice",
       headerName: translate("singleInventory.list.product.sellingPrice"),
       width: 200,
-      valueFormatter: (params) => formatNumber(params.value as number),
+      valueFormatter: formatNumberLocal,
+      editable: true,
     },
     {
       field: "primePrice",
       headerName: translate("singleInventory.list.product.primePrice"),
       width: 200,
-      valueFormatter: (params) => formatNumber(params.value as number),
+      valueFormatter: formatNumberLocal,
+      editable: true,
     },
     {
       field: "taxRate",
@@ -365,14 +377,50 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
         return `${param.value}%`;
       },
       width: 200,
+      editable: true,
     },
     {
       field: "taxedPrice",
       headerName: translate("singleInventory.list.product.taxedPrice"),
       width: 200,
-      valueFormatter: (params) => formatNumber(params.value as number),
+      valueFormatter: formatNumberLocal,
     },
   ];
+
+  const handleEditProduct = async (
+    params: GridCellEditCommitParams,
+    event: MuiEvent<React.SyntheticEvent<Element, Event>>
+  ) => {
+    const numFields = ["taxedPrice", "taxRate", "primePrice", "sellingPrice"];
+    try {
+      let data = {};
+      if (numFields.includes(params.field)) {
+        data = {
+          [params.field]: parseFloat(params.value as string),
+        };
+      } else {
+        data = {
+          [params.field]: params.value,
+        };
+      }
+      await updateProduct(apiClient, inventoryId, params.id.toString(), data);
+      await handleSetInventory();
+      dispatch(
+        snackbarSuccess(
+          handleSuccessMessage(SuccessMessage.PRODUCT_UPDATED, translate)
+        )
+      );
+    } catch (error) {
+      dispatch(
+        snackbarError(
+          handleErrorMessage(
+            error.response.data.details.message || error.message,
+            translate
+          )
+        )
+      );
+    }
+  };
 
   return (
     <>
@@ -408,6 +456,8 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
           onSelectionModelChange={(newSelectionModel) => {
             setSelectionModel(newSelectionModel);
           }}
+          onCellEditCommit={handleEditProduct}
+          // onEditCellPropsChange={handleEditProduct}
           selectionModel={selectionModel}
           components={{
             Toolbar: GridToolbar,

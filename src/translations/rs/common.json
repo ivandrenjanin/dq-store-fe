@@ -9,6 +9,7 @@
     "CATEGORY_UPDATE_NAME": "Kategorija uspešno ažurirana.",
     "INVENTORY_CREATED": "Magacin uspešno dodat.",
     "PRODUCT_CREATED": "Artikal uspešno dodat.",
+    "PRODUCT_UPDATED": "Artikal uspešno ažuriran.",
     "PRODUCT_DETAILS_CREATED": "Nova količina uspešno dodata.",
     "PRODUCT_ORDER_CREATED": "Nova porudžbina uspešno dodata.",
     "COMPANY_CLIENT_CREATED": "Novi komitent uspešno dodat.",

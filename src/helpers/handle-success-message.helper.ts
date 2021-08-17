@@ -12,6 +12,7 @@ export enum SuccessMessage {
   PRODUCT_CREATED = "PRODUCT_CREATED",
   PRODUCT_DETAILS_CREATED = "PRODUCT_DETAILS_CREATED",
   PRODUCT_ORDER_CREATED = "PRODUCT_ORDER_CREATED",
+  PRODUCT_UPDATED = "PRODUCT_UPDATED",
 
   // Company Client Related Messages
   COMPANY_CLIENT_CREATED = "COMPANY_CLIENT_CREATED",
@@ -33,6 +34,8 @@ export const handleSuccessMessage = (
       return translate(`successMessage.${SuccessMessage.INVENTORY_CREATED}`);
     case SuccessMessage.PRODUCT_CREATED:
       return translate(`successMessage.${SuccessMessage.PRODUCT_CREATED}`);
+    case SuccessMessage.PRODUCT_UPDATED:
+      return translate(`successMessage.${SuccessMessage.PRODUCT_UPDATED}`);
     case SuccessMessage.PRODUCT_DETAILS_CREATED:
       return translate(
         `successMessage.${SuccessMessage.PRODUCT_DETAILS_CREATED}`
