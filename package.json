@@ -36,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "scp -r build/ root@139.162.175.35:/var/app.digitalquark.solutions/html/"
+    "deploy": "scp -r build/ root@139.162.175.35:/var/app.digitalquark.solutions/html/",
+    "deploy:prod": "scp -r build/ root@194.233.170.234:/var/app.digitalquark.solutions/html/"
   },
   "eslintConfig": {
     "extends": [
