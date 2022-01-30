@@ -1,5 +1,6 @@
 import clsx from "clsx";
-import React, { FunctionComponent } from "react";
+import { useSnackbar } from "notistack";
+import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, RouteComponentProps } from "react-router-dom";
 
@@ -13,27 +14,21 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import {
-  createStyles,
-  makeStyles,
-  Theme,
-  useTheme,
-} from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import DnsIcon from "@material-ui/icons/Dns";
-import MenuIcon from "@material-ui/icons/Menu";
-import WorkIcon from "@material-ui/icons/Work";
-import SplitButtonTranslate from "../split-button-translate/split-button-translate";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import { useSnackbar } from "notistack";
+import MenuIcon from "@material-ui/icons/Menu";
+import PeopleIcon from "@material-ui/icons/People";
+import WorkIcon from "@material-ui/icons/Work";
+
+import { ReactComponent as Logo } from "../../assets/Mark.svg";
 import { useAppSelector } from "../../hooks/redux.hooks";
 import { SnackbarState } from "../../reducers/snackbar.reducer";
-import { useEffect } from "react";
-import PeopleIcon from "@material-ui/icons/People";
-import { ReactComponent as Logo } from "../../assets/Mark.svg";
+import SplitButtonTranslate from "../split-button-translate/split-button-translate";
 
 const drawerWidth = 240;
 

@@ -1,19 +1,21 @@
 import "./css/styles.css";
 
 import i18next from "i18next";
+import { SnackbarProvider } from "notistack";
 import React from "react";
 import ReactDOM from "react-dom";
 import { I18nextProvider } from "react-i18next";
 import { Provider } from "react-redux";
+
+import { ThemeProvider } from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
+
+import { getBankInfo } from "./api";
 import { createClient } from "./api/client/client";
 import { Router } from "./router/router";
+import { store } from "./store/configure-store";
 import commonEn from "./translations/en/common.json";
 import commonRs from "./translations/rs/common.json";
-import { store } from "./store/configure-store";
-import { SnackbarProvider } from "notistack";
-import { getBankInfo } from "./api";
-import { ThemeProvider } from "@material-ui/core";
-import { createTheme, lighten, darken } from "@material-ui/core/styles";
 
 const lng = localStorage.getItem("language");
 

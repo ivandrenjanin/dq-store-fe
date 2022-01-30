@@ -1,4 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+
 import { CompanyClient } from "../entities";
 
 const initialState: CompanyClient[] = [];

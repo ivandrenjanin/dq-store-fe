@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import { BrowserRouter, Switch } from "react-router-dom";
-import { CompanyClient } from "../pages/company-client/company-client";
 
+import { CompanyClient } from "../pages/company-client/company-client";
 import { Company } from "../pages/company/company";
 // import { Dashboard } from "../pages/dashboard/dashboard";
 import { EditCompany } from "../pages/edit-company/edit-company";

@@ -3,6 +3,7 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { v4 as uuid } from "uuid";
 
+import { IconButton } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -15,36 +16,21 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
-  DataGrid,
-  GridCellEditCommitParams,
-  GridCellParams,
-  GridColDef,
-  GridRowId,
-  GridRowParams,
-  GridToolbar,
-  GridValueFormatterParams,
-  MuiEvent,
+    DataGrid, GridCellEditCommitParams, GridCellParams, GridColDef, GridRowId, GridRowParams,
+    GridToolbar, GridValueFormatterParams, MuiEvent
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
-import {
-  createOrder,
-  createProduct,
-  createProductCategory,
-  createProductDetails,
-  updateProduct,
-} from "../../api";
-import { UnitOfMessure } from "../../entities/enum/unit-of-messure.enum";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 import {
-  handleSuccessMessage,
-  SuccessMessage,
-} from "../../helpers/handle-success-message.helper";
-import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+    createOrder, createProduct, createProductCategory, createProductDetails, updateProduct
+} from "../../api";
 import { Category, Product } from "../../entities";
+import { UnitOfMessure } from "../../entities/enum/unit-of-messure.enum";
 import { formatNumber } from "../../helpers/format-number.helper";
-import { IconButton } from "@material-ui/core";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import { handleSuccessMessage, SuccessMessage } from "../../helpers/handle-success-message.helper";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { InputSlider } from "../slider/slider";
 
 const useStyles = makeStyles((theme: Theme) => ({

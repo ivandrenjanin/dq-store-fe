@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { CreateProductDto } from "./interfaces/create-prodduct.dto.interface";
 
 export const updateProduct = async (

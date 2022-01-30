@@ -1,9 +1,10 @@
+import { FunctionComponent } from "react";
+
 import { makeStyles } from "@material-ui/core";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Theme } from "@material-ui/core/styles";
 import { createStyles } from "@material-ui/styles";
-import { FunctionComponent } from "react";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

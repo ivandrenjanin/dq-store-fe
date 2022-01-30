@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { Company } from "../../entities";
 
 export const getCompany = async (client: AxiosInstance) => {

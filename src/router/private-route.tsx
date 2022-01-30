@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { Layout } from "../components/layout/layout";
 
+import { Layout } from "../components/layout/layout";
 import { isLoggedIn } from "../helpers/is-logged-in.helper";
 
 const PrivateRoute = ({ component: Component, apiClient, ...rest }: any) => {

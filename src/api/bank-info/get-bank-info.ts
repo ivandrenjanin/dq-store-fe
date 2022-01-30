@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { BankInfo } from "../../entities";
 
 export const getBankInfo = async (

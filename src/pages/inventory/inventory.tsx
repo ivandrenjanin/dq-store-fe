@@ -1,31 +1,29 @@
-import Button from "@material-ui/core/Button";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
 import { AxiosInstance } from "axios";
-import React, { useEffect, useState, FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RouteComponentProps } from "react-router-dom";
-import { createInventory, getInventories, getInventoryById } from "../../api";
 
-import { BasicTable } from "./table";
-import AddIcon from "@material-ui/icons/Add";
-import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
-import { Loader } from "../../components/loader/loader";
-import { loadingFinished, loadingStarted } from "../../actions/loading.action";
-import {
-  handleSuccessMessage,
-  SuccessMessage,
-} from "../../helpers/handle-success-message.helper";
-import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
-import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
-import { Inventory as InventoryEntity } from "../../entities";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import AddIcon from "@material-ui/icons/Add";
+
 import { setInventories, setInventory } from "../../actions/inventory.action";
+import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
+import { createInventory, getInventories, getInventoryById } from "../../api";
+import { Loader } from "../../components/loader/loader";
+import { Inventory as InventoryEntity } from "../../entities";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import { handleSuccessMessage, SuccessMessage } from "../../helpers/handle-success-message.helper";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
+import { BasicTable } from "./table";
 
 export interface InventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;

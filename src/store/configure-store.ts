@@ -1,4 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+
 import { BankInfo, CompanyClient, Inventory } from "../entities";
 import { bankInfoReducer } from "../reducers/bank-info.reducer";
 import { companyClientReducer } from "../reducers/company-client.reducer";

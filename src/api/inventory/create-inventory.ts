@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { Inventory } from "../../entities";
 import { CreateInventoryDto } from "./interfaces/create-inventory.dto.interface";
 

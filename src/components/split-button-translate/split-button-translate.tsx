@@ -1,15 +1,16 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import { useTranslation } from "react-i18next";
+
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grid from "@material-ui/core/Grid";
 import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import { useTranslation } from "react-i18next";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const options = ["EN", "RS"];
 

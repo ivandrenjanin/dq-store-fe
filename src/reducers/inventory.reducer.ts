@@ -1,4 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+
 import { Inventory } from "../entities";
 
 const initialState: Inventory[] = [];

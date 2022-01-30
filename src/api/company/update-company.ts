@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { Company } from "../../entities";
 import { CreateCompanyDto } from "./interfaces/create-company.dto.interface";
 

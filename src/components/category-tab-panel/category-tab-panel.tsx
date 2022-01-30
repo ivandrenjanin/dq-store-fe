@@ -11,22 +11,16 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import {
-  DataGrid,
-  GridCellEditCommitParams,
-  GridColDef,
-  GridToolbar,
+    DataGrid, GridCellEditCommitParams, GridColDef, GridToolbar
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
-import { createCategory, updateCategory } from "../../api";
-import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
-import {
-  handleSuccessMessage,
-  SuccessMessage,
-} from "../../helpers/handle-success-message.helper";
-import { useAppDispatch } from "../../hooks/redux.hooks";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
+import { createCategory, updateCategory } from "../../api";
 import { Category } from "../../entities";
+import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
+import { handleSuccessMessage, SuccessMessage } from "../../helpers/handle-success-message.helper";
+import { useAppDispatch } from "../../hooks/redux.hooks";
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {

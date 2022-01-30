@@ -1,4 +1,5 @@
 import { PayloadAction } from "@reduxjs/toolkit";
+
 import { BankInfo } from "../entities";
 
 const initialState: BankInfo[] = [];

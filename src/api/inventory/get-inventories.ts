@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { Inventory } from "../../entities";
 
 export const getInventories = async (client: AxiosInstance) => {

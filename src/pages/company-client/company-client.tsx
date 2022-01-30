@@ -18,18 +18,12 @@ import { DataGrid, GridColDef, GridToolbar } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 
-import {
-  setCompanyClient,
-  setCompanyClients,
-} from "../../actions/company-client.action";
+import { setCompanyClient, setCompanyClients } from "../../actions/company-client.action";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 import { createCompanyClient, getCompanyClients } from "../../api";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
-import {
-  handleSuccessMessage,
-  SuccessMessage,
-} from "../../helpers/handle-success-message.helper";
+import { handleSuccessMessage, SuccessMessage } from "../../helpers/handle-success-message.helper";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 
 interface CompanyClientProps extends RouteComponentProps {

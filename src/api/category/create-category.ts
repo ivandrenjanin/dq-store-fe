@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { Category } from "../../entities";
 import { CreateCategoryDto } from "./interfaces/create-category.dto.interface";
 

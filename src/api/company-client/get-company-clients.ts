@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { CompanyClient } from "../../entities";
 
 export const getCompanyClients = async (

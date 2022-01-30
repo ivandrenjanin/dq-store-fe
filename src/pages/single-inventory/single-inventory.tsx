@@ -4,22 +4,20 @@ import { useTranslation } from "react-i18next";
 import { RouteComponentProps, useParams } from "react-router-dom";
 
 import AppBar from "@material-ui/core/AppBar";
-
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
-import { getCompanyClients, getInventoryById } from "../../api";
-
-import { TabPanel } from "../../components/tab-panel/tab-panel";
-import { CategoryTabPanel } from "../../components/category-tab-panel/category-tab-panel";
-import { ProductTabPanel } from "../../components/product-tab-panel/product-tab-panel";
-import { OrderTabPanel } from "../../components/order-tab-panel/order-tab-panel";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
-import { loadingFinished, loadingStarted } from "../../actions/loading.action";
-import { Loader } from "../../components/loader/loader";
-import { setInventory, updateInventory } from "../../actions/inventory.action";
 import { setCompanyClients } from "../../actions/company-client.action";
+import { setInventory, updateInventory } from "../../actions/inventory.action";
+import { loadingFinished, loadingStarted } from "../../actions/loading.action";
+import { getCompanyClients, getInventoryById } from "../../api";
+import { CategoryTabPanel } from "../../components/category-tab-panel/category-tab-panel";
+import { Loader } from "../../components/loader/loader";
+import { OrderTabPanel } from "../../components/order-tab-panel/order-tab-panel";
+import { ProductTabPanel } from "../../components/product-tab-panel/product-tab-panel";
+import { TabPanel } from "../../components/tab-panel/tab-panel";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 
 interface SingleInventoryProps extends RouteComponentProps {
   apiClient: AxiosInstance;
