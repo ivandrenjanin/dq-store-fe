@@ -1,7 +1,5 @@
 import axios, { AxiosError } from "axios";
 
-console.log(process.env);
-
 export const createClient = () => {
   const client = axios.create({
     baseURL: "/api",

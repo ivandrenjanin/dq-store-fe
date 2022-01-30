@@ -18,7 +18,6 @@ import { OrderTabPanel } from "../../components/order-tab-panel/order-tab-panel"
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 import { Loader } from "../../components/loader/loader";
-import { Inventory } from "../../entities";
 import { setInventory, updateInventory } from "../../actions/inventory.action";
 import { setCompanyClients } from "../../actions/company-client.action";
 

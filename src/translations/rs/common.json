@@ -129,6 +129,7 @@
     },
     "category": "Kategorije",
     "order": "Porudžbine",
+    "report": "Izveštaji",
     "dialog": {
       "category": {
         "cancel": "Otkaži",
@@ -198,10 +199,14 @@
         }
       },
       "order": {
-        "companyClient": "Za komitenta",
-        "total": "Ukupna cena",
+        "companyClient": "Komitent",
+        "total": "Cena bez PDV",
+        "totalTaxed": "Cena sa PDV",
+        "tax": "Osnovica za PDV",
         "products": "Artikli",
-        "createdAt": "Vreme"
+        "orderNumber": "Broj fakture",
+        "createdAt": "Datum Prometa",
+        "createdAtHidden": "Mesec Prometa"
       }
     },
     "noCategory": "Nije dodata kategorija",

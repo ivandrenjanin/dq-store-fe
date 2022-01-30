@@ -319,6 +319,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
       field: "name",
       headerName: translate("singleInventory.list.product.name"),
       width: 200,
+      editable: true,
     },
     {
       field: "code",

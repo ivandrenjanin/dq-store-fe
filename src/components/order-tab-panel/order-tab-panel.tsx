@@ -9,7 +9,11 @@ import {
   DataGrid,
   GridCellParams,
   GridColDef,
-  GridToolbar,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarColumnsButton,
+  GridToolbarDensitySelector,
+  GridToolbarFilterButton,
 } from "@material-ui/data-grid";
 import { getOrderInvoice } from "../../api/order/get-order-invoice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
@@ -22,6 +26,28 @@ import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
 import { loadingFinished, loadingStarted } from "../../actions/loading.action";
 import { Order } from "../../entities";
 import { formatNumber } from "../../helpers/format-number.helper";
+import { DateTime } from "luxon";
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarDensitySelector />
+      <GridToolbarExport
+        csvOptions={{
+          fields: [
+            "companyClient",
+            "orderNumber",
+            "total",
+            "totalTaxed",
+            "tax",
+            "createdAt",
+          ],
+        }}
+      />
+    </GridToolbarContainer>
+  );
+}
 
 const useStyles = makeStyles((theme: Theme) => ({
   addButton: {
@@ -74,6 +100,10 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
 
   const mappedOrders = orders.map((d) => ({
     ...d,
+    tax: d.totalTaxed - d.total,
+    createdAtHidden: DateTime.fromJSDate(new Date(d.createdAt))
+      .setLocale("sr-Latn-RS")
+      .toFormat("LLLL"),
     products: d.productOrders.map((x) => x.product.name).join(", "),
     companyClient: d.companyClient.name,
   }));
@@ -85,25 +115,43 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
       width: 200,
     },
     {
-      field: "products",
-      headerName: translate("singleInventory.list.order.products"),
-      width: 200,
+      field: "orderNumber",
+      headerName: translate("singleInventory.list.order.orderNumber"),
+      width: 180,
     },
     {
       field: "total",
       headerName: translate("singleInventory.list.order.total"),
-      width: 260,
+      width: 170,
       valueFormatter: (params) => formatNumber(params.value as number),
+    },
+    {
+      field: "totalTaxed",
+      headerName: translate("singleInventory.list.order.totalTaxed"),
+      width: 170,
+      valueFormatter: (params) => formatNumber(params.value as number),
+    },
+    {
+      field: "tax",
+      headerName: translate("singleInventory.list.order.tax"),
+      width: 190,
+      valueFormatter: (params) => formatNumber(params.value as number),
+    },
+    {
+      field: "createdAtHidden",
+      headerName: translate("singleInventory.list.order.createdAtHidden"),
+      width: 180,
+      hide: true,
     },
     {
       field: "createdAt",
       headerName: translate("singleInventory.list.order.createdAt"),
       valueFormatter: (params) => {
-        const d = new Date(params.value as string);
+        const d = DateTime.fromJSDate(new Date(params.value as string));
 
-        return `${d.getDate()}/${d.getMonth()}/${d.getFullYear()} | ${d.getHours()}:${d.getMinutes()}`;
+        return d.setLocale("sr-Latn-RS").toFormat("dd.LL.yyyy.");
       },
-      width: 260,
+      width: 180,
     },
     {
       field: "id",
@@ -135,7 +183,12 @@ export const OrderTabPanel: FunctionComponent<OrderTabPanelProps> = ({
           autoHeight={true}
           autoPageSize={true}
           components={{
-            Toolbar: GridToolbar,
+            Toolbar: CustomToolbar,
+          }}
+          componentsProps={{
+            toolbar: {
+              csvOptions: {},
+            },
           }}
         />
       </div>
