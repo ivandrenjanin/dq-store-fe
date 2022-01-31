@@ -16,20 +16,34 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import {
-    DataGrid, GridCellEditCommitParams, GridCellParams, GridColDef, GridRowId, GridRowParams,
-    GridToolbar, GridValueFormatterParams, MuiEvent
+  DataGrid,
+  GridCellEditCommitParams,
+  GridCellParams,
+  GridColDef,
+  GridRowId,
+  GridRowParams,
+  GridToolbar,
+  GridValueFormatterParams,
+  MuiEvent,
 } from "@material-ui/data-grid";
 import AddIcon from "@material-ui/icons/Add";
 
 import { snackbarError, snackbarSuccess } from "../../actions/snackbar.action";
 import {
-    createOrder, createProduct, createProductCategory, createProductDetails, updateProduct
+  createOrder,
+  createProduct,
+  createProductCategory,
+  createProductDetails,
+  updateProduct,
 } from "../../api";
 import { Category, Product } from "../../entities";
 import { UnitOfMessure } from "../../entities/enum/unit-of-messure.enum";
 import { formatNumber } from "../../helpers/format-number.helper";
 import { handleErrorMessage } from "../../helpers/handle-error-message.helper";
-import { handleSuccessMessage, SuccessMessage } from "../../helpers/handle-success-message.helper";
+import {
+  handleSuccessMessage,
+  SuccessMessage,
+} from "../../helpers/handle-success-message.helper";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux.hooks";
 import { InputSlider } from "../slider/slider";
 
@@ -69,7 +83,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([]);
   const [category, setCategory] = useState("");
   const [selectedCompanyClient, setSelectedCompanyClient] = useState("");
-  const [unitOfMessure, setUnitOfMessure] = useState("");
+  const [unitOfMessure, setUnitOfMessure] = useState("each");
   const [productIdForQuantity, setProductIdForQuantity] = useState<"" | number>(
     ""
   );
@@ -498,10 +512,11 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               )}
               fullWidth
               variant="outlined"
+              defaultValue={UnitOfMessure.EACH}
               error={dialogError}
             >
               {Object.values(UnitOfMessure).map((option) => (
-                <MenuItem key={option} value={option}>
+                <MenuItem key={option} value={option} selected>
                   {translate(
                     `singleInventory.dialog.product.unitOfMessureList.${option}`
                   )}
@@ -547,6 +562,7 @@ export const ProductTabPanel: FunctionComponent<ProductTabPanelProps> = ({
               InputProps={{
                 endAdornment: <InputAdornment position="end">%</InputAdornment>,
               }}
+              defaultValue={20}
               fullWidth
               variant="outlined"
               error={dialogError}
